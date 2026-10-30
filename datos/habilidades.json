@@ -52,9 +52,10 @@
     {
       "id": "datos",
       "titulo": "Visualización de datos con D3",
-      "texto": "Mapas de relaciones y líneas de tiempo interactivas.",
+      "texto": "Mapas de relaciones, líneas de tiempo y simulaciones interactivas.",
       "proyectos": [
-        "project-dossier"
+        "project-dossier",
+        "hemiciclo"
       ]
     }
   ]

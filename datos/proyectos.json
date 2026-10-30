@@ -358,6 +358,61 @@
       ]
     },
     {
+      "slug": "hemiciclo",
+      "nombre": "Hemiciclo",
+      "publicar": true,
+      "color_disco": "#b8452f",
+      "estado": "En desarrollo",
+      "resumen": "Simulador de noche electoral de las generales: mapa real de provincias y un Congreso de 350 escaños que se llena en directo.",
+      "descripcion": [
+        "Escrutinio animado de las 52 circunscripciones con su forma real, reparto de escaños con D'Hondt y una columna de última hora con vuelcos y escaños clave.",
+        "Escenarios con probabilidades calculadas con 400 simulaciones de Monte Carlo, coaliciones en vivo, un montador de pactos de investidura y un modo histórico de 1977 a 2023.",
+        "Se compila desde src/ a un solo index.html, con pruebas automáticas y capturas a 1440 y 390 px que comprueban que nada se desborda. Es la base de un juego de gestión política en preparación."
+      ],
+      "problema": "POR_CONFIRMAR",
+      "papel": "Proyecto personal: diseño, motor electoral e interfaz.",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "SVG",
+        "Python"
+      ],
+      "enlaces": {
+        "vivo": "POR_CONFIRMAR",
+        "codigo": "https://github.com/Ivanchux/hemiciclo"
+      },
+      "vista_previa": {
+        "tipo": "captura"
+      },
+      "capturas": [
+        {
+          "src": "img/capturas/hemiciclo-1.webp",
+          "ancho": 1100,
+          "alto": 687,
+          "alt": "Hemiciclo en plena noche electoral: mapa de provincias y el Congreso llenándose escaño a escaño."
+        },
+        {
+          "src": "img/capturas/hemiciclo-2.webp",
+          "ancho": 1100,
+          "alto": 687,
+          "alt": "Panel de pactos con las coaliciones posibles y el montador de investidura."
+        },
+        {
+          "src": "img/capturas/hemiciclo-3.webp",
+          "ancho": 1100,
+          "alto": 687,
+          "alt": "Modo histórico con los resultados de 1977 a 2023."
+        },
+        {
+          "src": "img/capturas/hemiciclo-4.webp",
+          "ancho": 415,
+          "alto": 900,
+          "alt": "Hemiciclo en el móvil."
+        }
+      ]
+    },
+    {
       "slug": "inventario-vinilos",
       "nombre": "Inventario de vinilos",
       "publicar": true,
@@ -428,7 +483,7 @@
         "Por iniciativa propia, más allá de lo que pedía la rúbrica: variables CSS, tipografía fluida con clamp(), tema guardado en el navegador, un formulario por pasos más completo de lo exigido, un panel de cookies por categorías y metadatos Open Graph."
       ],
       "problema": "POR_CONFIRMAR",
-      "papel": "Proyecto de prácticas (FCT) del módulo de Lenguajes de Marcas: diseño y desarrollo completos.",
+      "papel": "Trabajo de final de 1.º de ASIR, hecho en las prácticas (FCT) para el módulo de Lenguajes de Marcas: diseño y desarrollo completos.",
       "tecnologias": [
         "HTML",
         "CSS",
@@ -458,22 +513,26 @@
       "nombre": "NEXUS",
       "publicar": true,
       "color_disco": "#2f9e5b",
-      "estado": "POR_CONFIRMAR",
-      "resumen": "Red social hecha desde cero en PHP y MySQL con patrón MVC.",
+      "estado": "Terminado",
+      "resumen": "Red social temática hecha desde cero en PHP y MySQL, que conecta a personas por sus gustos de música y videojuegos.",
       "descripcion": [
-        "Inicio de sesión con protección contra inyección SQL, perfiles, feed de publicaciones con respuestas y un sistema de afinidad entre usuarios."
+        "Registro con contraseña cifrada con bcrypt y sesiones PHP, feed de publicaciones con votos y respuestas, y perfiles con avatar, biografía y estado.",
+        "Un motor de afinidad cruza tus gustos con los del resto y ordena a los usuarios por porcentaje de compatibilidad, mostrando los gustos que compartís.",
+        "Base de datos MySQL con usuarios, gustos, publicaciones, conexiones y votos; el perfil se guarda con fetch sin recargar la página."
       ],
       "problema": "POR_CONFIRMAR",
-      "papel": "POR_CONFIRMAR",
+      "papel": "Proyecto personal de 1.º de ASIR: diseño, base de datos y desarrollo completos.",
       "tecnologias": [
         "PHP",
         "MySQL",
-        "MVC",
+        "JavaScript",
+        "HTML",
+        "CSS",
         "Git"
       ],
       "enlaces": {
         "vivo": "POR_CONFIRMAR",
-        "codigo": "POR_CONFIRMAR"
+        "codigo": "https://github.com/Ivanchux/NEXUS"
       },
       "vista_previa": {
         "tipo": "captura"
