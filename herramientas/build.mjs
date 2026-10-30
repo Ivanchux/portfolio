@@ -102,6 +102,7 @@ function datosMonitor(raiz) {
       captura: p.capturas?.[0] ? { src: raiz + p.capturas[0].src, alt: p.capturas[0].alt, ancho: p.capturas[0].ancho, alto: p.capturas[0].alto } : null,
       vivo: vp.tipo === "iframe" && confirmado(vp.url) ? vp.url : null,
       formato: vp.formato === "movil" ? "movil" : "escritorio",
+      bash: vp.tipo === "bash" ? { luchadores: vp.luchadores, codigo: vp.codigo } : null,
     };
   }
   // Se incrusta como JSON: se evita que un «</script>» rompa la etiqueta
@@ -168,7 +169,23 @@ function listaHabilidades(raiz) {
   return habilidades
     .map((h, i) => {
       const prueba = discosMini(h.proyectos, raiz);
-      return `<li class="habilidad habilidad--${h.id}${i === 0 ? " habilidad--grande" : ""} cristal" data-revelar><span class="burbuja-icono">${icono(h.icono)}</span><h2>${esc(h.titulo)}</h2><p>${esc(h.texto)}</p>${prueba ? `<p class="habilidad__prueba">Lo demuestro en</p><ul class="discos-mini">${prueba}</ul>` : ""}</li>`;
+      const fotos = h.proyectos
+        .map((s) => publicados.find((p) => p.slug === s))
+        .filter((p) => p?.capturas?.[0])
+        .slice(0, 3)
+        .map((p, k) => `<a class="abanico__foto" href="${raiz}proyectos/${p.slug}/" style="--k:${k}" tabindex="-1" aria-hidden="true"><img src="${raiz}${p.capturas[0].src}" width="${p.capturas[0].ancho}" height="${p.capturas[0].alto}" loading="lazy" alt=""><span>${esc(p.nombre)}</span></a>`)
+        .join("");
+      const n = h.proyectos.filter((s) => publicados.some((p) => p.slug === s)).length;
+      return `<li class="oficio oficio--${h.id}${i % 2 ? " oficio--par" : ""}" data-revelar>
+        <div class="oficio__texto">
+          <span class="oficio__icono">${icono(h.icono)}</span>
+          <p class="oficio__cuenta">${n} ${n === 1 ? "proyecto" : "proyectos"}</p>
+          <h2>${esc(h.titulo)}</h2>
+          <p>${esc(h.texto)}</p>
+          ${prueba ? `<ul class="discos-mini">${prueba}</ul>` : ""}
+        </div>
+        <div class="abanico">${fotos}</div>
+      </li>`;
     })
     .join("\n");
 }

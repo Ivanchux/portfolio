@@ -334,3 +334,95 @@ a.disquete[aria-current="true"] { transform: translateY(-6px); box-shadow: inset
 @media (prefers-reduced-motion: reduce) {
   a.disquete:hover, a.disquete:focus-visible, a.disquete[aria-current="true"] { transform: none; }
 }
+
+/* ---------- Simulador de Bash: Game Boy arriba, código abajo ---------- */
+.pantalla__vista--bash { display: grid; grid-template-rows: minmax(0, 1.45fr) minmax(0, 1fr); gap: 6px; padding-bottom: 2px; }
+.pantalla:has(.pantalla__vista--bash) .pantalla__barra strong { font-size: .9em; }
+.gb {
+  --gb0: #0f380f; --gb1: #306230; --gb2: #8bac0f; --gb3: #9bbc0f;
+  position: relative; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto minmax(0, 1fr) auto; gap: 2px 8px;
+  padding: 8px 10px; border-radius: 6px; background: var(--gb3); color: var(--gb0);
+  font: 0.72em/1.2 var(--tipo-pantalla); image-rendering: pixelated; overflow: hidden;
+  box-shadow: inset 0 0 0 3px var(--gb1);
+}
+.gb__ficha { display: flex; flex-direction: column; gap: 2px; }
+.gb__ficha b { font-weight: 400; letter-spacing: .08em; }
+.gb__ficha--rival { grid-column: 2; grid-row: 1; text-align: right; }
+.gb__ficha--propio { grid-column: 1; grid-row: 1; }
+.gb__vida { display: block; height: 6px; border: 2px solid var(--gb0); border-radius: 3px; background: var(--gb2); }
+.gb__vida i { display: block; height: 100%; width: var(--vida); background: var(--gb0); transition: width .6s steps(8); }
+.gb__sprite { width: auto; height: 100%; max-height: 72px; min-height: 0; justify-self: center; align-self: center; }
+.gb__sprite--rival { grid-column: 2; grid-row: 2; }
+.gb__sprite--propio { grid-column: 1; grid-row: 2; }
+.gb__p1 { fill: var(--gb0); } .gb__p2 { fill: var(--gb1); } .gb__p3 { fill: var(--gb2); }
+.gb__texto { grid-column: 1 / -1; grid-row: 3; margin: 0; padding: 4px 6px; border: 2px solid var(--gb0); border-radius: 4px; background: var(--gb3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.gb__sprite.ataca { animation: gb-ataca .45s steps(3); }
+.gb__sprite.golpe { animation: gb-golpe .5s steps(2) .25s; }
+.gb__sprite.borrado { animation: gb-borra 1s steps(5) forwards; }
+.gb__sprite--propio.ataca { animation-name: gb-ataca-propio; }
+@keyframes gb-ataca { 50% { translate: -14px 8px; } }
+@keyframes gb-ataca-propio { 50% { translate: 14px -8px; } }
+@keyframes gb-golpe { 25%, 75% { opacity: 0; } }
+@keyframes gb-borra { to { opacity: 0; translate: 0 18px; } }
+.bash { margin: 0; overflow: auto; padding: 6px 8px; border-radius: 6px; font-size: 0.68em; line-height: 1.45; background: rgba(0, 0, 0, .35); border: 1px solid color-mix(in srgb, var(--pantalla-acento) 30%, transparent); }
+.bash code { display: grid; font: inherit; }
+.bash__l { white-space: pre; padding: 0 4px; border-radius: 2px; transition: background .25s, color .25s; }
+.bash__l::before { content: attr(data-n); display: inline-block; width: 2.2em; color: var(--pantalla-tenue); }
+.bash__c { color: var(--pantalla-tenue); }
+.bash__l.on { background: var(--pantalla-acento); color: var(--pantalla-fondo); }
+.bash__l.on::before { color: var(--pantalla-fondo); }
+
+/* ---------- Vuelo del disquete hasta la disquetera ---------- */
+.disquete--volando { position: fixed !important; z-index: 1000; margin: 0; pointer-events: none; transform-origin: 50% 0; }
+a.disquete.fuera, a.disquete[aria-current="true"] {
+  opacity: .35; filter: grayscale(.4); transform: none;
+  box-shadow: 0 0 0 2px var(--horizonte), 0 0 0 4px var(--cat, var(--boton-2));
+  outline: 2px dashed color-mix(in srgb, var(--cat, var(--boton-2)) 70%, transparent); outline-offset: 5px;
+}
+a.disquete[aria-current="true"]:focus-visible { outline: 3px solid var(--foco); }
+.monitor__ranura.recibe { animation: ranura-recibe .5s ease-out; }
+@keyframes ranura-recibe { 30% { box-shadow: inset 0 2px 3px rgba(0, 0, 0, .7), 0 0 0 3px color-mix(in srgb, var(--pantalla-acento) 70%, transparent), 0 0 18px var(--pantalla-acento); } }
+
+/* ---------- Estantería de madera para los disquetes ---------- */
+.caja {
+  --fila: 112px;
+  position: relative; padding: 26px 16px 14px; border-radius: 6px;
+  border: 10px solid transparent;
+  background:
+    /* baldas, una por fila de disquetes */
+    repeating-linear-gradient(180deg, transparent 0 calc(var(--fila) - 12px), #b98a55 calc(var(--fila) - 12px), #8c5f33 calc(var(--fila) - 4px), rgba(0, 0, 0, .25) calc(var(--fila) - 4px) var(--fila)) padding-box,
+    /* fondo del mueble, con veta */
+    repeating-linear-gradient(92deg, rgba(0, 0, 0, .05) 0 3px, transparent 3px 19px) padding-box,
+    linear-gradient(180deg, #5a3a1e, #4a2f17) padding-box,
+    /* marco */
+    linear-gradient(180deg, #d7a46b, #9b6a3b) border-box;
+  background-origin: padding-box, padding-box, padding-box, border-box;
+  background-position: 0 26px, 0 0, 0 0, 0 0;
+  box-shadow: inset 0 6px 14px rgba(0, 0, 0, .45), 0 16px 26px rgba(40, 25, 5, .3);
+  backdrop-filter: none; -webkit-backdrop-filter: none;
+}
+/* placa de latón y tornillos */
+.caja::before {
+  content: "PROYECTOS"; position: absolute; top: 4px; left: 50%; translate: -50% 0;
+  padding: 1px 10px; border-radius: 3px; font: 600 .62rem/1.5 var(--tipo-titulo); letter-spacing: .2em; color: #4a3410;
+  background: linear-gradient(180deg, #f6d98a, #c99a3c); box-shadow: inset 0 1px 0 #fff6, 0 1px 2px rgba(0, 0, 0, .4);
+}
+.caja::after {
+  content: ""; position: absolute; inset: 4px; pointer-events: none;
+  background:
+    radial-gradient(circle at 0 0, #e9d3a6 0 2px, transparent 3px), radial-gradient(circle at 100% 0, #e9d3a6 0 2px, transparent 3px),
+    radial-gradient(circle at 0 100%, #e9d3a6 0 2px, transparent 3px), radial-gradient(circle at 100% 100%, #e9d3a6 0 2px, transparent 3px);
+}
+.caja__discos { grid-auto-rows: var(--fila); gap: 0 10px; align-items: end; min-height: calc(var(--fila) * 2); }
+.caja__discos li { align-self: end; padding-bottom: 12px; }
+.caja__discos .disquete { max-width: 86px; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .25), 0 6px 6px -2px rgba(0, 0, 0, .5); }
+@media (max-width: 860px) { .caja { --fila: 100px; } }
+
+/* ---------- Fondo siempre vivo (salvo con «reducir movimiento») ---------- */
+.fondo path:nth-of-type(2) { animation: deriva 22s ease-in-out infinite alternate; }
+.fondo path:nth-of-type(3) { animation: deriva 16s ease-in-out infinite alternate-reverse; }
+.fondo path:nth-of-type(1) { animation: oleaje 30s ease-in-out infinite alternate; }
+@keyframes deriva { to { transform: translate(-60px, 18px); } }
+@keyframes oleaje { to { transform: translate(30px, -10px); } }
+body { animation: cielo 40s ease-in-out infinite alternate; background-size: 100% 140%; }
+@keyframes cielo { to { background-position: 0 -40%; } }

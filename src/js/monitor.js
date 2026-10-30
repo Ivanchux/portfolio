@@ -39,13 +39,82 @@
     return el("a", { class: "pantalla__boton pantalla__boton--hueco", href: p.ficha, texto: "Ficha del proyecto" });
   }
 
+  // ---------- Simulador de Bash: combate con aire de Game Boy y el código real resaltado ----------
+  let bucleBash = null;
+  const pararBash = () => { clearTimeout(bucleBash); bucleBash = null; };
+  const SPRITES = {
+    // 12 × 12: 1 = contorno, 2 = relleno, 3 = brillo
+    fuego: ["....1.......", "...121......", "...1221..1..", "..12221.121.", "..122221221.", ".1222322221.", ".1223332221.", "122333332221", "122233322221", ".1222222221.", "..11222211..", "....1111...."],
+    agua: [".....11.....", "....1221....", "...122221...", "...122221...", "..12222221..", "..12232221..", ".1222332221.", ".1222333221.", ".1222232221.", "..12222221..", "...112211...", ".....11....."],
+  };
+  function sprite(nombre, clase) {
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("viewBox", "0 0 12 12");
+    svg.setAttribute("class", clase);
+    svg.setAttribute("aria-hidden", "true");
+    SPRITES[nombre].forEach((fila, y) => [...fila].forEach((v, x) => {
+      if (v === ".") return;
+      const r = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+      Object.entries({ x, y, width: 1, height: 1, class: "gb__p" + v }).forEach(([k, val]) => r.setAttribute(k, val));
+      svg.append(r);
+    }));
+    return svg;
+  }
+  function vistaBash(p) {
+    const [a, b] = p.bash.luchadores;
+    const vida = (n) => el("span", { class: "gb__vida" }, el("i", { style: "--vida:100%" }));
+    const rival = el("div", { class: "gb__ficha gb__ficha--rival" }, el("b", { texto: b }), vida());
+    const propio = el("div", { class: "gb__ficha gb__ficha--propio" }, el("b", { texto: a }), vida());
+    const texto = el("p", { class: "gb__texto", texto: `¡Un combate entre usuarios de Linux!` });
+    const sA = sprite("fuego", "gb__sprite gb__sprite--propio"), sB = sprite("agua", "gb__sprite gb__sprite--rival");
+    const escena = el("div", { class: "gb", "aria-hidden": "true" }, rival, sB, sA, propio, texto);
+    const lineas = p.bash.codigo.map((l, i) => el("span", { class: "bash__l" + (l.startsWith("#") ? " bash__c" : ""), "data-n": String(i + 1), texto: l || " " }));
+    const codigo = el("pre", { class: "bash", tabindex: "0", "aria-label": `Fragmento del código de combate de ${p.nombre}` }, el("code", {}, ...lineas));
+    if (!reducido.matches) {
+      const st = { [a]: { vida: 100, ataque: 52, defensa: 40, bonus: 50, sprite: sA, barra: propio.querySelector("i") }, [b]: { vida: 100, ataque: 48, defensa: 38, bonus: 200, sprite: sB, barra: rival.querySelector("i") } };
+      let turno = a;
+      const resaltar = (ns) => lineas.forEach((l, i) => l.classList.toggle("on", ns.includes(i)));
+      const paso = () => {
+        const at = st[turno], df = st[turno === a ? b : a], nDf = turno === a ? b : a;
+        const factor = 75 + Math.floor(Math.random() * 51);
+        let efectivo = Math.floor(Math.floor((at.ataque * factor) / 100) * at.bonus / 100);
+        const critico = Math.random() < 0.05;
+        if (critico) efectivo *= 2;
+        const dano = Math.max(0, efectivo - df.defensa);
+        resaltar(critico ? [1, 2, 5, 6, 7, 10, 11] : [1, 2, 10, 11]);
+        at.sprite.classList.remove("ataca"); df.sprite.classList.remove("golpe"); void at.sprite.offsetWidth;
+        at.sprite.classList.add("ataca"); df.sprite.classList.add("golpe");
+        df.vida = Math.max(0, df.vida - dano);
+        df.barra.style.setProperty("--vida", df.vida + "%");
+        texto.textContent = `¡${turno} ataca! factor=${factor}${critico ? " ¡CRÍTICO!" : ""} → daño ${dano}`;
+        if (df.vida === 0) {
+          bucleBash = setTimeout(() => {
+            resaltar([13, 14]);
+            texto.textContent = `userdel -r ${nDf.toLowerCase()} · ${turno} gana`;
+            df.sprite.classList.add("borrado");
+            bucleBash = setTimeout(() => {
+              for (const k of [a, b]) { st[k].vida = 100; st[k].barra.style.setProperty("--vida", "100%"); st[k].sprite.classList.remove("borrado"); }
+              turno = a; paso();
+            }, 2600);
+          }, 1400);
+          return;
+        }
+        turno = nDf;
+        bucleBash = setTimeout(paso, 2000);
+      };
+      bucleBash = setTimeout(paso, 900);
+    }
+    return el("div", { class: "pantalla__vista pantalla__vista--bash" }, escena, codigo);
+  }
+
   function mostrarVista(slug) {
     const p = datos[slug];
     observador?.disconnect();
+    pararBash();
     pantalla.classList.remove("pantalla--vivo");
     pantalla.replaceChildren(
       barra(p, "disco insertado"),
-      el("div", { class: "pantalla__vista" },
+      p.bash ? vistaBash(p) : el("div", { class: "pantalla__vista" },
         p.captura && el("img", { src: p.captura.src, alt: p.captura.alt, width: "960", height: "545" }),
         el("p", { class: "pantalla__texto", texto: p.resumen })),
       el("div", { class: "pantalla__acciones" },
@@ -116,6 +185,7 @@
   function saltar() { terminarArranque(); }
 
   function apagarOS() {
+    pararBash();
     if (!desmontarOS) return;
     desmontarOS();
     desmontarOS = null;
@@ -164,6 +234,7 @@
       else d.removeAttribute("aria-current");
     });
 
+    pararBash();
     arranque = { slug, enfocar, lineas: [] };
     if (reducido.matches) return terminarArranque();
 
@@ -196,13 +267,40 @@
     const disco = e.target.closest("a.disquete[data-proyecto]");
     if (!disco || e.ctrlKey || e.metaKey || e.shiftKey || e.button !== 0) return;
     e.preventDefault();
-    if (!reducido.matches) {
-      disco.classList.remove("entrando");
-      void disco.offsetWidth;
-      disco.classList.add("entrando");
-    }
-    insertar(disco.dataset.proyecto, true);
+    if (disco.getAttribute("aria-current") === "true") return insertar(disco.dataset.proyecto, true);
+    volar(disco).then(() => insertar(disco.dataset.proyecto, true));
   });
+
+  // El disquete sale de la estantería y entra por la ranura de la disquetera
+  const ranura = document.querySelector(".monitor__ranura");
+  function volar(disco) {
+    if (reducido.matches || !ranura || !disco.animate) return Promise.resolve();
+    const a = disco.getBoundingClientRect(), r = ranura.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > innerHeight) return Promise.resolve(); // la ranura no se ve: sin vuelo
+    const copia = disco.cloneNode(true);
+    copia.removeAttribute("href");
+    copia.removeAttribute("aria-current");
+    copia.setAttribute("aria-hidden", "true");
+    copia.className = "disquete disquete--volando";
+    Object.assign(copia.style, { left: a.left + "px", top: a.top + "px", width: a.width + "px", height: a.height + "px" });
+    document.body.append(copia);
+    disco.classList.add("fuera");
+    const dx = r.left + r.width / 2 - (a.left + a.width / 2), dy = r.top - (a.top + a.height / 2);
+    const escala = Math.min(1, (r.width * 0.8) / a.width);
+    const vuelo = copia.animate([
+      { transform: "translate(0, 0) rotate(0) scale(1)", opacity: 1, offset: 0 },
+      { transform: `translate(${dx * 0.55}px, ${dy * 0.55 - 70}px) rotate(-12deg) scale(${(1 + escala) / 2})`, opacity: 1, offset: 0.5 },
+      { transform: `translate(${dx}px, ${dy - 6}px) rotate(0) scale(${escala}) perspective(300px) rotateX(0deg)`, opacity: 1, offset: 0.78 },
+      { transform: `translate(${dx}px, ${dy + 10}px) rotate(0) scale(${escala}) perspective(300px) rotateX(70deg)`, opacity: 0, offset: 1 },
+    ], { duration: 780, easing: "cubic-bezier(.4, 0, .2, 1)" });
+    return vuelo.finished.then(() => {
+      copia.remove();
+      disco.classList.remove("fuera");
+      ranura.classList.remove("recibe");
+      void ranura.offsetWidth;
+      ranura.classList.add("recibe");
+    });
+  }
 
   pantalla.addEventListener("click", (e) => {
     const accion = e.target.closest("[data-accion]")?.dataset.accion;

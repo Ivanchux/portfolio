@@ -633,8 +633,10 @@
       "estado": "Terminado",
       "resumen": "Web de una imprenta ficticia hecha a mano para las prácticas, con versión en WordPress, dossier del proceso y diario semanal.",
       "descripcion": [
-        "Web corporativa ficticia de una imprenta en Madrid: portada, catálogo, blog con tres artículos, contacto y un generador de tarjetas de visita que descarga el anverso y el reverso en PNG.",
-        "Por iniciativa propia, más allá de lo que pedía la rúbrica: variables CSS, tipografía fluida con clamp(), tema guardado en el navegador, un formulario por pasos más completo de lo exigido, un panel de cookies por categorías y metadatos Open Graph."
+        "Web corporativa de una imprenta ficticia de Madrid, con once páginas: portada con vídeo, catálogo de servicios, historia y equipo, blog con tres artículos, contacto, páginas legales y página de error propia.",
+        "Incluye un generador de tarjetas de visita que dibuja la tarjeta en tiempo real con tres estilos y descarga el anverso y el reverso en PNG.",
+        "Por iniciativa propia, más allá de lo que pedía la rúbrica: variables CSS, tipografía fluida con clamp(), tema guardado en el navegador, un formulario por pasos más completo de lo exigido, un panel de cookies por categorías y metadatos Open Graph.",
+        "El proyecto se entregó también en una versión con WordPress, junto a un dossier del proceso y un diario semanal."
       ],
       "problema": "POR_CONFIRMAR",
       "papel": "Trabajo de final de 1.º de ASIR, hecho en las prácticas (FCT) para el módulo de Lenguajes de Marcas: diseño y desarrollo completos.",
@@ -642,7 +644,8 @@
         "HTML",
         "CSS",
         "JavaScript",
-        "WordPress"
+        "WordPress",
+        "GitHub Pages"
       ],
       "enlaces": {
         "vivo": "https://ivanchux.github.io/impronta/",
@@ -656,9 +659,27 @@
       "capturas": [
         {
           "src": "img/capturas/impronta-1.webp",
-          "ancho": 577,
-          "alto": 433,
-          "alt": "Presentación de Impronta, la web de una imprenta ficticia."
+          "ancho": 1100,
+          "alto": 687,
+          "alt": "Portada de Impronta: «Imprimimos lo que imaginas» sobre fondo azul noche con detalles dorados."
+        },
+        {
+          "src": "img/capturas/impronta-2.webp",
+          "ancho": 1100,
+          "alto": 687,
+          "alt": "Página de servicios de Impronta con la impresión digital y sus acabados."
+        },
+        {
+          "src": "img/capturas/impronta-3.webp",
+          "ancho": 1100,
+          "alto": 687,
+          "alt": "Generador de tarjetas de visita con el formulario y la vista previa de la tarjeta."
+        },
+        {
+          "src": "img/capturas/impronta-4.webp",
+          "ancho": 390,
+          "alto": 844,
+          "alt": "Portada de Impronta en el móvil."
         }
       ],
       "categoria": "web"
@@ -668,7 +689,7 @@
       "nombre": "NEXUS",
       "publicar": true,
       "color_disco": "#2f9e5b",
-      "estado": "Terminado",
+      "estado": "En desarrollo",
       "resumen": "Red social temática hecha desde cero en PHP y MySQL, que conecta a personas por sus gustos de música y videojuegos.",
       "descripcion": [
         "Registro con contraseña cifrada con bcrypt y sesiones PHP, feed de publicaciones con votos y respuestas, y perfiles con avatar, biografía y estado.",
@@ -723,11 +744,13 @@
         "D3.js"
       ],
       "enlaces": {
-        "vivo": "POR_CONFIRMAR",
+        "vivo": "https://ivanchux.github.io/Project-Dossier/",
         "codigo": "https://github.com/Ivanchux/Project-Dossier"
       },
       "vista_previa": {
-        "tipo": "captura"
+        "tipo": "iframe",
+        "url": "https://ivanchux.github.io/Project-Dossier/",
+        "formato": "escritorio"
       },
       "capturas": [
         {
@@ -866,7 +889,28 @@
         "codigo": "https://github.com/Ivanchux/Pokemon-Bash-Simulator"
       },
       "vista_previa": {
-        "tipo": "enlace"
+        "tipo": "bash",
+        "luchadores": [
+          "FUEGO",
+          "AGUA"
+        ],
+        "codigo": [
+          "# Factor aleatorio entre 75 y 125",
+          "factor=$(( 75 + (RANDOM % 51) ))",
+          "ataque_efectivo=$(( ataque_usado * factor / 100 * bonus / 100 ))",
+          "",
+          "# Crítico 5%",
+          "if [ $(( RANDOM % 100 )) -lt 5 ]; then",
+          "    critico=1",
+          "    ataque_efectivo=$(( ataque_efectivo * 2 ))",
+          "fi",
+          "",
+          "dano=$(( ataque_efectivo - defensa2 ))",
+          "[ \"$dano\" -lt 0 ] && dano=0",
+          "",
+          "# El perdedor deja de existir en el sistema",
+          "userdel -r \"$PERDEDOR\""
+        ]
       },
       "capturas": [],
       "categoria": "sistemas"

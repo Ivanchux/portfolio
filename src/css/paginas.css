@@ -193,16 +193,62 @@ body.os-activo .cabecera, body.os-activo .pie, body.os-activo #os-sin-js, body.o
 
 /* Logo dentro de la esfera de «Sobre mí» y cubo del laboratorio */
 .monograma__logo {
-  display: block; width: 32%; height: 72%; background: #fff;
-  -webkit-mask: url("../img/logo.png") center / contain no-repeat; mask: url("../img/logo.png") center / contain no-repeat;
+  display: block; width: 62%; height: 62%; background: #fff;
+  -webkit-mask: url("../img/logo-cubo.png") center / contain no-repeat; mask: url("../img/logo-cubo.png") center / contain no-repeat;
   filter: drop-shadow(0 2px 3px rgba(0, 0, 0, .25));
 }
 .lab__cabecera { display: flex; align-items: center; justify-content: space-between; gap: var(--e-5); }
 .cubo {
-  flex: none; width: clamp(5rem, 13vw, 8rem); aspect-ratio: 365 / 420;
-  background: linear-gradient(160deg, #7fdcea, var(--boton-1) 45%, #7a58c4);
-  -webkit-mask: url("../img/logo-cubo.png") center / contain no-repeat; mask: url("../img/logo-cubo.png") center / contain no-repeat;
+  flex: none; width: clamp(3rem, 7vw, 4.4rem); aspect-ratio: 211 / 480;
+  background: linear-gradient(170deg, #7fdcea, var(--boton-1) 50%, #1f8fb3);
+  -webkit-mask: url("../img/logo.png") center / contain no-repeat; mask: url("../img/logo.png") center / contain no-repeat;
   filter: drop-shadow(0 10px 14px rgba(20, 70, 100, .25));
   animation: flotar 7s ease-in-out infinite alternate;
 }
 @media (max-width: 560px) { .lab__cabecera { flex-direction: column-reverse; align-items: flex-start; } }
+
+/* ---------- Qué sé hacer: cada oficio con su abanico de capturas ---------- */
+.oficios { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--e-6); }
+.oficio {
+  position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: var(--e-6); align-items: center;
+  padding: var(--e-6) clamp(1.25rem, 4vw, 3rem); border-radius: 28px; overflow: hidden;
+  background:
+    radial-gradient(120% 90% at 0% 0%, color-mix(in srgb, var(--cat) 26%, transparent), transparent 60%),
+    linear-gradient(180deg, rgba(255, 255, 255, .55), rgba(255, 255, 255, .15)), var(--cristal);
+  border: 1px solid var(--cristal-borde); box-shadow: var(--cristal-sombra);
+}
+.oficio--par { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); }
+.oficio--par .oficio__texto { order: 2; }
+.oficio--par { background: radial-gradient(120% 90% at 100% 0%, color-mix(in srgb, var(--cat) 26%, transparent), transparent 60%), linear-gradient(180deg, rgba(255, 255, 255, .55), rgba(255, 255, 255, .15)), var(--cristal); }
+.oficio__texto { display: flex; flex-direction: column; gap: var(--e-3); align-items: flex-start; }
+.oficio__texto h2 { margin: 0; font-size: var(--t-2); }
+.oficio__texto p { margin: 0; color: var(--tinta-suave); max-width: 30rem; }
+.oficio__icono {
+  display: grid; place-items: center; width: 4.2rem; height: 4.2rem; border-radius: 22px; color: #fff; font-size: 1.9rem;
+  background: radial-gradient(circle at 30% 22%, rgba(255, 255, 255, .8) 0 10%, transparent 11%), linear-gradient(160deg, rgba(255, 255, 255, .5), transparent 55%), var(--cat);
+  box-shadow: inset 0 -4px 8px rgba(0, 0, 0, .2), 0 10px 22px color-mix(in srgb, var(--cat) 45%, transparent);
+  transform: rotate(-6deg); transition: transform .4s cubic-bezier(.2, .8, .2, 1.4);
+}
+.oficio:hover .oficio__icono { transform: rotate(6deg) scale(1.06); }
+.oficio__icono .icono { width: 2rem; height: 2rem; }
+.oficio__cuenta { font: 600 .8rem/1 var(--tipo-titulo) !important; letter-spacing: .14em; text-transform: uppercase; color: color-mix(in srgb, var(--cat) 75%, var(--tinta)) !important; }
+/* Abanico de capturas: se abre al pasar por encima */
+.abanico { position: relative; height: clamp(180px, 24vw, 260px); }
+.abanico__foto {
+  position: absolute; left: 50%; top: 50%; width: 72%; aspect-ratio: 16 / 10; border-radius: 12px; overflow: hidden;
+  border: 4px solid #fff; box-shadow: 0 14px 26px rgba(20, 50, 70, .28); background: #0b1a20;
+  translate: -50% -50%; rotate: calc((var(--k) - 1) * 7deg); transform: translateX(calc((var(--k) - 1) * 16%));
+  transition: transform .5s cubic-bezier(.2, .8, .2, 1.2), rotate .5s cubic-bezier(.2, .8, .2, 1.2);
+  z-index: calc(3 - var(--k));
+}
+.abanico__foto img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.abanico__foto span { position: absolute; left: 6px; bottom: 6px; padding: 1px 8px; border-radius: 999px; font-weight: 700; font-size: .75rem; color: #fff; background: rgba(0, 0, 0, .55); }
+.oficio:hover .abanico__foto { transform: translateX(calc((var(--k) - 1) * 34%)) translateY(calc(var(--k) * -4%)); rotate: calc((var(--k) - 1) * 11deg); }
+@media (max-width: 760px) {
+  .oficio, .oficio--par { grid-template-columns: 1fr; }
+  .oficio--par .oficio__texto { order: 0; }
+}
+.oficio--web { --cat: #1f8fb3; } .oficio--sistemas { --cat: #7a58c4; } .oficio--ia { --cat: #c2408f; }
+.oficio--juegos { --cat: #d9622b; } .oficio--backend { --cat: #2f7d6e; } .oficio--datos { --cat: #3c6fd1; }
+:root[data-tema="oscuro"] .oficio { background: radial-gradient(120% 90% at 0% 0%, color-mix(in srgb, var(--cat) 30%, transparent), transparent 60%), var(--cristal); }
+:root[data-tema="oscuro"] .abanico__foto { border-color: #1b3a46; }

@@ -225,9 +225,9 @@ p { margin: 0 0 var(--e-4); }
 /* Logo: se pinta con máscara para tomar el degradado de la web en claro y en oscuro */
 .marca { display: inline-flex; align-items: center; gap: var(--e-2); }
 .marca__logo {
-  width: 1rem; height: 2.2rem; flex: none;
-  background: linear-gradient(170deg, var(--boton-1), var(--acento) 60%, #1f8fb3);
-  -webkit-mask: url("../img/logo.png") center / contain no-repeat; mask: url("../img/logo.png") center / contain no-repeat;
+  width: 1.9rem; height: 2.2rem; flex: none;
+  background: linear-gradient(160deg, #7fdcea, var(--boton-1) 45%, #7a58c4);
+  -webkit-mask: url("../img/logo-cubo.png") center / contain no-repeat; mask: url("../img/logo-cubo.png") center / contain no-repeat;
   transition: transform .5s cubic-bezier(.2, .8, .2, 1.3), filter .3s;
 }
-.marca:hover .marca__logo { transform: rotate(180deg); filter: drop-shadow(0 0 6px color-mix(in srgb, var(--acento) 60%, transparent)); }
+.marca:hover .marca__logo { transform: rotate(-12deg) scale(1.12); filter: drop-shadow(0 0 6px color-mix(in srgb, var(--acento) 60%, transparent)); }
