@@ -6,6 +6,6 @@
   "scripts": {
     "build": "node herramientas/build.mjs",
     "start": "node herramientas/build.mjs && node herramientas/servir.mjs",
-    "test": "node herramientas/build.mjs && node --test tests/"
+    "test": "node herramientas/build.mjs && node --test tests/*.test.mjs"
   }
 }
