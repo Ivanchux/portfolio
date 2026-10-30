@@ -7,6 +7,7 @@ import path from "node:path";
 
 const DIST = path.resolve("dist");
 const config = JSON.parse(await readFile("site.config.json", "utf8"));
+if (process.env.MODO_COMERCIAL) config.modo_comercial = process.env.MODO_COMERCIAL === "true";
 
 async function archivos(dir, ext) {
   const salida = [];
