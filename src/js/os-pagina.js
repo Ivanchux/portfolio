@@ -9,7 +9,12 @@
   css.rel = "stylesheet";
   css.href = new URL("../os/os.css", base).href;
   document.head.append(css);
-  const { montar } = await import(new URL("../os/os.js", base).href);
+  let montar;
+  try {
+    ({ montar } = await import(new URL("../os/os.js", base).href));
+  } catch {
+    return; // abierto con doble clic: se queda la versión en HTML
+  }
   document.body.classList.add("os-activo");
   caja.hidden = false;
   const sinArranque = new URLSearchParams(location.search).get("sin-arranque") === "1";

@@ -110,7 +110,12 @@
       document.head.append(css);
       await listo;
     }
-    const { montar } = await import(new URL("../os/os.js", base).href);
+    let montar;
+    try {
+      ({ montar } = await import(new URL("../os/os.js", base).href));
+    } catch {
+      return (location.href = disco.href); // abierto con doble clic: los módulos no cargan, se va a la versión en HTML
+    }
     document.querySelectorAll("a.disquete[data-proyecto]").forEach((d) => d.removeAttribute("aria-current"));
     pantalla.classList.remove("pantalla--vivo");
     pantalla.classList.add("pantalla--os");

@@ -204,6 +204,12 @@ function laboratorio(raiz) {
 const listaOS = (raiz) =>
   publicados.map((p) => `<li><a href="${raiz}proyectos/${p.slug}/">${esc(p.nombre)}</a>: ${esc(p.resumen)}</li>`).join("\n");
 
+// Versión para abrir con doble clic (ARCHIVO=1): los enlaces a carpetas apuntan a su index.html
+const paraDobleClic = (html) =>
+  html
+    .replace(/href="((?!https?:|mailto:|#)[^"]*\/)"/g, 'href="$1index.html"')
+    .replace(/("(?:ficha|contacto)":"[^"]*\/)"/g, '$1index.html"');
+
 // ---------- Páginas ----------
 async function pagina(rutaSalida, fuente, ctxExtra = {}) {
   const profundidad = rutaSalida.split("/").length - 1;
@@ -223,10 +229,11 @@ async function pagina(rutaSalida, fuente, ctxExtra = {}) {
   ctx.titulo = await render(meta.titulo, ctx);
   ctx.descripcion = await render(meta.descripcion, ctx);
   ctx.contenido = await render(cuerpo, ctx);
-  const html = await render(await parcial("base"), ctx);
+  let html = await render(await parcial("base"), ctx);
   const restos = html.match(/\{\{[^}]*\}\}/g);
   if (restos) throw new Error(`${rutaSalida}: marcas sin resolver ${restos.join(", ")}`);
   if (html.includes(PC)) throw new Error(`${rutaSalida}: contiene ${PC}`);
+  if (process.env.ARCHIVO) html = paraDobleClic(html);
   const destino = path.join(DIST, rutaSalida);
   await mkdir(path.dirname(destino), { recursive: true });
   await writeFile(destino, html);
