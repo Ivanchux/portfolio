@@ -260,50 +260,176 @@
     {
       "slug": "hilo-cortado",
       "nombre": "Hilo Cortado",
-      "publicar": false,
+      "publicar": true,
       "color_disco": "#8a2f3a",
-      "estado": "POR_CONFIRMAR",
-      "resumen": "Beat 'em up de avance lateral en HTML5 Canvas: marionetas que se rebelan contra el titiritero.",
+      "estado": "En desarrollo",
+      "resumen": "Beat 'em up de avance lateral con marionetas de madera que se rebelan contra el titiritero: cada golpe gasta un hilo.",
       "descripcion": [
-        "Los hilos son a la vez la vida y el arma. Animación procedural por esqueleto, en un solo index.html sin dependencias."
+        "Corta los hilos de los brazos y el enemigo suelta el arma; corta el de la cabeza y se desploma. Los hilos son a la vez la vida y el arma.",
+        "Los personajes no tienen sprites: son marionetas de piezas recortadas cuyas poses se interpolan por código y cuelgan de una cruceta visible.",
+        "Cooperativo local para dos, con teclado o mando, en un único index.html sin dependencias."
       ],
       "problema": "POR_CONFIRMAR",
-      "papel": "POR_CONFIRMAR",
+      "papel": "Proyecto personal: diseño del juego, animación procedural y desarrollo.",
       "tecnologias": [
         "HTML5 Canvas",
-        "JavaScript"
+        "JavaScript",
+        "Gamepad API"
       ],
       "enlaces": {
         "vivo": "POR_CONFIRMAR",
         "codigo": "POR_CONFIRMAR"
       },
       "vista_previa": {
-        "tipo": "POR_CONFIRMAR"
+        "tipo": "captura"
       },
-      "capturas": []
+      "capturas": [
+        {
+          "src": "img/capturas/hilo-cortado-1.webp",
+          "ancho": 960,
+          "alto": 540,
+          "alt": "Primer acto de Hilo Cortado: marionetas peleando en el escenario del teatro."
+        },
+        {
+          "src": "img/capturas/hilo-cortado-2.webp",
+          "ancho": 960,
+          "alto": 540,
+          "alt": "Pelea contra un jefe en Hilo Cortado."
+        },
+        {
+          "src": "img/capturas/hilo-cortado-3.webp",
+          "ancho": 960,
+          "alto": 540,
+          "alt": "Pantalla de título de Hilo Cortado."
+        }
+      ]
     },
     {
       "slug": "dead-heat",
       "nombre": "Dead Heat",
-      "publicar": false,
+      "publicar": true,
       "color_disco": "#5aa9c9",
-      "estado": "POR_CONFIRMAR",
-      "resumen": "Laberinto de recoger puntos y esquivar enemigos con muros de hielo que se derriten y cambian el recorrido.",
-      "descripcion": [],
+      "estado": "En desarrollo",
+      "resumen": "Laberinto de recoger brasas con muros de hielo que se derriten: el recorrido lo cambias tú.",
+      "descripcion": [
+        "Eres una llama en un laberinto de hielo. Las brasas que recoges cargan calor, y el calor derrite muros, abre atajos y suelta agua que se reparte por los pasillos.",
+        "El agua frena a unos enemigos y acelera a otros, y si vuelve a congelarse puede atraparlos. Una brasa grande vuelve vulnerables a los enemigos durante unos segundos.",
+        "Píxel art dibujado por código, sonido y música sintetizados, en un único index.html sin dependencias."
+      ],
       "problema": "POR_CONFIRMAR",
-      "papel": "POR_CONFIRMAR",
+      "papel": "Proyecto personal: diseño del juego, gráficos por código, sonido y desarrollo.",
       "tecnologias": [
         "HTML5 Canvas",
-        "JavaScript"
+        "JavaScript",
+        "Web Audio API"
       ],
       "enlaces": {
         "vivo": "POR_CONFIRMAR",
         "codigo": "POR_CONFIRMAR"
       },
       "vista_previa": {
-        "tipo": "POR_CONFIRMAR"
+        "tipo": "captura"
       },
-      "capturas": []
+      "capturas": [
+        {
+          "src": "img/capturas/dead-heat-1.webp",
+          "ancho": 672,
+          "alto": 540,
+          "alt": "Partida de Dead Heat: la llama recorre un laberinto de hielo recogiendo brasas."
+        },
+        {
+          "src": "img/capturas/dead-heat-2.webp",
+          "ancho": 672,
+          "alto": 540,
+          "alt": "La llama derrite un muro de hielo y abre un atajo."
+        },
+        {
+          "src": "img/capturas/dead-heat-3.webp",
+          "ancho": 672,
+          "alto": 540,
+          "alt": "Agua repartida por los pasillos tras derretir el hielo."
+        }
+      ]
+    },
+    {
+      "publicar": true,
+      "estado": "En desarrollo",
+      "problema": "POR_CONFIRMAR",
+      "enlaces": {
+        "vivo": "POR_CONFIRMAR",
+        "codigo": "POR_CONFIRMAR"
+      },
+      "vista_previa": {
+        "tipo": "captura"
+      },
+      "slug": "panal-roto",
+      "nombre": "Panal Roto",
+      "color_disco": "#d99a1e",
+      "resumen": "Puzle de piezas que caen sobre un tablero hexagonal, con líneas en tres direcciones y derrumbes en cadena.",
+      "descripcion": [
+        "Un panal de 9 columnas por 16 filas y las diez formas posibles de cuatro hexágonos. Las líneas se cierran en zigzag y en las dos diagonales.",
+        "Tras cada limpieza lo que queda se derrumba, y si al caer completa otra línea empieza una cadena. Incluye modo para daltonismo.",
+        "Un único index.html sin dependencias, con HTML5 Canvas y sonido sintetizado con Web Audio, y pruebas automáticas."
+      ],
+      "papel": "Proyecto personal: diseño del juego y desarrollo.",
+      "tecnologias": [
+        "HTML5 Canvas",
+        "JavaScript",
+        "Web Audio API"
+      ],
+      "capturas": [
+        {
+          "src": "img/capturas/panal-roto-1.webp",
+          "ancho": 1100,
+          "alto": 687,
+          "alt": "Partida de Panal Roto en el tablero hexagonal."
+        },
+        {
+          "src": "img/capturas/panal-roto-2.webp",
+          "ancho": 1100,
+          "alto": 687,
+          "alt": "Menú de Panal Roto."
+        },
+        {
+          "src": "img/capturas/panal-roto-3.webp",
+          "ancho": 450,
+          "alto": 900,
+          "alt": "Panal Roto en el móvil."
+        }
+      ]
+    },
+    {
+      "publicar": true,
+      "estado": "En desarrollo",
+      "problema": "POR_CONFIRMAR",
+      "enlaces": {
+        "vivo": "POR_CONFIRMAR",
+        "codigo": "POR_CONFIRMAR"
+      },
+      "vista_previa": {
+        "tipo": "captura"
+      },
+      "slug": "caja-de-arena",
+      "nombre": "Caja de Arena",
+      "color_disco": "#c2a36b",
+      "resumen": "Simulador de partículas en el navegador: arena, agua, fuego, pólvora, ácido, plantas y lava que reaccionan entre sí.",
+      "descripcion": [
+        "Cada material sigue reglas locales: el fuego prende la madera, la lava evapora el agua y el ácido disuelve la arena.",
+        "Pincel de tres grosores, pausa, escenas de ejemplo y atajos de teclado para elegir material."
+      ],
+      "papel": "Proyecto personal: diseño y desarrollo.",
+      "tecnologias": [
+        "HTML5 Canvas",
+        "JavaScript"
+      ],
+      "capturas": [
+        {
+          "src": "img/capturas/caja-de-arena-1.webp",
+          "ancho": 1100,
+          "alto": 687,
+          "alt": "Caja de Arena con una escena de ejemplo de arena, agua y otros materiales."
+        }
+      ]
     },
     {
       "slug": "aerium",

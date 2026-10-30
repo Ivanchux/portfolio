@@ -178,7 +178,7 @@ a.disquete:hover, a.disquete:focus-visible { transform: translateY(-16px); }
 /* El disquete del sistema: asoma detrás de la caja, sin llamar la atención */
 .disquete--sistema {
   --color-disco: #555a60;
-  position: absolute; right: 4px; bottom: 30px; z-index: 1; width: 60px;
+  position: absolute; right: -18px; bottom: 6px; z-index: 3; width: 56px;
   transform: rotate(16deg); opacity: 0.92;
 }
 .disquete--sistema .disquete__etiqueta { font-size: 0.6rem; }
