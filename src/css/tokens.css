@@ -71,8 +71,9 @@
   --pantalla-fondo: #061019; --pantalla-texto: #d6ecff; --pantalla-tenue: #7f9db6; --pantalla-acento: #7fd4ff;
 }
 
+/* Modo oscuro: lo elige el sistema (sin JavaScript) o el botón de la cabecera, que pone data-tema */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-tema]) {
     --cielo-alto: #061a26;
     --cielo-medio: #0b2c3a;
     --horizonte: #0f3a47;
@@ -99,3 +100,31 @@
     --madera-oscura: #5b3e22;
   }
 }
+:root[data-tema="oscuro"] {
+    --cielo-alto: #061a26;
+    --cielo-medio: #0b2c3a;
+    --horizonte: #0f3a47;
+    --agua: #1d6f7a;
+    --burbuja-borde: #2a8ea3;
+    --ola: #7fdcea;
+    --colina-1: #0f4a4a;
+    --colina-2: #061a26;
+    --cristal: rgba(10, 34, 46, 0.78);
+    --cristal-borde: rgba(150, 220, 240, 0.28);
+    --cristal-sombra: 0 10px 30px rgba(0, 0, 0, 0.4);
+    --tinta: #e8f6fb;
+    --tinta-suave: #a9c7d3;
+    --acento: #7fdcea;
+    --boton-1: #3fc7b5;
+    --boton-2: #17a08f;
+    --boton-texto: #04201c;
+    --foco: #ffffff;
+    --foco-halo: #04121a;
+    --plastico: #cfc6b0;
+    --plastico-luz: #e2dac6;
+    --plastico-sombra: #8f8469;
+    --madera: #8a6440;
+    --madera-oscura: #5b3e22;
+  }
+:root[data-tema="claro"] { color-scheme: light; }
+:root[data-tema="oscuro"] { color-scheme: dark; }
