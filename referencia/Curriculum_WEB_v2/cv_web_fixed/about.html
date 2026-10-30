@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="green">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Perfil técnico de Iván Brihuega Crespo: stack, formación ASIR, proyectos y filosofía de trabajo.">
+<meta property="og:title" content="IVANCHUX — About">
+<meta property="og:description" content="Perfil técnico de Iván Brihuega Crespo: stack, formación ASIR, proyectos y filosofía de trabajo.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ivandev.dev">
+<meta name="theme-color" content="#00ff41">
+<title>IVANCHUX — About</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #00ff41; --green-dim: #00cc33; --amber: #ffb000;
+    --bg: #020a04; --bg2: #040f06; --scanline: rgba(0,0,0,0.35);
+    --font-mono: 'Share Tech Mono', monospace;
+    --font-display: 'VT323', monospace;
+    --font-title: 'Orbitron', sans-serif;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body { background:var(--bg); color:var(--green); font-family:var(--font-mono); overflow-x:hidden; cursor:none; }
+  .cursor { width:18px; height:18px; border:1.5px solid var(--green); border-radius:50%; position:fixed; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); mix-blend-mode:screen; }
+  .cursor-dot { width:4px; height:4px; background:var(--green); border-radius:50%; position:fixed; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); }
+  body::before { content:''; position:fixed; inset:0; background:repeating-linear-gradient(0deg,transparent,transparent 2px,var(--scanline) 2px,var(--scanline) 4px); pointer-events:none; z-index:1000; opacity:0.35; }
+  body::after { content:''; position:fixed; inset:0; background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,0.50) 100%); pointer-events:none; z-index:999; }
+
+  nav { position:fixed; top:0; left:0; right:0; z-index:500; background:rgba(2,10,4,0.93); border-bottom:1px solid var(--border); padding:0 2.5rem; display:flex; align-items:center; justify-content:space-between; height:54px; backdrop-filter:blur(6px); }
+  .nav-logo { font-family:var(--font-title); font-size:13px; font-weight:900; letter-spacing:4px; color:var(--green); text-shadow:0 0 12px var(--green); text-decoration:none; }
+  .nav-logo em { color:var(--amber); font-style:normal; }
+  .nav-links { display:flex; gap:2rem; }
+  .nav-links a { font-size:10px; letter-spacing:2px; color:var(--text-dim); text-decoration:none; text-transform:uppercase; transition:all 0.2s; position:relative; }
+  .nav-links a::after { content:''; position:absolute; bottom:-4px; left:0; right:0; height:1px; background:var(--green); transform:scaleX(0); transition:transform 0.2s; transform-origin:left; }
+  .nav-links a:hover,.nav-links a.active { color:var(--green); }
+  .nav-links a:hover::after,.nav-links a.active::after { transform:scaleX(1); }
+  .nav-status { font-size:9px; letter-spacing:2px; color:var(--text-dim); display:flex; align-items:center; gap:6px; }
+  .status-dot { width:5px; height:5px; background:var(--green); border-radius:50%; box-shadow:0 0 6px var(--green); animation:blink 1.4s infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.1} }
+
+  /* PAGE HEADER */
+  .page-header {
+    padding: 140px 7vw 80px;
+    position: relative; overflow: hidden;
+    border-bottom: 1px solid var(--border-dim);
+  }
+  .page-header-grid {
+    position: absolute; inset: 0;
+    background-image: linear-gradient(var(--surface) 1px, transparent 1px), linear-gradient(90deg, var(--surface) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+  .page-crumb { font-size:10px; letter-spacing:3px; color:var(--text-ghost); margin-bottom:1rem; }
+  .page-crumb a { color:var(--text-ghost); text-decoration:none; }
+  .page-crumb a:hover { color:var(--green); }
+  .page-title { font-family:var(--font-display); font-size:clamp(60px,10vw,110px); color:var(--green); text-shadow:0 0 20px var(--text-ghost); letter-spacing:4px; line-height:0.9; }
+  .page-sub { font-size:12px; letter-spacing:3px; color:var(--text-dim); margin-top:1.2rem; }
+
+  /* SECTIONS */
+  section { padding:80px 7vw; }
+  section.alt { background:var(--bg2); }
+
+  .section-label { font-size:9px; letter-spacing:4px; color:var(--text-ghost); text-transform:uppercase; margin-bottom:2.5rem; display:flex; align-items:center; gap:1rem; }
+  .section-label::after { content:''; flex:1; height:1px; background:linear-gradient(to right,var(--border),transparent); }
+
+  /* IDENTITY */
+  .id-grid { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:start; }
+
+  .terminal-window { border:1px solid var(--text-ghost); }
+  .t-bar { background:var(--border-dim); border-bottom:1px solid var(--border); padding:8px 14px; display:flex; align-items:center; gap:8px; font-size:9px; letter-spacing:2px; color:var(--text-dim); }
+  .tdot { width:8px; height:8px; border-radius:50%; }
+  .tdot.r { background:#ff5f57; } .tdot.y { background:#febc2e; } .tdot.g { background:#28c840; }
+  .t-body { padding:1.5rem; font-size:12px; line-height:2; }
+  .tl { margin-bottom:2px; }
+  .tp { color:var(--amber); }
+  .tc { color:var(--green); }
+  .to { color: var(--text-mid); padding-left:1rem; }
+  .tcomment { color: var(--text-dim); }
+  .tcursor { display:inline-block; width:8px; height:13px; background:var(--green); animation:blink 1s infinite; vertical-align:middle; margin-left:2px; }
+
+  .bio-block h3 { font-family:var(--font-title); font-size:14px; font-weight:700; letter-spacing:3px; color:var(--green); margin-bottom:1.2rem; }
+  .bio-block p { font-size:12px; color:var(--text-dim); line-height:1.9; margin-bottom:1rem; }
+  .bio-block p strong { color:var(--green); }
+  .bio-block p em { color:var(--amber); font-style:normal; }
+
+  /* SKILLS */
+  .skills-grid { display:grid; grid-template-columns:1fr 1fr; gap:3rem; }
+  .skill-group h4 { font-size:10px; letter-spacing:3px; color:var(--amber); text-transform:uppercase; margin-bottom:1.5rem; padding-bottom:0.5rem; border-bottom:1px solid rgba(255,176,0,0.2); }
+  .skill-item { margin-bottom:1.2rem; }
+  .skill-header { display:flex; justify-content:space-between; margin-bottom:5px; }
+  .skill-name { font-size:11px; letter-spacing:1px; color:var(--text); }
+  .skill-pct { font-size:10px; color:var(--text-dim); }
+  .skill-bar-wrap { height:2px; background:var(--border-dim); }
+  .skill-bar { height:100%; background:var(--green); box-shadow:0 0 6px var(--green); animation:barFill 1.5s ease forwards; transform-origin:left; }
+  .skill-bar.amber { background:var(--amber); box-shadow:0 0 6px var(--amber); }
+  @keyframes barFill { from{width:0} }
+
+  /* INTERESTS */
+  .interests-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(200px,1fr)); gap:1px; border:1px solid var(--border-dim); }
+  .interest-card { background:var(--bg); padding:1.8rem 1.5rem; border:1px solid var(--border-dim); transition:background 0.3s; position:relative; overflow:hidden; }
+  .interest-card::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:var(--green); transform:scaleX(0); transform-origin:left; transition:transform 0.35s; }
+  .interest-card:hover { background:var(--surface); }
+  .interest-card:hover::before { transform:scaleX(1); }
+  .int-icon { font-size:10px; letter-spacing:2px; color:var(--amber); margin-bottom:0.8rem; }
+  .int-title { font-family:var(--font-title); font-size:12px; font-weight:700; letter-spacing:2px; color:var(--green); margin-bottom:0.5rem; }
+  .int-desc { font-size:11px; color:var(--text-dim); line-height:1.7; }
+
+  /* FORMATION */
+  .formation-list { display:flex; flex-direction:column; gap:0; border:1px solid var(--border-dim); }
+  .formation-item { padding:2rem; border-bottom:1px solid var(--border-dim); display:grid; grid-template-columns:120px 1fr; gap:2rem; transition:background 0.2s; }
+  .formation-item:last-child { border-bottom:none; }
+  .formation-item:hover { background:var(--surface); }
+  .form-date { font-size:11px; color:var(--text-ghost); letter-spacing:1px; padding-top:3px; }
+  .form-title { font-family:var(--font-title); font-size:13px; font-weight:700; letter-spacing:2px; color:var(--green); margin-bottom:0.4rem; }
+  .form-inst { font-size:11px; color:var(--amber); letter-spacing:1px; margin-bottom:0.5rem; }
+  .form-desc { font-size:11px; color:var(--text-dim); line-height:1.7; }
+
+  /* PHILO */
+  .philo-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:2rem; }
+  .philo-card { padding:2rem; border:1px solid var(--border-dim); position:relative; overflow:hidden; }
+  .philo-num { font-family:var(--font-display); font-size:48px; color:var(--border-dim); position:absolute; top:0.5rem; right:1rem; line-height:1; }
+  .philo-title { font-family:var(--font-title); font-size:12px; font-weight:700; letter-spacing:2px; color:var(--amber); margin-bottom:0.8rem; }
+  .philo-text { font-size:11px; color:var(--text-dim); line-height:1.8; }
+
+  footer { border-top:1px solid var(--border-dim); padding:2.5rem 7vw; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem; }
+  .footer-logo { font-family:var(--font-display); font-size:26px; color: var(--text-ghost); letter-spacing:4px; }
+  .footer-copy { font-size:9px; color: var(--text-ghost); letter-spacing:2px; }
+  .footer-sig { font-size:9px; color: var(--text-ghost); }
+
+  .reveal { opacity:0; transform:translateY(22px); transition:opacity 0.65s,transform 0.65s; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+
+  @media(max-width:768px){
+    nav{padding:0 1.2rem} .nav-links{gap:1rem} .nav-links a{font-size:9px;letter-spacing:1px} .nav-status{display:none}
+    .id-grid,.skills-grid { grid-template-columns:1fr; gap:2rem; }
+    .philo-grid { grid-template-columns:1fr; }
+    .formation-item { grid-template-columns:1fr; gap:0.5rem; }
+    .interests-grid { grid-template-columns:1fr 1fr; }
+  }
+
+  
+
+
+  /* ═══════════════════════════════════════════════════════════
+     IVANCHUX — UNIFIED THEME SYSTEM  v2.0
+     Themes: green (default) | cyan | amber
+     All text/border/bg colours use CSS vars — no hardcoded rgba
+  ═══════════════════════════════════════════════════════════ */
+
+  /* ── GREEN (default) ── */
+  :root {
+    --p:          #00ff41;
+    --p-dim:      #00cc33;
+    --p-dark:     #003b10;
+    --amber:      #ffb000;
+    --amber-alt:  #ff6a00;
+    --bg:         #020a04;
+    --bg2:        #040f06;
+
+    /* Semantic tokens */
+    --text:       rgba(0,255,65,0.85);   /* body text  — readable */
+    --text-mid:   var(--text);   /* secondary  */
+    --text-dim:   var(--text-dim);   /* captions   */
+    --text-ghost: var(--text-ghost);   /* labels     */
+    --border:     var(--border);
+    --border-dim: var(--border-dim);
+    --surface:    var(--surface);
+    --glow:       var(--border);
+    --glow-text:  var(--text-dim);
+    --scanline:   rgba(0,0,0,0.35);
+
+    /* Compat aliases */
+    --green:      var(--p);
+    --green-dim:  var(--p-dim);
+    --green-dark: var(--p-dark);
+    --green-glow: var(--glow);
+    --c-primary:  var(--p);
+  }
+
+  /* ── CYAN ── */
+  [data-theme="cyan"] {
+    --p:          #00e5ff;
+    --p-dim:      #00b8d4;
+    --p-dark:     #003640;
+    --amber:      #ffb000;
+    --amber-alt:  #ff9500;
+    --bg:         #020810;
+    --bg2:        #040c14;
+
+    --text:       rgba(0,229,255,0.88);
+    --text-mid:   rgba(0,229,255,0.72);
+    --text-dim:   rgba(0,229,255,0.52);
+    --text-ghost: rgba(0,229,255,0.38);
+    --border:     rgba(0,229,255,0.28);
+    --border-dim: rgba(0,229,255,0.12);
+    --surface:    rgba(0,229,255,0.04);
+    --glow:       rgba(0,229,255,0.18);
+    --glow-text:  rgba(0,229,255,0.40);
+    --scanline:   rgba(0,0,20,0.35);
+
+    --green:      var(--p);
+    --green-dim:  var(--p-dim);
+    --green-dark: var(--p-dark);
+    --green-glow: var(--glow);
+    --c-primary:  var(--p);
+  }
+
+  /* ── AMBER ── */
+  [data-theme="amber"] {
+    --p:          #ffb000;
+    --p-dim:      #cc8c00;
+    --p-dark:     #3b2800;
+    --amber:      #ff6a00;
+    --amber-alt:  #ff4400;
+    --bg:         #0a0600;
+    --bg2:        #100900;
+
+    --text:       rgba(255,176,0,0.88);
+    --text-mid:   rgba(255,176,0,0.72);
+    --text-dim:   rgba(255,176,0,0.52);
+    --text-ghost: rgba(255,176,0,0.38);
+    --border:     rgba(255,176,0,0.28);
+    --border-dim: rgba(255,176,0,0.12);
+    --surface:    rgba(255,176,0,0.04);
+    --glow:       rgba(255,176,0,0.18);
+    --glow-text:  rgba(255,176,0,0.40);
+    --scanline:   rgba(20,8,0,0.35);
+
+    --green:      var(--p);
+    --green-dim:  var(--p-dim);
+    --green-dark: var(--p-dark);
+    --green-glow: var(--glow);
+    --c-primary:  var(--p);
+  }
+
+  /* scanline adapts to theme */
+  body::before {
+    background: repeating-linear-gradient(
+      0deg,transparent,transparent 2px,var(--scanline) 2px,var(--scanline) 4px
+    );
+  }
+
+  /* THEME PICKER */
+  .theme-picker { display:flex; align-items:center; gap:6px; margin-left:1rem; }
+  .theme-swatch {
+    width:14px; height:14px; border-radius:50%;
+    border:1.5px solid transparent; cursor:none;
+    transition:transform 0.15s, border-color 0.15s;
+  }
+  .theme-swatch:hover { transform:scale(1.3); }
+  .theme-swatch.active { border-color:rgba(255,255,255,0.6); transform:scale(1.25); }
+  .theme-swatch[data-pick="green"] { background:#00ff41; box-shadow:0 0 6px var(--text); }
+  .theme-swatch[data-pick="cyan"]  { background:#00e5ff; box-shadow:0 0 6px rgba(0,229,255,0.7); }
+  .theme-swatch[data-pick="amber"] { background:#ffb000; box-shadow:0 0 6px rgba(255,176,0,0.7); }
+  .theme-label { font-size:9px; letter-spacing:2px; color:var(--text-ghost); text-transform:uppercase; }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">IVAN<em>CHUX</em></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="about.html" class="active">About</a>
+    <a href="projects.html">Projects</a>
+    <a href="lab.html">Lab</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="nav-status"><div class="status-dot"></div>ONLINE — MAD</div>
+  <div class="theme-picker">
+    <span class="theme-label">TEMA</span>
+    <div class="theme-swatch" data-pick="green" title="Verde"></div>
+    <div class="theme-swatch" data-pick="cyan"  title="Cian"></div>
+    <div class="theme-swatch" data-pick="amber" title="Ámbar"></div>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-grid"></div>
+  <div class="page-crumb"><a href="index.html">HOME</a> / ABOUT</div>
+  <h1 class="page-title">ABOUT</h1>
+  <p class="page-sub">[ROOT@IVANCHUX:~]$ cat /etc/identity</p>
+</div>
+
+<!-- IDENTITY -->
+<section>
+  <div class="section-label">// 01 · Identidad</div>
+  <div class="id-grid">
+    <div class="terminal-window reveal">
+      <div class="t-bar">
+        <div class="tdot r"></div><div class="tdot y"></div><div class="tdot g"></div>
+        <span>identity.sh — bash</span>
+      </div>
+      <div class="t-body">
+        <div class="tl"><span class="tp">root@ivanchux</span><span class="tc"> $ id</span></div>
+        <div class="tl to">uid=1000(ivan) gid=1000(developers)</div>
+        <div class="tl to">groups: sysadmin, webdev, creators</div>
+        <br>
+        <div class="tl"><span class="tp">root@ivanchux</span><span class="tc"> $ cat /etc/hostname</span></div>
+        <div class="tl to">IVANCHUX · ivandev.dev</div>
+        <br>
+        <div class="tl"><span class="tp">root@ivanchux</span><span class="tc"> $ uname -a</span></div>
+        <div class="tl to">Madrid ES — CDM FP — ASIR 2024</div>
+        <br>
+        <div class="tl"><span class="tp">root@ivanchux</span><span class="tc"> $ env | grep HANDLE</span></div>
+        <div class="tl to">HANDLE=IvanchuxX (gaming)</div>
+        <div class="tl to">GITHUB=Ivanchux</div>
+        <div class="tl to">WEB=ivandev.dev</div>
+        <br>
+        <div class="tl"><span class="tp">root@ivanchux</span><span class="tc"> $ uptime</span></div>
+        <div class="tl to">Building since 2024 — still compiling</div>
+        <br>
+        <div class="tl tcomment"># Iván Brihuega Crespo</div>
+        <div class="tl"><span class="tp">root@ivanchux</span><span class="tc"> $ </span><span class="tcursor"></span></div>
+      </div>
+    </div>
+
+    <div class="bio-block reveal">
+      <h3>EL PERFIL</h3>
+      <p>
+        Soy <strong>Iván</strong>, estudiante de primer año de <em>ASIR en Madrid</em> (CDM FP, bajo el profe Raúl Rodríguez). Mi perfil técnico va bastante más allá del temario estándar — llevo tiempo construyendo cosas en la web y en sistemas antes de que esto fuese clase.
+      </p>
+      <p>
+        Me muevo igual de cómodo entre una <strong>terminal de Linux</strong> y un editor de código. Si hay que montar un servidor, configurar redes, o diseñar una interfaz con estética de CRT de los años 90, todo me encaja.
+      </p>
+      <p>
+        Tengo una obsesión documentada con la <em>estética retrofuturista</em>: terminales verdes sobre negro, scanlines, tipografías monoespaciadas, Winamp, Y2K. No es solo diseño — es una filosofía de trabajo que combina nostalgia técnica con código moderno.
+      </p>
+      <p>
+        Genero música con <strong>Suno AI</strong> (con presencia temprana en TikTok), exploro worldbuilding generativo, y tengo proyectos que van desde simuladores en Bash hasta juegos en Godot. <em>Learning by building — siempre.</em>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="alt">
+  <div class="section-label">// 02 · Stack técnico</div>
+  <div class="skills-grid">
+    <div class="skill-group reveal">
+      <h4>Front-End & Web</h4>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">HTML / CSS / JavaScript</span><span class="skill-pct">88%</span></div>
+        <div class="skill-bar-wrap"><div class="skill-bar" style="width:88%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">PHP / MySQL</span><span class="skill-pct">65%</span></div>
+        <div class="skill-bar-wrap"><div class="skill-bar" style="width:65%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">Canvas API / SVG</span><span class="skill-pct">72%</span></div>
+        <div class="skill-bar-wrap"><div class="skill-bar" style="width:72%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">Web Audio API</span><span class="skill-pct">60%</span></div>
+        <div class="skill-bar-wrap"><div class="skill-bar" style="width:60%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">PWA / Service Workers</span><span class="skill-pct">55%</span></div>
+        <div class="skill-bar-wrap"><div class="skill-bar" style="width:55%"></div></div>
+      </div>
+    </div>
+
+    <div class="skill-group reveal">
+      <h4>Sistemas & Redes</h4>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">Linux / Bash Scripting</span><span class="skill-pct">75%</span></div>
+        <div class="skill-bar-wrap"><div class="skill-bar amber" style="width:75%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">Redes TCP/IP · Subnetting</span><span class="skill-pct">70%</span></div>
+        <div class="skill-bar-wrap"><div class="skill-bar amber" style="width:70%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">Windows Server / AD DS</span><span class="skill-pct">55%</span></div>
+        <div class="skill-bar-wrap"><div class="skill-bar amber" style="width:55%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">Cisco Packet Tracer</span><span class="skill-pct">60%</span></div>
+        <div class="skill-bar-wrap"><div class="skill-bar amber" style="width:60%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">GDScript / Godot Engine</span><span class="skill-pct">40%</span></div>
+        <div class="skill-bar-wrap"><div class="skill-bar amber" style="width:40%"></div></div>
+      </div>
+    </div>
+
+    <div class="skill-group reveal">
+      <h4>Herramientas & DevOps</h4>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">Git / GitHub</span><span class="skill-pct">75%</span></div>
+        <div class="skill-bar-wrap"><div class="skill-bar" style="width:75%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">VS Code / XAMPP</span><span class="skill-pct">85%</span></div>
+        <div class="skill-bar-wrap"><div class="skill-bar" style="width:85%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">Cloudflare Workers</span><span class="skill-pct">60%</span></div>
+        <div class="skill-bar-wrap"><div class="skill-bar" style="width:60%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">GitHub Pages / Vercel</span><span class="skill-pct">80%</span></div>
+        <div class="skill-bar-wrap"><div class="skill-bar" style="width:80%"></div></div>
+      </div>
+    </div>
+
+    <div class="skill-group reveal">
+      <h4>Librerías & APIs</h4>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">Leaflet.js</span><span class="skill-pct">65%</span></div>
+        <div class="skill-bar-wrap"><div class="skill-bar amber" style="width:65%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">Three.js</span><span class="skill-pct">50%</span></div>
+        <div class="skill-bar-wrap"><div class="skill-bar amber" style="width:50%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">D3.js</span><span class="skill-pct">55%</span></div>
+        <div class="skill-bar-wrap"><div class="skill-bar amber" style="width:55%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">Groq API / Llama</span><span class="skill-pct">60%</span></div>
+        <div class="skill-bar-wrap"><div class="skill-bar amber" style="width:60%"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTERESTS -->
+<section>
+  <div class="section-label">// 03 · Intereses</div>
+  <div class="interests-grid">
+    <div class="interest-card reveal">
+      <div class="int-icon">// 01</div>
+      <div class="int-title">RETRO AESTHETICS</div>
+      <div class="int-desc">CRT, scanlines, VT100, Y2K, Winamp-era. La tecnología de los 90 y principios de los 2000 como lenguaje visual y filosófico.</div>
+    </div>
+    <div class="interest-card reveal">
+      <div class="int-icon">// 02</div>
+      <div class="int-title">MÚSICA GENERATIVA</div>
+      <div class="int-desc">Creación de música con Suno AI. Synthwave, ambientes retrofuturistas y experimentación sonora. Presencia temprana en TikTok.</div>
+    </div>
+    <div class="interest-card reveal">
+      <div class="int-icon">// 03</div>
+      <div class="int-title">GAME DEV</div>
+      <div class="int-desc">Desarrollo de juegos en Godot 4: roguelikes, match-3, exploración espacial. El juego como vector de aprendizaje técnico.</div>
+    </div>
+    <div class="interest-card reveal">
+      <div class="int-icon">// 04</div>
+      <div class="int-title">WORLDBUILDING</div>
+      <div class="int-desc">Construcción de universos ficticios, diseño de TCG (Threshold), y narrativas de ciencia ficción con IA generativa.</div>
+    </div>
+    <div class="interest-card reveal">
+      <div class="int-icon">// 05</div>
+      <div class="int-title">REDES & SISTEMAS</div>
+      <div class="int-desc">TCP/IP, routing, Packet Tracer, Linux server config. La infraestructura como arte — entender lo que está debajo.</div>
+    </div>
+    <div class="interest-card reveal">
+      <div class="int-icon">// 06</div>
+      <div class="int-title">COLECCIONISMO & TCG</div>
+      <div class="int-desc">Pokémon TCG, MTG y el mercado de coleccionables. Exploración de software de inventario con live price tracking.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMATION -->
+<section class="alt">
+  <div class="section-label">// 04 · Formación</div>
+  <div class="formation-list reveal">
+    <div class="formation-item">
+      <div class="form-date">2024 → 2025</div>
+      <div>
+        <div class="form-title">ASIR — Administración de Sistemas Informáticos en Red</div>
+        <div class="form-inst">CDM FP · Madrid, España</div>
+        <div class="form-desc">Ciclo de Formación Profesional Superior. Redes, sistemas Linux y Windows Server, virtualización, bases de datos, seguridad. Tutorizado por el profesor Raúl Rodríguez. Perfil académico destacado con proyectos muy por encima del nivel estándar del curso.</div>
+      </div>
+    </div>
+    <div class="formation-item">
+      <div class="form-date">2024 →</div>
+      <div>
+        <div class="form-title">Autodidacta — Web Dev & Systems</div>
+        <div class="form-inst">GitHub · VS Code · Documentación oficial</div>
+        <div class="form-desc">Full-stack web development, scripting avanzado en Bash, Cloudflare Workers, APIs externas (Groq, CoinGecko, USGS), Godot Engine, deployment pipelines. El grueso del aprendizaje práctico viene de construir proyectos reales.</div>
+      </div>
+    </div>
+    <div class="formation-item">
+      <div class="form-date">Tools</div>
+      <div>
+        <div class="form-title">Entorno de desarrollo</div>
+        <div class="form-inst">Windows · VS Code · XAMPP · GitHub</div>
+        <div class="form-desc">Desarrollo principal en Windows con VS Code. Uso de XAMPP para proyectos PHP/MySQL en local. Git y GitHub para control de versiones, deployment en GitHub Pages, Vercel, Cloudflare Pages e InfinityFree. Testing de responsive en mobile.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section>
+  <div class="section-label">// 05 · Filosofía de trabajo</div>
+  <div class="philo-grid">
+    <div class="philo-card reveal">
+      <div class="philo-num">01</div>
+      <div class="philo-title">LEARNING BY BUILDING</div>
+      <div class="philo-text">No hay manera mejor de aprender que construir algo real. Cada proyecto nace de una necesidad concreta o una curiosidad, no de seguir un tutorial.</div>
+    </div>
+    <div class="philo-card reveal">
+      <div class="philo-num">02</div>
+      <div class="philo-title">ESTÉTICA COMO FUNCIÓN</div>
+      <div class="philo-text">El diseño no es decoración. La estética CRT no es solo visual — es una decisión sobre el tipo de experiencia que quiero que tenga el usuario.</div>
+    </div>
+    <div class="philo-card reveal">
+      <div class="philo-num">03</div>
+      <div class="philo-title">SIN FRAMEWORKS FORZADOS</div>
+      <div class="philo-text">Si se puede hacer en vanilla JS o Bash, se hace así. Entender las herramientas base antes de añadir capas de abstracción.</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">IVANCHUX</div>
+  <div class="footer-copy">© 2025 · IVÁN BRIHUEGA CRESPO</div>
+  <div class="footer-sig">BUILT WITH &lt;/&gt; + ☕</div>
+</footer>
+
+<script>
+  const cursor=document.getElementById('cursor'),dot=document.getElementById('cursorDot');
+  let mx=0,my=0,cx=0,cy=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
+  function animC(){cx+=(mx-cx)*0.15;cy+=(my-cy)*0.15;cursor.style.left=cx+'px';cursor.style.top=cy+'px';requestAnimationFrame(animC);}
+  animC();
+  const obs=new IntersectionObserver(entries=>{ entries.forEach((e,i)=>{ if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*80);obs.unobserve(e.target);}});},{threshold:0.08});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+  const bars=document.querySelectorAll('.skill-bar');
+  const barObs=new IntersectionObserver(entries=>{ entries.forEach(e=>{ if(e.isIntersecting){e.target.style.animationPlayState='running';barObs.unobserve(e.target);}});},{threshold:0.5});
+  bars.forEach(b=>{b.style.animationPlayState='paused';barObs.observe(b);});
+</script>
+
+<script>
+(function() {
+  // Apply saved theme immediately
+  var saved = localStorage.getItem('ivanchux_theme') || 'green';
+  document.documentElement.setAttribute('data-theme', saved);
+
+  // Wait for DOM
+  document.addEventListener('DOMContentLoaded', function() {
+    var swatches = document.querySelectorAll('.theme-swatch');
+    swatches.forEach(function(sw) {
+      if (sw.getAttribute('data-pick') === saved) sw.classList.add('active');
+      sw.addEventListener('click', function() {
+        var pick = this.getAttribute('data-pick');
+        document.documentElement.setAttribute('data-theme', pick);
+        localStorage.setItem('ivanchux_theme', pick);
+        swatches.forEach(function(s) { s.classList.remove('active'); });
+        this.classList.add('active');
+      }.bind(sw));
+    });
+  });
+})();
+</script>
+
+<script src="bg.js"></script>
+</body>
+</html>

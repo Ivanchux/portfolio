@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="green">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Contacta con Iván Brihuega Crespo. Disponible para colaboraciones web, sysadmin y proyectos creativos.">
+<meta property="og:title" content="IVANCHUX — Contact">
+<meta property="og:description" content="Contacta con Iván Brihuega Crespo. Disponible para colaboraciones web, sysadmin y proyectos creativos.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ivandev.dev">
+<meta name="theme-color" content="#00ff41">
+<title>IVANCHUX — Contact</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green:#00ff41;--green-dim:#00cc33;--amber:#ffb000;
+    --bg:#020a04;--bg2:#040f06;--scanline:rgba(0,0,0,0.35);
+    --font-mono:'Share Tech Mono',monospace;--font-display:'VT323',monospace;--font-title:'Orbitron',sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--green);font-family:var(--font-mono);overflow-x:hidden;cursor:none;}
+  .cursor{width:18px;height:18px;border:1.5px solid var(--green);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:screen;}
+  .cursor-dot{width:4px;height:4px;background:var(--green);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);}
+  body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,var(--scanline) 2px,var(--scanline) 4px);pointer-events:none;z-index:1000;opacity:0.35;}
+  body::after{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,0.50) 100%);pointer-events:none;z-index:999;}
+  nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(2,10,4,0.93);border-bottom:1px solid var(--border);padding:0 2.5rem;display:flex;align-items:center;justify-content:space-between;height:54px;backdrop-filter:blur(6px);}
+  .nav-logo{font-family:var(--font-title);font-size:13px;font-weight:900;letter-spacing:4px;color:var(--green);text-shadow:0 0 12px var(--green);text-decoration:none;}
+  .nav-logo em{color:var(--amber);font-style:normal;}
+  .nav-links{display:flex;gap:2rem;}
+  .nav-links a{font-size:10px;letter-spacing:2px;color:var(--text-dim);text-decoration:none;text-transform:uppercase;transition:all 0.2s;position:relative;}
+  .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:1px;background:var(--green);transform:scaleX(0);transition:transform 0.2s;transform-origin:left;}
+  .nav-links a:hover,.nav-links a.active{color:var(--green);}
+  .nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1);}
+  .nav-status{font-size:9px;letter-spacing:2px;color:var(--text-dim);display:flex;align-items:center;gap:6px;}
+  .status-dot{width:5px;height:5px;background:var(--green);border-radius:50%;box-shadow:0 0 6px var(--green);animation:blink 1.4s infinite;}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:0.1}}
+
+  .page-header{padding:140px 7vw 80px;position:relative;overflow:hidden;border-bottom:1px solid var(--border-dim);}
+  .page-header-grid{position:absolute;inset:0;background-image:linear-gradient(var(--surface) 1px,transparent 1px),linear-gradient(90deg,var(--surface) 1px,transparent 1px);background-size:50px 50px;}
+  .page-crumb{font-size:10px;letter-spacing:3px;color:var(--text-ghost);margin-bottom:1rem;}
+  .page-crumb a{color:var(--text-ghost);text-decoration:none;}
+  .page-crumb a:hover{color:var(--green);}
+  .page-title{font-family:var(--font-display);font-size:clamp(60px,10vw,110px);color:var(--green);text-shadow:0 0 20px var(--text-ghost);letter-spacing:4px;line-height:0.9;}
+  .page-sub{font-size:12px;letter-spacing:3px;color:var(--text-dim);margin-top:1.2rem;}
+
+  section{padding:80px 7vw;}
+  section.alt{background:var(--bg2);}
+
+  .section-label{font-size:9px;letter-spacing:4px;color:var(--text-ghost);text-transform:uppercase;margin-bottom:2.5rem;display:flex;align-items:center;gap:1rem;}
+  .section-label::after{content:'';flex:1;height:1px;background:linear-gradient(to right,var(--border),transparent);}
+
+  /* MAIN CONTACT */
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
+
+  .contact-intro h2{font-family:var(--font-title);font-size:20px;font-weight:700;letter-spacing:3px;color:var(--green);margin-bottom:1.5rem;}
+  .contact-intro p{font-size:12px;color:var(--text-dim);line-height:1.9;margin-bottom:1rem;}
+  .contact-intro p strong{color:var(--green);}
+  .contact-intro p em{color:var(--amber);font-style:normal;}
+
+  .availability{margin-top:2rem;padding:1.5rem;border:1px solid var(--border);}
+  .av-title{font-size:9px;letter-spacing:3px;color:var(--text-ghost);text-transform:uppercase;margin-bottom:1rem;}
+  .av-item{display:flex;align-items:center;gap:1rem;padding:8px 0;border-bottom:1px solid var(--border-dim);font-size:11px;}
+  .av-item:last-child{border-bottom:none;}
+  .av-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+  .av-dot.yes{background:var(--green);box-shadow:0 0 6px var(--green);}
+  .av-dot.maybe{background:var(--amber);box-shadow:0 0 6px var(--amber);}
+  .av-label{color:var(--text-mid);}
+
+  /* CONTACT LINKS */
+  .contact-links{display:flex;flex-direction:column;gap:1px;border:1px solid var(--border-dim);}
+  .contact-item{
+    display:flex;align-items:center;gap:1.5rem;
+    padding:1.5rem 2rem;
+    border-bottom:1px solid var(--border-dim);
+    text-decoration:none;
+    transition:all 0.2s;
+    position:relative;overflow:hidden;
+  }
+  .contact-item:last-child{border-bottom:none;}
+  .contact-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--green);transform:scaleY(0);transition:transform 0.2s;transform-origin:bottom;}
+  .contact-item:hover{background:var(--surface);padding-left:2.5rem;}
+  .contact-item:hover::before{transform:scaleY(1);}
+  .ci-icon{font-size:14px;color:var(--amber);width:20px;text-align:center;flex-shrink:0;}
+  .ci-platform{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--amber);min-width:90px;}
+  .ci-val{font-size:12px;color:var(--text-mid);flex:1;transition:color 0.2s;}
+  .contact-item:hover .ci-val{color:var(--green);}
+  .ci-arrow{color:var(--border);font-size:14px;transition:all 0.2s;}
+  .contact-item:hover .ci-arrow{color:var(--green);transform:translateX(4px);}
+
+  /* TERMINAL */
+  .terminal-window{border:1px solid var(--border);margin-bottom:2rem;}
+  .t-bar{background:var(--border-dim);border-bottom:1px solid var(--border-dim);padding:8px 14px;display:flex;align-items:center;gap:8px;font-size:9px;letter-spacing:2px;color:var(--text-dim);}
+  .tdot{width:8px;height:8px;border-radius:50%;}
+  .tdot.r{background:#ff5f57;}.tdot.y{background:#febc2e;}.tdot.g{background:#28c840;}
+  .t-body{padding:1.5rem;font-size:12px;line-height:2;}
+  .tl{margin-bottom:2px;}
+  .tp{color:var(--amber);}
+  .tc{color:var(--green);}
+  .to{color: var(--text-mid);padding-left:1rem;}
+  .tcomment{color: var(--text-dim);}
+  .tcursor{display:inline-block;width:8px;height:13px;background:var(--green);animation:blink 1s infinite;vertical-align:middle;margin-left:2px;}
+
+  /* OPEN TO */
+  .open-to-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1px;border:1px solid var(--border-dim);}
+  .open-card{background:var(--bg);padding:2rem;border:1px solid var(--border-dim);transition:background 0.3s;position:relative;overflow:hidden;}
+  .open-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--green);transform:scaleX(0);transform-origin:left;transition:transform 0.35s;}
+  .open-card:hover{background:var(--surface);}
+  .open-card:hover::before{transform:scaleX(1);}
+  .open-icon{font-size:10px;letter-spacing:2px;color:var(--amber);margin-bottom:0.8rem;}
+  .open-title{font-family:var(--font-title);font-size:12px;font-weight:700;letter-spacing:2px;color:var(--green);margin-bottom:0.5rem;}
+  .open-desc{font-size:11px;color:var(--text-dim);line-height:1.7;}
+
+  footer{border-top:1px solid var(--border-dim);padding:2.5rem 7vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+  .footer-logo{font-family:var(--font-display);font-size:26px;color: var(--text-ghost);letter-spacing:4px;}
+  .footer-copy{font-size:9px;color: var(--text-ghost);letter-spacing:2px;}
+  .footer-sig{font-size:9px;color: var(--text-ghost);}
+
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity 0.65s,transform 0.65s;}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+
+  @media(max-width:768px){
+    nav{padding:0 1.2rem;} .nav-links{gap:1rem;} .nav-links a{font-size:9px;letter-spacing:1px;} .nav-status{display:none;}
+    .contact-grid{grid-template-columns:1fr;gap:2.5rem;}
+    .open-to-grid{grid-template-columns:1fr 1fr;}
+  }
+
+  
+
+
+  /* ═══════════════════════════════════════════════════════════
+     IVANCHUX — UNIFIED THEME SYSTEM  v2.0
+     Themes: green (default) | cyan | amber
+     All text/border/bg colours use CSS vars — no hardcoded rgba
+  ═══════════════════════════════════════════════════════════ */
+
+  /* ── GREEN (default) ── */
+  :root {
+    --p:          #00ff41;
+    --p-dim:      #00cc33;
+    --p-dark:     #003b10;
+    --amber:      #ffb000;
+    --amber-alt:  #ff6a00;
+    --bg:         #020a04;
+    --bg2:        #040f06;
+
+    /* Semantic tokens */
+    --text:       rgba(0,255,65,0.85);   /* body text  — readable */
+    --text-mid:   var(--text);   /* secondary  */
+    --text-dim:   var(--text-dim);   /* captions   */
+    --text-ghost: var(--text-ghost);   /* labels     */
+    --border:     var(--border);
+    --border-dim: var(--border-dim);
+    --surface:    var(--surface);
+    --glow:       var(--border);
+    --glow-text:  var(--text-dim);
+    --scanline:   rgba(0,0,0,0.35);
+
+    /* Compat aliases */
+    --green:      var(--p);
+    --green-dim:  var(--p-dim);
+    --green-dark: var(--p-dark);
+    --green-glow: var(--glow);
+    --c-primary:  var(--p);
+  }
+
+  /* ── CYAN ── */
+  [data-theme="cyan"] {
+    --p:          #00e5ff;
+    --p-dim:      #00b8d4;
+    --p-dark:     #003640;
+    --amber:      #ffb000;
+    --amber-alt:  #ff9500;
+    --bg:         #020810;
+    --bg2:        #040c14;
+
+    --text:       rgba(0,229,255,0.88);
+    --text-mid:   rgba(0,229,255,0.72);
+    --text-dim:   rgba(0,229,255,0.52);
+    --text-ghost: rgba(0,229,255,0.38);
+    --border:     rgba(0,229,255,0.28);
+    --border-dim: rgba(0,229,255,0.12);
+    --surface:    rgba(0,229,255,0.04);
+    --glow:       rgba(0,229,255,0.18);
+    --glow-text:  rgba(0,229,255,0.40);
+    --scanline:   rgba(0,0,20,0.35);
+
+    --green:      var(--p);
+    --green-dim:  var(--p-dim);
+    --green-dark: var(--p-dark);
+    --green-glow: var(--glow);
+    --c-primary:  var(--p);
+  }
+
+  /* ── AMBER ── */
+  [data-theme="amber"] {
+    --p:          #ffb000;
+    --p-dim:      #cc8c00;
+    --p-dark:     #3b2800;
+    --amber:      #ff6a00;
+    --amber-alt:  #ff4400;
+    --bg:         #0a0600;
+    --bg2:        #100900;
+
+    --text:       rgba(255,176,0,0.88);
+    --text-mid:   rgba(255,176,0,0.72);
+    --text-dim:   rgba(255,176,0,0.52);
+    --text-ghost: rgba(255,176,0,0.38);
+    --border:     rgba(255,176,0,0.28);
+    --border-dim: rgba(255,176,0,0.12);
+    --surface:    rgba(255,176,0,0.04);
+    --glow:       rgba(255,176,0,0.18);
+    --glow-text:  rgba(255,176,0,0.40);
+    --scanline:   rgba(20,8,0,0.35);
+
+    --green:      var(--p);
+    --green-dim:  var(--p-dim);
+    --green-dark: var(--p-dark);
+    --green-glow: var(--glow);
+    --c-primary:  var(--p);
+  }
+
+  /* scanline adapts to theme */
+  body::before {
+    background: repeating-linear-gradient(
+      0deg,transparent,transparent 2px,var(--scanline) 2px,var(--scanline) 4px
+    );
+  }
+
+  /* THEME PICKER */
+  .theme-picker { display:flex; align-items:center; gap:6px; margin-left:1rem; }
+  .theme-swatch {
+    width:14px; height:14px; border-radius:50%;
+    border:1.5px solid transparent; cursor:none;
+    transition:transform 0.15s, border-color 0.15s;
+  }
+  .theme-swatch:hover { transform:scale(1.3); }
+  .theme-swatch.active { border-color:rgba(255,255,255,0.6); transform:scale(1.25); }
+  .theme-swatch[data-pick="green"] { background:#00ff41; box-shadow:0 0 6px var(--text); }
+  .theme-swatch[data-pick="cyan"]  { background:#00e5ff; box-shadow:0 0 6px rgba(0,229,255,0.7); }
+  .theme-swatch[data-pick="amber"] { background:#ffb000; box-shadow:0 0 6px rgba(255,176,0,0.7); }
+  .theme-label { font-size:9px; letter-spacing:2px; color:var(--text-ghost); text-transform:uppercase; }
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">IVAN<em>CHUX</em></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="projects.html">Projects</a>
+    <a href="lab.html">Lab</a>
+    <a href="contact.html" class="active">Contact</a>
+  </div>
+  <div class="nav-status"><div class="status-dot"></div>ONLINE — MAD</div>
+  <div class="theme-picker">
+    <span class="theme-label">TEMA</span>
+    <div class="theme-swatch" data-pick="green" title="Verde"></div>
+    <div class="theme-swatch" data-pick="cyan"  title="Cian"></div>
+    <div class="theme-swatch" data-pick="amber" title="Ámbar"></div>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-grid"></div>
+  <div class="page-crumb"><a href="index.html">HOME</a> / CONTACT</div>
+  <h1 class="page-title">CONTACT</h1>
+  <p class="page-sub">[ROOT@IVANCHUX:~]$ ping ivanchux.dev --wait-for-reply</p>
+</div>
+
+<!-- MAIN CONTACT -->
+<section>
+  <div class="section-label">// 01 · Conectar</div>
+  <div class="contact-grid">
+    <div class="contact-intro reveal">
+      <h2>HABLEMOS</h2>
+      <p>
+        Estudiante de <strong>ASIR en Madrid</strong>, actualmente construyendo proyectos en la intersección entre sistemas, web y diseño retrofuturista.
+      </p>
+      <p>
+        Si tienes un proyecto, una idea, una oportunidad, o simplemente quieres hablar de <em>tecnología retro</em>, Godot, TCGs, o Linux — adelante.
+      </p>
+      <p>
+        La manera más directa es <strong>GitHub</strong> o mi web personal. Respondo a todo lo que tenga sentido técnico o creativo.
+      </p>
+
+      <div class="availability">
+        <div class="av-title">// Disponibilidad</div>
+        <div class="av-item">
+          <div class="av-dot yes"></div>
+          <div class="av-label">Colaboraciones en proyectos web</div>
+        </div>
+        <div class="av-item">
+          <div class="av-dot yes"></div>
+          <div class="av-label">Contribuciones open source</div>
+        </div>
+        <div class="av-item">
+          <div class="av-dot maybe"></div>
+          <div class="av-label">Freelance (web · sysadmin)</div>
+        </div>
+        <div class="av-item">
+          <div class="av-dot yes"></div>
+          <div class="av-label">Proyectos creativos y experimentales</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <div class="terminal-window">
+        <div class="t-bar">
+          <div class="tdot r"></div><div class="tdot y"></div><div class="tdot g"></div>
+          <span>ping.sh — bash</span>
+        </div>
+        <div class="t-body">
+          <div class="tl"><span class="tp">root@ivanchux</span><span class="tc"> $ ping github.com/Ivanchux</span></div>
+          <div class="tl to">PING github.com/Ivanchux: 56 bytes</div>
+          <div class="tl to">64 bytes: icmp_seq=1 time=12ms ✓</div>
+          <br>
+          <div class="tl"><span class="tp">root@ivanchux</span><span class="tc"> $ ping ivandev.dev</span></div>
+          <div class="tl to">PING ivandev.dev: 56 bytes</div>
+          <div class="tl to">64 bytes: icmp_seq=1 time=8ms ✓</div>
+          <br>
+          <div class="tl"><span class="tp">root@ivanchux</span><span class="tc"> $ ping ivanchux.github.io</span></div>
+          <div class="tl to">PING ivanchux.github.io: 56 bytes</div>
+          <div class="tl to">64 bytes: icmp_seq=1 time=6ms ✓</div>
+          <br>
+          <div class="tl tcomment"># All nodes ONLINE</div>
+          <div class="tl"><span class="tp">root@ivanchux</span><span class="tc"> $ </span><span class="tcursor"></span></div>
+        </div>
+      </div>
+
+      <div class="contact-links">
+        <a href="https://github.com/Ivanchux" target="_blank" class="contact-item">
+          <span class="ci-icon">&lt;/&gt;</span>
+          <span class="ci-platform">GitHub</span>
+          <span class="ci-val">github.com/Ivanchux</span>
+          <span class="ci-arrow">→</span>
+        </a>
+        <a href="https://ivanchux.github.io" target="_blank" class="contact-item">
+          <span class="ci-icon">◈</span>
+          <span class="ci-platform">RETROTERM</span>
+          <span class="ci-val">ivanchux.github.io</span>
+          <span class="ci-arrow">→</span>
+        </a>
+        <a href="https://ivandev.dev" target="_blank" class="contact-item">
+          <span class="ci-icon">⬡</span>
+          <span class="ci-platform">Portfolio</span>
+          <span class="ci-val">ivandev.dev</span>
+          <span class="ci-arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OPEN TO -->
+<section class="alt">
+  <div class="section-label">// 02 · Abierto a...</div>
+  <div class="open-to-grid">
+    <div class="open-card reveal">
+      <div class="open-icon">// WEB</div>
+      <div class="open-title">PROYECTOS WEB</div>
+      <div class="open-desc">HTML/CSS/JS, PHP/MySQL, landing pages, portfolios, herramientas online. Sin frameworks obligatorios — vanilla primero.</div>
+    </div>
+    <div class="open-card reveal">
+      <div class="open-icon">// SYS</div>
+      <div class="open-title">SYSADMIN</div>
+      <div class="open-desc">Configuración Linux, scripting Bash, automatización, administración de servidores y redes. Prácticas o freelance.</div>
+    </div>
+    <div class="open-card reveal">
+      <div class="open-icon">// GAME</div>
+      <div class="open-title">GAME DEV</div>
+      <div class="open-desc">Godot 4, GDScript, diseño de mecánicas y narrativa. Especialmente si el proyecto tiene identidad visual fuerte.</div>
+    </div>
+    <div class="open-card reveal">
+      <div class="open-icon">// CREATIVE</div>
+      <div class="open-title">PROYECTOS CREATIVOS</div>
+      <div class="open-desc">Estética retro/retrofuturista, herramientas para creadores, visualizaciones, dashboards, experiencias interactivas.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL NOTE -->
+<section style="padding:60px 7vw; text-align:center;">
+  <div class="terminal-window reveal" style="max-width:600px;margin:0 auto;">
+    <div class="t-bar">
+      <div class="tdot r"></div><div class="tdot y"></div><div class="tdot g"></div>
+      <span>message.sh</span>
+    </div>
+    <div class="t-body" style="text-align:left;">
+      <div class="tl tcomment"># Si llegas hasta aquí, ya sabes de qué va esto.</div>
+      <div class="tl tcomment"># Construyo cosas porque no sé no construirlas.</div>
+      <br>
+      <div class="tl"><span class="tp">root@ivanchux</span><span class="tc"> $ echo $PHILOSOPHY</span></div>
+      <div class="tl to">"Learning by building. Always."</div>
+      <br>
+      <div class="tl"><span class="tp">root@ivanchux</span><span class="tc"> $ </span><span class="tcursor"></span></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">IVANCHUX</div>
+  <div class="footer-copy">© 2025 · IVÁN BRIHUEGA CRESPO</div>
+  <div class="footer-sig">BUILT WITH &lt;/&gt; + ☕</div>
+</footer>
+
+<script>
+  const cursor=document.getElementById('cursor'),dot=document.getElementById('cursorDot');
+  let mx=0,my=0,cx=0,cy=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
+  function animC(){cx+=(mx-cx)*0.15;cy+=(my-cy)*0.15;cursor.style.left=cx+'px';cursor.style.top=cy+'px';requestAnimationFrame(animC);}
+  animC();
+  const obs=new IntersectionObserver(entries=>{entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*80);obs.unobserve(e.target);}});},{threshold:0.08});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+
+<script>
+(function() {
+  // Apply saved theme immediately
+  var saved = localStorage.getItem('ivanchux_theme') || 'green';
+  document.documentElement.setAttribute('data-theme', saved);
+
+  // Wait for DOM
+  document.addEventListener('DOMContentLoaded', function() {
+    var swatches = document.querySelectorAll('.theme-swatch');
+    swatches.forEach(function(sw) {
+      if (sw.getAttribute('data-pick') === saved) sw.classList.add('active');
+      sw.addEventListener('click', function() {
+        var pick = this.getAttribute('data-pick');
+        document.documentElement.setAttribute('data-theme', pick);
+        localStorage.setItem('ivanchux_theme', pick);
+        swatches.forEach(function(s) { s.classList.remove('active'); });
+        this.classList.add('active');
+      }.bind(sw));
+    });
+  });
+})();
+</script>
+
+<script src="bg.js"></script>
+</body>
+</html>

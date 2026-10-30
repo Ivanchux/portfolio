@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="green">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Experimentos en curso, WIPs y proyectos creativos de Iván Brihuega Crespo.">
+<meta property="og:title" content="IVANCHUX — Lab">
+<meta property="og:description" content="Experimentos en curso, WIPs y proyectos creativos de Iván Brihuega Crespo.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ivandev.dev">
+<meta name="theme-color" content="#00ff41">
+<title>IVANCHUX — Lab</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green:#00ff41;--green-dim:#00cc33;--amber:#ffb000;
+    --bg:#020a04;--bg2:#040f06;--scanline:rgba(0,0,0,0.35);
+    --font-mono:'Share Tech Mono',monospace;--font-display:'VT323',monospace;--font-title:'Orbitron',sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--green);font-family:var(--font-mono);overflow-x:hidden;cursor:none;}
+  .cursor{width:18px;height:18px;border:1.5px solid var(--green);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:screen;}
+  .cursor-dot{width:4px;height:4px;background:var(--green);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);}
+  body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,var(--scanline) 2px,var(--scanline) 4px);pointer-events:none;z-index:1000;opacity:0.35;}
+  body::after{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,0.50) 100%);pointer-events:none;z-index:999;}
+  nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(2,10,4,0.93);border-bottom:1px solid var(--border);padding:0 2.5rem;display:flex;align-items:center;justify-content:space-between;height:54px;backdrop-filter:blur(6px);}
+  .nav-logo{font-family:var(--font-title);font-size:13px;font-weight:900;letter-spacing:4px;color:var(--green);text-shadow:0 0 12px var(--green);text-decoration:none;}
+  .nav-logo em{color:var(--amber);font-style:normal;}
+  .nav-links{display:flex;gap:2rem;}
+  .nav-links a{font-size:10px;letter-spacing:2px;color:var(--text-dim);text-decoration:none;text-transform:uppercase;transition:all 0.2s;position:relative;}
+  .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:1px;background:var(--green);transform:scaleX(0);transition:transform 0.2s;transform-origin:left;}
+  .nav-links a:hover,.nav-links a.active{color:var(--green);}
+  .nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1);}
+  .nav-status{font-size:9px;letter-spacing:2px;color:var(--text-dim);display:flex;align-items:center;gap:6px;}
+  .status-dot{width:5px;height:5px;background:var(--green);border-radius:50%;box-shadow:0 0 6px var(--green);animation:blink 1.4s infinite;}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:0.1}}
+
+  .page-header{padding:140px 7vw 60px;position:relative;overflow:hidden;border-bottom:1px solid rgba(255,176,0,0.1);}
+  .page-header-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,176,0,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,176,0,0.02) 1px,transparent 1px);background-size:50px 50px;}
+  .page-crumb{font-size:10px;letter-spacing:3px;color:var(--text-ghost);margin-bottom:1rem;}
+  .page-crumb a{color:var(--text-ghost);text-decoration:none;}
+  .page-crumb a:hover{color:var(--green);}
+  .page-title{font-family:var(--font-display);font-size:clamp(60px,10vw,110px);color:var(--amber);text-shadow:0 0 20px rgba(255,176,0,0.3);letter-spacing:4px;line-height:0.9;}
+  .page-sub{font-size:12px;letter-spacing:3px;color:rgba(255,176,0,0.4);margin-top:1.2rem;}
+  .lab-warning{display:inline-block;margin-top:1.5rem;font-size:10px;letter-spacing:2px;padding:6px 16px;border:1px solid rgba(255,176,0,0.3);color:rgba(255,176,0,0.6);}
+
+  .section-wrap{padding:80px 7vw;}
+  .section-wrap.alt{background:var(--bg2);}
+  .section-label{font-size:9px;letter-spacing:4px;color:var(--text-ghost);text-transform:uppercase;margin-bottom:2.5rem;display:flex;align-items:center;gap:1rem;}
+  .section-label::after{content:'';flex:1;height:1px;background:linear-gradient(to right,var(--border),transparent);}
+  .section-label.amber{color:rgba(255,176,0,0.4);}
+  .section-label.amber::after{background:linear-gradient(to right,rgba(255,176,0,0.15),transparent);}
+
+  /* LAB CARD */
+  .lab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1px;border:1px solid rgba(255,176,0,0.1);}
+  .lab-card{background:var(--bg);padding:2.5rem;border:1px solid rgba(255,176,0,0.06);position:relative;overflow:hidden;transition:background 0.3s;}
+  .lab-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--amber);transform:scaleX(0);transform-origin:left;transition:transform 0.35s;}
+  .lab-card:hover{background:rgba(255,176,0,0.015);}
+  .lab-card:hover::before{transform:scaleX(1);}
+  .lab-num{font-family:var(--font-display);font-size:52px;color:rgba(255,176,0,0.05);position:absolute;top:0.8rem;right:1rem;line-height:1;pointer-events:none;}
+  .lab-status{font-size:9px;letter-spacing:2px;padding:3px 10px;border:1px solid;text-transform:uppercase;display:inline-block;margin-bottom:1rem;}
+  .lab-status.active{color:#00ff41;border-color:var(--text-ghost);}
+  .lab-status.wip{color:var(--amber);border-color:rgba(255,176,0,0.3);}
+  .lab-status.paused{color:var(--text-ghost);border-color:var(--border);}
+  .lab-status.concept{color:rgba(255,176,0,0.5);border-color:rgba(255,176,0,0.2);}
+  .lab-name{font-family:var(--font-title);font-size:15px;font-weight:700;letter-spacing:2px;color:var(--green);margin-bottom:0.75rem;}
+  .lab-desc{font-size:11px;color:var(--text-dim);line-height:1.8;margin-bottom:1.2rem;}
+  .lab-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:1.2rem;}
+  .lab-tag{font-size:9px;letter-spacing:1px;padding:2px 7px;border:1px solid rgba(255,176,0,0.15);color:rgba(255,176,0,0.35);}
+  .lab-last{font-size:10px;color:var(--text-ghost);letter-spacing:1px;}
+  .lab-last::before{content:'// ';color:rgba(255,176,0,0.3);}
+  .lab-link{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color 0.2s;display:inline-block;margin-top:0.8rem;}
+  .lab-link::before{content:'→ ';}
+  .lab-link:hover{color:var(--green);}
+
+  /* ROADMAP */
+  .roadmap{display:flex;flex-direction:column;gap:0;border:1px solid var(--border-dim);}
+  .road-item{display:grid;grid-template-columns:160px 1fr;border-bottom:1px solid var(--border-dim);transition:background 0.2s;}
+  .road-item:last-child{border-bottom:none;}
+  .road-item:hover{background:var(--surface);}
+  .road-time{padding:2rem;border-right:1px solid var(--border-dim);display:flex;flex-direction:column;justify-content:flex-start;gap:6px;}
+  .road-period{font-size:10px;letter-spacing:2px;color:rgba(255,176,0,0.5);}
+  .road-dot{width:8px;height:8px;border-radius:50%;border:1px solid var(--green);background:transparent;}
+  .road-dot.done{background:var(--green);}
+  .road-dot.active{background:var(--amber);border-color:var(--amber);box-shadow:0 0 8px var(--amber);}
+  .road-content{padding:2rem;}
+  .road-title{font-family:var(--font-title);font-size:13px;font-weight:700;letter-spacing:2px;color:var(--green);margin-bottom:0.5rem;}
+  .road-desc{font-size:11px;color:var(--text-dim);line-height:1.7;}
+
+  /* EXPERIMENTS */
+  .exp-list{display:flex;flex-direction:column;gap:1px;border:1px solid var(--border-dim);}
+  .exp-item{padding:1.5rem 2rem;border-bottom:1px solid var(--border-dim);display:flex;align-items:center;gap:2rem;transition:background 0.2s;}
+  .exp-item:last-child{border-bottom:none;}
+  .exp-item:hover{background:var(--surface);}
+  .exp-name{font-family:var(--font-title);font-size:12px;font-weight:700;letter-spacing:2px;color:var(--green);min-width:200px;}
+  .exp-type{font-size:9px;letter-spacing:2px;color:var(--amber);min-width:120px;text-transform:uppercase;}
+  .exp-desc{font-size:11px;color:var(--text-dim);flex:1;line-height:1.6;}
+  .exp-status{font-size:9px;letter-spacing:1px;padding:2px 8px;border:1px solid;white-space:nowrap;}
+  .exp-status.s-active{color:#00ff41;border-color:var(--text-ghost);}
+  .exp-status.s-paused{color:var(--text-ghost);border-color:var(--border);}
+  .exp-status.s-concept{color:rgba(255,176,0,0.5);border-color:rgba(255,176,0,0.2);}
+
+  footer{border-top:1px solid var(--border-dim);padding:2.5rem 7vw;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+  .footer-logo{font-family:var(--font-display);font-size:26px;color: var(--text-ghost);letter-spacing:4px;}
+  .footer-copy{font-size:9px;color: var(--text-ghost);letter-spacing:2px;}
+  .footer-sig{font-size:9px;color: var(--text-ghost);}
+
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity 0.65s,transform 0.65s;}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+
+  @media(max-width:768px){
+    nav{padding:0 1.2rem;} .nav-links{gap:1rem;} .nav-links a{font-size:9px;letter-spacing:1px;} .nav-status{display:none;}
+    .road-item{grid-template-columns:1fr;} .road-time{border-right:none;border-bottom:1px solid var(--border-dim);padding:1rem 2rem;}
+    .exp-item{flex-direction:column;align-items:flex-start;gap:0.5rem;}
+  }
+
+  
+
+
+  /* ═══════════════════════════════════════════════════════════
+     IVANCHUX — UNIFIED THEME SYSTEM  v2.0
+     Themes: green (default) | cyan | amber
+     All text/border/bg colours use CSS vars — no hardcoded rgba
+  ═══════════════════════════════════════════════════════════ */
+
+  /* ── GREEN (default) ── */
+  :root {
+    --p:          #00ff41;
+    --p-dim:      #00cc33;
+    --p-dark:     #003b10;
+    --amber:      #ffb000;
+    --amber-alt:  #ff6a00;
+    --bg:         #020a04;
+    --bg2:        #040f06;
+
+    /* Semantic tokens */
+    --text:       rgba(0,255,65,0.85);   /* body text  — readable */
+    --text-mid:   var(--text);   /* secondary  */
+    --text-dim:   var(--text-dim);   /* captions   */
+    --text-ghost: var(--text-ghost);   /* labels     */
+    --border:     var(--border);
+    --border-dim: var(--border-dim);
+    --surface:    var(--surface);
+    --glow:       var(--border);
+    --glow-text:  var(--text-dim);
+    --scanline:   rgba(0,0,0,0.35);
+
+    /* Compat aliases */
+    --green:      var(--p);
+    --green-dim:  var(--p-dim);
+    --green-dark: var(--p-dark);
+    --green-glow: var(--glow);
+    --c-primary:  var(--p);
+  }
+
+  /* ── CYAN ── */
+  [data-theme="cyan"] {
+    --p:          #00e5ff;
+    --p-dim:      #00b8d4;
+    --p-dark:     #003640;
+    --amber:      #ffb000;
+    --amber-alt:  #ff9500;
+    --bg:         #020810;
+    --bg2:        #040c14;
+
+    --text:       rgba(0,229,255,0.88);
+    --text-mid:   rgba(0,229,255,0.72);
+    --text-dim:   rgba(0,229,255,0.52);
+    --text-ghost: rgba(0,229,255,0.38);
+    --border:     rgba(0,229,255,0.28);
+    --border-dim: rgba(0,229,255,0.12);
+    --surface:    rgba(0,229,255,0.04);
+    --glow:       rgba(0,229,255,0.18);
+    --glow-text:  rgba(0,229,255,0.40);
+    --scanline:   rgba(0,0,20,0.35);
+
+    --green:      var(--p);
+    --green-dim:  var(--p-dim);
+    --green-dark: var(--p-dark);
+    --green-glow: var(--glow);
+    --c-primary:  var(--p);
+  }
+
+  /* ── AMBER ── */
+  [data-theme="amber"] {
+    --p:          #ffb000;
+    --p-dim:      #cc8c00;
+    --p-dark:     #3b2800;
+    --amber:      #ff6a00;
+    --amber-alt:  #ff4400;
+    --bg:         #0a0600;
+    --bg2:        #100900;
+
+    --text:       rgba(255,176,0,0.88);
+    --text-mid:   rgba(255,176,0,0.72);
+    --text-dim:   rgba(255,176,0,0.52);
+    --text-ghost: rgba(255,176,0,0.38);
+    --border:     rgba(255,176,0,0.28);
+    --border-dim: rgba(255,176,0,0.12);
+    --surface:    rgba(255,176,0,0.04);
+    --glow:       rgba(255,176,0,0.18);
+    --glow-text:  rgba(255,176,0,0.40);
+    --scanline:   rgba(20,8,0,0.35);
+
+    --green:      var(--p);
+    --green-dim:  var(--p-dim);
+    --green-dark: var(--p-dark);
+    --green-glow: var(--glow);
+    --c-primary:  var(--p);
+  }
+
+  /* scanline adapts to theme */
+  body::before {
+    background: repeating-linear-gradient(
+      0deg,transparent,transparent 2px,var(--scanline) 2px,var(--scanline) 4px
+    );
+  }
+
+  /* THEME PICKER */
+  .theme-picker { display:flex; align-items:center; gap:6px; margin-left:1rem; }
+  .theme-swatch {
+    width:14px; height:14px; border-radius:50%;
+    border:1.5px solid transparent; cursor:none;
+    transition:transform 0.15s, border-color 0.15s;
+  }
+  .theme-swatch:hover { transform:scale(1.3); }
+  .theme-swatch.active { border-color:rgba(255,255,255,0.6); transform:scale(1.25); }
+  .theme-swatch[data-pick="green"] { background:#00ff41; box-shadow:0 0 6px var(--text); }
+  .theme-swatch[data-pick="cyan"]  { background:#00e5ff; box-shadow:0 0 6px rgba(0,229,255,0.7); }
+  .theme-swatch[data-pick="amber"] { background:#ffb000; box-shadow:0 0 6px rgba(255,176,0,0.7); }
+  .theme-label { font-size:9px; letter-spacing:2px; color:var(--text-ghost); text-transform:uppercase; }
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">IVAN<em>CHUX</em></a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="projects.html">Projects</a>
+    <a href="lab.html" class="active">Lab</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="nav-status"><div class="status-dot"></div>ONLINE — MAD</div>
+  <div class="theme-picker">
+    <span class="theme-label">TEMA</span>
+    <div class="theme-swatch" data-pick="green" title="Verde"></div>
+    <div class="theme-swatch" data-pick="cyan"  title="Cian"></div>
+    <div class="theme-swatch" data-pick="amber" title="Ámbar"></div>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="page-header-grid"></div>
+  <div class="page-crumb"><a href="index.html">HOME</a> / LAB</div>
+  <h1 class="page-title">LAB</h1>
+  <p class="page-sub">[ROOT@IVANCHUX:~]$ ls -la ./experiments/ --wip</p>
+  <div class="lab-warning">⚠ ZONA DE EXPERIMENTOS — TRABAJO EN PROGRESO</div>
+</div>
+
+<!-- ACTIVE EXPERIMENTS -->
+<div class="section-wrap">
+  <div class="section-label amber">// Proyectos activos en este momento</div>
+  <div class="lab-grid">
+
+    <div class="lab-card reveal">
+      <div class="lab-num">01</div>
+      <span class="lab-status active">● ACTIVO</span>
+      <div class="lab-name">WONDER</div>
+      <div class="lab-desc">Match-3 browser game en single-file HTML/CSS/JS. Grid 7×7 de glifos con estética CRT/amber terminal. Diseño de tiles SVG inspirado en Candy Crush y 7 Wonders. Sistema de combos y reconstrucción de maravillas antiguas con ASCII art.</div>
+      <div class="lab-tags"><span class="lab-tag">HTML/CSS/JS</span><span class="lab-tag">Canvas</span><span class="lab-tag">SVG</span><span class="lab-tag">Single-file</span></div>
+      <div class="lab-last">Fase actual: diseño visual de tiles SVG</div>
+    </div>
+
+    <div class="lab-card reveal">
+      <div class="lab-num">02</div>
+      <span class="lab-status active">● ACTIVO</span>
+      <div class="lab-name">SKINWARE / CARNE Y CÓDIGO</div>
+      <div class="lab-desc">Roguelike cyberpunk turn-based en Godot 4. GDD completo: tres personajes (Riven, Arden, Idris), espectro de humanidad, mapa FTL-inspired, compañeros y tres líneas temporales. Loop de combate implementado, empujado a GitHub.</div>
+      <div class="lab-tags"><span class="lab-tag">Godot 4</span><span class="lab-tag">GDScript</span><span class="lab-tag">Roguelike</span></div>
+      <div class="lab-last">Combat loop activo — expandiendo mecánicas</div>
+      <a href="https://github.com/Ivanchux/skinware" target="_blank" class="lab-link">Ver repo</a>
+    </div>
+
+    <div class="lab-card reveal">
+      <div class="lab-num">03</div>
+      <span class="lab-status active">● ACTIVO</span>
+      <div class="lab-name">RETROTERM.AI v2+</div>
+      <div class="lab-desc">Iteración continua sobre el hub principal. Adición de nuevo perfil (perfil.html), roadmap actualizado, subnet calculator mejorado, y ajustes de rendimiento PageSpeed. La identidad visual evoluciona pero mantiene el núcleo CRT.</div>
+      <div class="lab-tags"><span class="lab-tag">HTML/CSS/JS</span><span class="lab-tag">Cloudflare</span><span class="lab-tag">SEO</span></div>
+      <div class="lab-last">17 páginas — actualizaciones continuas</div>
+      <a href="https://ivanchux.github.io" target="_blank" class="lab-link">Ver live</a>
+    </div>
+
+    <div class="lab-card reveal" style="border-color:rgba(0,212,170,0.15);">
+      <div class="lab-num">04</div>
+      <span class="lab-status active" style="color:#00d4aa;border-color:rgba(0,212,170,0.3);">● ACTIVO</span>
+      <div class="lab-name" style="color:#00d4aa;">EDULAB</div>
+      <div class="lab-desc">Plataforma educativa al estilo Codepip para aprender tecnología jugando. Sistema de XP, rangos y progreso persistente. Módulos completados: SQLQuest (6 mini-juegos: fill-the-blank, matching, table builder, query order, debug), Signal Repair (CSS — Flexbox, Grid, posicionamiento, 13 misiones), SysAdmin (terminal interactiva, permisos Linux, Bash scripting). Estética dark/light moderna con IBM Plex Mono.</div>
+      <div class="lab-tags">
+        <span class="lab-tag" style="color:rgba(0,212,170,0.5);border-color:rgba(0,212,170,0.2);">HTML/CSS/JS</span>
+        <span class="lab-tag" style="color:rgba(0,212,170,0.5);border-color:rgba(0,212,170,0.2);">Gamification</span>
+        <span class="lab-tag" style="color:rgba(0,212,170,0.5);border-color:rgba(0,212,170,0.2);">localStorage</span>
+        <span class="lab-tag" style="color:rgba(0,212,170,0.5);border-color:rgba(0,212,170,0.2);">Codepip-inspired</span>
+      </div>
+      <div class="lab-last" style="color:rgba(0,212,170,0.35);">3 módulos activos — SQLQuest · Signal Repair · SysAdmin</div>
+    </div>
+
+    <div class="lab-card reveal">
+      <div class="lab-num">05</div>
+      <span class="lab-status wip">◌ WIP</span>
+      <div class="lab-name">SENTINEL</div>
+      <div class="lab-desc">Dashboard de inteligencia geopolítica global. Mapa 2D con Leaflet.js, globo 3D con Three.js, datos sísmicos USGS en tiempo real, feeds simulados de actividad naval/aérea/cyber, y datos de mercado via CoinGecko.</div>
+      <div class="lab-tags"><span class="lab-tag">Leaflet.js</span><span class="lab-tag">Three.js</span><span class="lab-tag">USGS API</span><span class="lab-tag">CoinGecko</span></div>
+      <div class="lab-last">Arco Bezier, globo 3D, panel cyber</div>
+    </div>
+
+    <div class="lab-card reveal">
+      <div class="lab-num">06</div>
+      <span class="lab-status wip">◌ WIP</span>
+      <div class="lab-name">CONFD / PROJECT DOSSIER</div>
+      <div class="lab-desc">Archivo estático de teorías conspirativas con estética amber/CRT. Mapa de conexiones D3.js force-directed, timeline global, archivo ordenable y 5 expedientes (Valiant Thor, Dulce Base, MK-Ultra, Operación Paperclip, Majestic-12) con timelines interactivos y lightbox de evidencias.</div>
+      <div class="lab-tags"><span class="lab-tag">D3.js</span><span class="lab-tag">Static Site</span><span class="lab-tag">LocalStorage</span></div>
+      <div class="lab-last">4 temas CSS + expedientes interactivos</div>
+    </div>
+
+    <div class="lab-card reveal">
+      <div class="lab-num">07</div>
+      <span class="lab-status paused">— PAUSADO</span>
+      <div class="lab-name">SILENT WORLDS (Godot)</div>
+      <div class="lab-desc">Juego de exploración espacial 3D en primera persona con Godot 4. Terreno procedural, jetpack, escena de vuelo espacial y HUD estilo CRT. Pausado temporalmente en favor de SKINWARE como ejercicio de menor complejidad.</div>
+      <div class="lab-tags"><span class="lab-tag">Godot 4</span><span class="lab-tag">3D</span><span class="lab-tag">Procedural</span></div>
+      <div class="lab-last">Previsto retorno después de SKINWARE</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CONCEPTS -->
+<div class="section-wrap alt">
+  <div class="section-label">// Conceptos y proyectos futuros</div>
+  <div class="lab-grid">
+
+    <div class="lab-card reveal">
+      <div class="lab-num">11</div>
+      <span class="lab-status concept">◇ CONCEPTO</span>
+      <div class="lab-name">THRESHOLD TCG</div>
+      <div class="lab-desc">Trading card game en estética synthwave/80s horror (Heavy Metal, El Víbora, Stranger Things). Ruleset completo: sistema Pulso (Adrenalina/Miedo), 20pts Cordura, cuatro fases de turno, 10 keywords. Templates HTML/CSS para clanes Threshold, Sombra, Criatura. Card builder con preview live planeado.</div>
+      <div class="lab-tags"><span class="lab-tag">HTML/CSS</span><span class="lab-tag">Game Design</span><span class="lab-tag">TCG</span></div>
+      <div class="lab-last">Ruleset + card templates completados</div>
+    </div>
+
+    <div class="lab-card reveal">
+      <div class="lab-num">11</div>
+      <span class="lab-status concept">◇ CONCEPTO</span>
+      <div class="lab-name">SOLACE</div>
+      <div class="lab-desc">Plataforma web gratuita de IA companion con dos personajes (Lyra y Kael). Stack: Groq/Cloudflare Workers + PHP/MySQL para memoria persistente. Desarrollo local via XAMPP planificado antes de buscar hosting.</div>
+      <div class="lab-tags"><span class="lab-tag">PHP/MySQL</span><span class="lab-tag">Groq API</span><span class="lab-tag">Cloudflare Workers</span></div>
+      <div class="lab-last">Arquitectura diseñada — pendiente dev</div>
+    </div>
+
+    <div class="lab-card reveal">
+      <div class="lab-num">11</div>
+      <span class="lab-status concept">◇ CONCEPTO</span>
+      <div class="lab-name">COLECCIONABLES TRACKER</div>
+      <div class="lab-desc">App de inventario de coleccionables con live price tracking via Cardmarket/TCGPlayer APIs. Target: Pokémon TCG y Magic: The Gathering. Identificado como el producto más viable en el espacio de collectibles software.</div>
+      <div class="lab-tags"><span class="lab-tag">Cardmarket API</span><span class="lab-tag">TCGPlayer API</span><span class="lab-tag">PHP/MySQL</span></div>
+      <div class="lab-last">Investigación de mercado completada</div>
+    </div>
+
+    <div class="lab-card reveal">
+      <div class="lab-num">11</div>
+      <span class="lab-status concept">◇ CONCEPTO</span>
+      <div class="lab-name">RASPBERRY PI VOICE ASSISTANT</div>
+      <div class="lab-desc">Asistente de voz personalizado en Raspberry Pi con workflow asistido por IA. Factibilidad confirmada — latencia y calidad de micrófono como principales obstáculos prácticos a resolver antes de comprometerse con el hardware.</div>
+      <div class="lab-tags"><span class="lab-tag">Raspberry Pi</span><span class="lab-tag">Python</span><span class="lab-tag">TTS/STT</span></div>
+      <div class="lab-last">Evaluación de viabilidad completada</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ROADMAP -->
+<div class="section-wrap">
+  <div class="section-label">// Roadmap personal</div>
+  <div class="roadmap">
+    <div class="road-item reveal">
+      <div class="road-time">
+        <div class="road-period">2024</div>
+        <div class="road-dot done"></div>
+      </div>
+      <div class="road-content">
+        <div class="road-title">INICIO — ASIR + PRIMEROS PROYECTOS</div>
+        <div class="road-desc">Inicio del ciclo ASIR en CDM FP. Primeros proyectos web: RETROTERM.AI, NEXUS (PHP), ASIR Study PWA. Configuración de Git por primera vez. Aprendizaje acelerado en systems + webdev.</div>
+      </div>
+    </div>
+    <div class="road-item reveal">
+      <div class="road-time">
+        <div class="road-period">2025 Q1-Q2</div>
+        <div class="road-dot active"></div>
+      </div>
+      <div class="road-content">
+        <div class="road-title">EXPANSIÓN — STACK Y COMPLEJIDAD</div>
+        <div class="road-desc">Integración de Cloudflare Workers + Groq para ARIA. Desarrollo de SENTINEL con Leaflet/Three.js. CONFD con D3.js. Inicio de SKINWARE en Godot 4. RetroAmp (Winamp-style). Wonder game. Portfolio multi-página actual.</div>
+      </div>
+    </div>
+    <div class="road-item reveal">
+      <div class="road-time">
+        <div class="road-period">2025 Q3-Q4</div>
+        <div class="road-dot"></div>
+      </div>
+      <div class="road-content">
+        <div class="road-title">CONSOLIDACIÓN — DEPLOY Y FREELANCE</div>
+        <div class="road-desc">Completar SKINWARE y Wonder. Lanzar Solace. Coleccionables tracker como primer producto. Estrategia freelance con tres niveles de pricing. Actualizar LinkedIn con portfolio técnico completo.</div>
+      </div>
+    </div>
+    <div class="road-item reveal">
+      <div class="road-time">
+        <div class="road-period">2026+</div>
+        <div class="road-dot"></div>
+      </div>
+      <div class="road-content">
+        <div class="road-title">POST-ASIR — PROFESIONAL</div>
+        <div class="road-desc">Graduación ASIR. Trabajo en IT (sysadmin o webdev). Continuar proyectos propios. Raspberry Pi voice assistant. Explorar mercado TCG software. Expandir ivandev.dev como marca profesional consolidada.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ALL EXPERIMENTS TABLE -->
+<div class="section-wrap alt">
+  <div class="section-label">// Índice de experimentos</div>
+  <div class="exp-list">
+    <div class="exp-item reveal" style="border-color:rgba(0,212,170,0.1);">
+      <div class="exp-name" style="color:#00d4aa;">EDULAB</div>
+      <div class="exp-type" style="color:#00d4aa;">Web App · Codepip</div>
+      <div class="exp-desc">Plataforma educativa gamificada. SQL, CSS, SysAdmin. XP persistente.</div>
+      <span class="exp-status s-active" style="color:#00d4aa;border-color:rgba(0,212,170,0.3);">ACTIVO</span>
+    </div>
+    <div class="exp-item reveal">
+      <div class="exp-name">WONDER</div>
+      <div class="exp-type">Game · Browser</div>
+      <div class="exp-desc">Match-3 con glifos en single-file. Diseño de SVG gems en progreso.</div>
+      <span class="exp-status s-active">ACTIVO</span>
+    </div>
+    <div class="exp-item reveal">
+      <div class="exp-name">SKINWARE</div>
+      <div class="exp-type">Game · Godot 4</div>
+      <div class="exp-desc">Roguelike cyberpunk. Combat loop implementado.</div>
+      <span class="exp-status s-active">ACTIVO</span>
+    </div>
+    <div class="exp-item reveal">
+      <div class="exp-name">SENTINEL</div>
+      <div class="exp-type">Dashboard · Leaflet/Three</div>
+      <div class="exp-desc">Inteligencia geopolítica global con datos reales.</div>
+      <span class="exp-status s-active">WIP</span>
+    </div>
+    <div class="exp-item reveal">
+      <div class="exp-name">CONFD</div>
+      <div class="exp-type">Static Site · D3.js</div>
+      <div class="exp-desc">Archivo de teorías. 5 expedientes con timelines y conexiones.</div>
+      <span class="exp-status s-active">WIP</span>
+    </div>
+    <div class="exp-item reveal">
+      <div class="exp-name">RETROAMP</div>
+      <div class="exp-type">Music Player · Vanilla JS</div>
+      <div class="exp-desc">Reproductor Winamp con skins y generative vinyl art.</div>
+      <span class="exp-status s-paused">PAUSADO</span>
+    </div>
+    <div class="exp-item reveal">
+      <div class="exp-name">SILENT WORLDS</div>
+      <div class="exp-type">Game · Godot 4 3D</div>
+      <div class="exp-desc">Exploración espacial procedural. Pausado en favor de SKINWARE.</div>
+      <span class="exp-status s-paused">PAUSADO</span>
+    </div>
+    <div class="exp-item reveal">
+      <div class="exp-name">THRESHOLD TCG</div>
+      <div class="exp-type">Card Game · HTML/CSS</div>
+      <div class="exp-desc">TCG synthwave/horror. Ruleset completo + templates listos.</div>
+      <span class="exp-status s-concept">CONCEPTO</span>
+    </div>
+    <div class="exp-item reveal">
+      <div class="exp-name">SOLACE</div>
+      <div class="exp-type">Web App · PHP/Groq</div>
+      <div class="exp-desc">AI companion platform. Diseño de arquitectura completo.</div>
+      <span class="exp-status s-concept">CONCEPTO</span>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">IVANCHUX</div>
+  <div class="footer-copy">© 2025 · IVÁN BRIHUEGA CRESPO</div>
+  <div class="footer-sig">BUILT WITH &lt;/&gt; + ☕</div>
+</footer>
+
+<script>
+  const cursor=document.getElementById('cursor'),dot=document.getElementById('cursorDot');
+  let mx=0,my=0,cx=0,cy=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
+  function animC(){cx+=(mx-cx)*0.15;cy+=(my-cy)*0.15;cursor.style.left=cx+'px';cursor.style.top=cy+'px';requestAnimationFrame(animC);}
+  animC();
+  const obs=new IntersectionObserver(entries=>{entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*80);obs.unobserve(e.target);}});},{threshold:0.08});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+
+<script>
+(function() {
+  // Apply saved theme immediately
+  var saved = localStorage.getItem('ivanchux_theme') || 'green';
+  document.documentElement.setAttribute('data-theme', saved);
+
+  // Wait for DOM
+  document.addEventListener('DOMContentLoaded', function() {
+    var swatches = document.querySelectorAll('.theme-swatch');
+    swatches.forEach(function(sw) {
+      if (sw.getAttribute('data-pick') === saved) sw.classList.add('active');
+      sw.addEventListener('click', function() {
+        var pick = this.getAttribute('data-pick');
+        document.documentElement.setAttribute('data-theme', pick);
+        localStorage.setItem('ivanchux_theme', pick);
+        swatches.forEach(function(s) { s.classList.remove('active'); });
+        this.classList.add('active');
+      }.bind(sw));
+    });
+  });
+})();
+</script>
+
+<script src="bg.js"></script>
+</body>
+</html>
