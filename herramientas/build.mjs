@@ -16,6 +16,7 @@ const config = await leerJSON("site.config.json");
 if (process.env.CORREO) config.correo = process.env.CORREO;
 const { proyectos } = await leerJSON("datos/proyectos.json");
 const { habilidades } = await leerJSON("datos/habilidades.json");
+const { _nota: _m, ...sobreMi } = await leerJSON("datos/sobre-mi.json");
 const { _nota: _t, ...osTextos } = await leerJSON("datos/os-textos.json");
 const { _nota: _s, ...osSistema } = await leerJSON("datos/os-sistema.json");
 const publicados = proyectos.filter((p) => p.publicar);
@@ -141,11 +142,17 @@ function blocInicio(raiz) {
   return `<h2>Qué sé hacer</h2><ul>${habilidades.slice(0, 4).map((h) => `<li>${esc(h.titulo)}</li>`).join("")}</ul><span class="bloc__mas">Ver con qué lo demuestro</span>`;
 }
 
+// Texto oscuro sobre colores claros y blanco sobre oscuros
+const textoSobre = (hex) => {
+  const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255).map((v) => (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4));
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b > 0.18 ? "#1b1b1b" : "#ffffff";
+};
+
 function listadoProyectos(raiz) {
   return publicados
     .map((p) => {
       const cap = p.capturas?.[0];
-      return `<li class="archivo cristal" style="--color-disco:${esc(p.color_disco || "#2a6fdb")}">
+      return `<li class="archivo cristal" style="--color-disco:${esc(p.color_disco || "#2a6fdb")};--texto-disco:${textoSobre(p.color_disco || "#2a6fdb")}">
         <div class="archivo__texto">
           <h2><a href="${raiz}proyectos/${p.slug}/">${esc(p.nombre)}</a></h2>
           ${confirmado(p.estado) ? `<p class="archivo__estado">${esc(p.estado)}</p>` : ""}
@@ -211,6 +218,46 @@ const paraDobleClic = (html) =>
     .replace(/href="((?!https?:|mailto:|#)[^"]*\/)"/g, 'href="$1index.html"')
     .replace(/("(?:ficha|contacto)":"[^"]*\/)"/g, '$1index.html"');
 
+function paginaSobreMi(raiz) {
+  const M = sobreMi;
+  const enlaces = (slugs = []) => enlacesProyectos(slugs, raiz);
+  return {
+    intro: M.intro.map((t) => `<p>${esc(t)}</p>`).join(""),
+    como: M.como_trabajo.map((x) => `<li class="habilidad cristal"><h3>${esc(x.titulo)}</h3><p>${esc(x.texto)}</p></li>`).join("\n"),
+    pila: M.pila
+      .map((x) => {
+        const e = enlaces(x.proyectos);
+        return `<li><span class="pila__nombre">${esc(x.nombre)}</span>${e ? `<ul class="etiquetas">${e}</ul>` : `<span class="pila__nota">${esc(x.nota || "")}</span>`}</li>`;
+      })
+      .join("\n"),
+    formacion: M.formacion
+      .map((x) => { const e = enlaces(x.proyectos); return `<li><h3>${esc(x.etapa)}</h3><p>${esc(x.texto)}</p>${e ? `<ul class="etiquetas">${e}</ul>` : ""}</li>`; })
+      .join("\n"),
+    clas_titulo: M.clasificado.titulo,
+    clas_texto: M.clasificado.texto,
+    clas_cierre: M.clasificado.cierre,
+    clas_lineas: Array.from({ length: M.clasificado.lineas }, (_, i) => `<span class="tachado" style="--largo:${[92, 78, 85, 60, 70][i % 5]}%"></span>`).join(""),
+    busco: M.busco,
+  };
+}
+
+// SEO: lo que necesita una dirección absoluta solo se genera con el dominio confirmado
+const DOMINIO = confirmado(config.dominio) ? `https://${config.dominio.replace(/^https?:\/\//, "").replace(/\/$/, "")}/` : null;
+function personaJSONLD() {
+  const p = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: config.nombre_publico,
+    alternateName: config.alias,
+    jobTitle: "Desarrollador web",
+    description: "Estudiante de 2.º de ASIR en Madrid y desarrollador web autodidacta.",
+    knowsAbout: ["HTML", "CSS", "JavaScript", "PHP", "MySQL", "Cloudflare Workers", "Linux", "Godot", "IA generativa"],
+    sameAs: [config.github, config.perfiles?.linkedin].filter(confirmado),
+  };
+  if (DOMINIO) p.url = DOMINIO;
+  return `<script type="application/ld+json">${JSON.stringify(p).replace(/</g, "\\u003c")}</script>`;
+}
+
 // ---------- Páginas ----------
 async function pagina(rutaSalida, fuente, ctxExtra = {}) {
   const profundidad = rutaSalida.split("/").length - 1;
@@ -229,6 +276,17 @@ async function pagina(rutaSalida, fuente, ctxExtra = {}) {
   };
   ctx.titulo = await render(meta.titulo, ctx);
   ctx.descripcion = await render(meta.descripcion, ctx);
+  const urlAbs = DOMINIO ? DOMINIO + rutaSalida.replace(/index\.html$/, "") : null;
+  ctx.seo = [
+    `<meta property="og:type" content="${meta.seccion === "inicio" ? "profile" : "website"}">`,
+    `<meta property="og:locale" content="es_ES">`,
+    `<meta property="og:site_name" content="${esc(config.nombre_publico)}">`,
+    `<meta property="og:title" content="${esc(ctx.titulo)}">`,
+    `<meta property="og:description" content="${esc(ctx.descripcion)}">`,
+    urlAbs && `<link rel="canonical" href="${urlAbs}">`,
+    urlAbs && `<meta property="og:url" content="${urlAbs}">`,
+    meta.seccion === "inicio" && personaJSONLD(),
+  ].filter(Boolean).join("\n");
   ctx.contenido = await render(cuerpo, ctx);
   let html = await render(await parcial("base"), ctx);
   const restos = html.match(/\{\{[^}]*\}\}/g);
@@ -261,11 +319,20 @@ generadas.push(await pagina("proyectos/index.html", "paginas/proyectos.html", { 
 generadas.push(await pagina("que-se-hacer/index.html", "paginas/que-se-hacer.html", { lista: listaHabilidades("../") }));
 generadas.push(await pagina("laboratorio/index.html", "paginas/laboratorio.html", { en_curso: laboratorio("../") }));
 generadas.push(await pagina("laboratorio/os/index.html", "paginas/os.html", { lista_os: listaOS("../../"), datos_os: datosOS("../../") }));
+generadas.push(await pagina("sobre-mi/index.html", "paginas/sobre-mi.html", paginaSobreMi("../")));
+generadas.push(await pagina("legal/index.html", "paginas/legal.html"));
 generadas.push(await pagina("contacto/index.html", "paginas/contacto.html", { formulario: formularioContacto() }));
 for (const p of publicados) {
   const raiz = "../../";
   generadas.push(await pagina(`proyectos/${p.slug}/index.html`, "plantillas/proyecto.html", { p, ...fichaHTML(p, raiz) }));
 }
+
+// robots.txt siempre; sitemap.xml solo con el dominio confirmado
+await writeFile(path.join(DIST, "robots.txt"), `User-agent: *\nAllow: /\n${DOMINIO ? `Sitemap: ${DOMINIO}sitemap.xml\n` : ""}`);
+if (DOMINIO) {
+  const urls = generadas.map((g) => `  <url><loc>${DOMINIO}${g.replace(/index\.html$/, "")}</loc></url>`).join("\n");
+  await writeFile(path.join(DIST, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`);
+} else pendientes.add("sitemap.xml, canonical y og:url (falta el dominio)");
 
 // Datos de configuración que siguen sin confirmar
 for (const [k, v] of Object.entries(config)) if (v === PC) pendientes.add(`config: ${k}`);

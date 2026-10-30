@@ -1,0 +1,33 @@
+<!-- {"titulo": "Sobre mí · {{nombre_publico}}", "descripcion": "Quién es {{nombre_publico}}: estudiante de 2.º de ASIR en Madrid, desarrollador web autodidacta, cómo trabaja, con qué herramientas y qué busca.", "seccion": "sobre-mi", "css": ["paginas"]} -->
+<div class="pagina contenedor sobre">
+  <header class="pagina__cabecera cristal">
+    <h1>Sobre mí</h1>
+    <div class="sobre__intro">{{{intro}}}</div>
+  </header>
+
+  <section aria-labelledby="como-titulo">
+    <h2 id="como-titulo" class="sobre__titulo">Cómo trabajo</h2>
+    <ul class="habilidades">{{{como}}}</ul>
+  </section>
+
+  <div class="sobre__fila">
+    <section class="cristal sobre__bloque" aria-labelledby="pila-titulo">
+      <h2 id="pila-titulo">Con qué trabajo y dónde se ve</h2>
+      <ul class="pila">{{{pila}}}</ul>
+    </section>
+    <section class="cristal sobre__bloque" aria-labelledby="formacion-titulo">
+      <h2 id="formacion-titulo">Formación</h2>
+      <ol class="formacion">{{{formacion}}}</ol>
+    </section>
+  </div>
+
+  <section class="clasificado" aria-labelledby="clasificado-titulo">
+    <p class="clasificado__sello" aria-hidden="true">Clasificado</p>
+    <h2 id="clasificado-titulo">{{clas_titulo}}</h2>
+    <p>{{clas_texto}}</p>
+    <div class="clasificado__lineas" role="img" aria-label="Líneas tachadas: contenido clasificado">{{{clas_lineas}}}</div>
+    <p class="clasificado__cierre">{{clas_cierre}} <a href="{{raiz}}laboratorio/">Ir al laboratorio</a>.</p>
+  </section>
+
+  <p class="pagina__cierre">{{busco}} <a href="{{raiz}}contacto/">Hablemos</a>.</p>
+</div>
