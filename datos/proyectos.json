@@ -529,11 +529,13 @@
         "Python"
       ],
       "enlaces": {
-        "vivo": "POR_CONFIRMAR",
+        "vivo": "https://ivanchux.github.io/hemiciclo/",
         "codigo": "https://github.com/Ivanchux/hemiciclo"
       },
       "vista_previa": {
-        "tipo": "captura"
+        "tipo": "iframe",
+        "url": "https://ivanchux.github.io/hemiciclo/",
+        "formato": "escritorio"
       },
       "capturas": [
         {
@@ -941,7 +943,20 @@
       "vista_previa": {
         "tipo": "captura"
       },
-      "capturas": [],
+      "capturas": [
+        {
+          "src": "img/capturas/retroamp-1.webp",
+          "ancho": 1100,
+          "alto": 687,
+          "alt": "RetroAmp en el ordenador: reproductor con ecualizador y lista de reproducción."
+        },
+        {
+          "src": "img/capturas/retroamp-2.webp",
+          "ancho": 390,
+          "alto": 844,
+          "alt": "RetroAmp en el móvil, con la carátula de vinilo generada y los controles."
+        }
+      ],
       "categoria": "web"
     },
     {
