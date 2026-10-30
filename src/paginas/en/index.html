@@ -1,0 +1,75 @@
+<!-- {"titulo": "{{nombre_publico}} · Web development, systems and browser games", "descripcion": "Portfolio of {{nombre_publico}}, web developer and second-year ASIR student in Madrid. Websites, tools and games built with plain HTML, CSS and JavaScript.", "seccion": "inicio", "css": ["escritorio"], "js": ["monitor"]} -->
+  <section class="presentacion contenedor">
+    <div class="presentacion__panel cristal">
+      <p class="presentacion__antetitulo">Web developer · 2nd year of ASIR · Madrid</p>
+      <h1>Websites, tools and games that run in the browser</h1>
+      <p class="presentacion__texto">I build with plain HTML, CSS and JavaScript, PHP and MySQL, Godot 4 and Cloudflare Workers. I study Network Computer Systems Administration, so I also take care of what sits behind the web.</p>
+      <div class="presentacion__acciones">
+        <a class="boton" href="{{raiz}}proyectos/">See projects</a>
+        <a class="boton boton--secundario" href="{{raiz}}contacto/">Let's talk</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="escena contenedor" aria-labelledby="escena-titulo">
+    <h2 id="escena-titulo" class="visualmente-oculto">My desk</h2>
+    <div class="mesa">
+
+      <div class="objeto monitor">
+        <div class="monitor__carcasa">
+          <div class="monitor__marco">
+            <div class="pantalla" id="pantalla">
+              {{{pantalla_inicial}}}
+            </div>
+          </div>
+          <i class="monitor__tornillo" aria-hidden="true"></i><i class="monitor__tornillo" aria-hidden="true"></i><i class="monitor__tornillo" aria-hidden="true"></i><i class="monitor__tornillo" aria-hidden="true"></i>
+          <span class="monitor__placa" aria-hidden="true">IVANCHUX · 26</span>
+          <span class="monitor__ranura" aria-hidden="true"><i class="monitor__led" id="led-disco"></i></span>
+          <span class="monitor__mandos"><button class="monitor__modo" type="button" id="modo-pantalla" hidden aria-label="Screen mode: green. Press to change"><i class="monitor__mando" aria-hidden="true"></i><i class="monitor__mando" aria-hidden="true"></i><span aria-hidden="true">mode</span></button></span>
+        </div>
+        <div class="monitor__pie" aria-hidden="true"></div>
+        <p class="visualmente-oculto" id="monitor-anuncio" aria-live="polite"></p>
+      </div>
+
+      <div class="objeto estante">
+        <h2 class="objeto__rotulo estante__titulo" id="estante-titulo">Projects · pick a floppy disk</h2>
+        <div class="archivador__pestanas" data-filtros="caja-discos" role="group" aria-label="Project categories" hidden>{{{pestanas}}}</div>
+        <div class="caja">
+          <ul class="caja__discos" id="caja-discos" aria-labelledby="estante-titulo">
+            {{{discos}}}
+          </ul>
+          <a class="disquete disquete--sistema" href="{{raiz}}laboratorio/os/" data-os aria-label="Floppy disk labelled “system”"><span class="disquete__etiqueta"><span class="disquete__nombre">system</span></span></a>
+          <div class="caja__frente" aria-hidden="true"></div>
+        </div>
+        <p class="estante__nota">Pick a category and click a floppy disk: it loads in the monitor.</p>
+      </div>
+
+      <div class="objeto bloc">
+        <a class="bloc__hoja" href="{{raiz}}que-se-hacer/">
+          {{{bloc}}}
+        </a>
+      </div>
+
+      <div class="objeto nota">
+        <a class="nota__papel" href="{{raiz}}contacto/">
+          <strong>Let's talk</strong>
+          Work placements, jobs or collaborations.
+          <span>Write to me</span>
+        </a>
+        <svg class="telefono" viewBox="0 0 120 92" aria-hidden="true">
+          <defs>
+            <linearGradient id="tel-cuerpo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--plastico-luz)"/><stop offset="1" stop-color="var(--plastico-sombra)"/></linearGradient>
+          </defs>
+          <path d="M14 48 Q16 34 34 32 L86 32 Q104 34 106 48 L112 84 Q112 90 104 90 L16 90 Q8 90 8 84 Z" fill="url(#tel-cuerpo)"/>
+          <path d="M6 22 Q8 6 30 8 L90 8 Q112 6 114 22 L112 30 Q110 34 100 32 L92 22 L28 22 L20 32 Q10 34 8 30 Z" fill="url(#tel-cuerpo)" stroke="rgba(0,0,0,.15)"/>
+          <g fill="#6d6450">
+            <circle cx="44" cy="56" r="4"/><circle cx="60" cy="56" r="4"/><circle cx="76" cy="56" r="4"/>
+            <circle cx="44" cy="70" r="4"/><circle cx="60" cy="70" r="4"/><circle cx="76" cy="70" r="4"/>
+          </g>
+        </svg>
+      </div>
+
+    </div>
+  </section>
+<script type="application/json" id="datos-monitor">{{{datos_monitor}}}</script>
+<script type="application/json" id="datos-os">{{{datos_os}}}</script>

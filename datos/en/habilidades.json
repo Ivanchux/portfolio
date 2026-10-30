@@ -1,0 +1,70 @@
+{
+  "habilidades": [
+    {
+      "id": "web",
+      "titulo": "Hand-made websites and landing pages",
+      "texto": "Plain HTML, CSS and JavaScript, no frameworks, with measured accessibility and performance.",
+      "proyectos": [
+        "retroterm-ai",
+        "impronta",
+        "inventario-vinilos",
+        "kaiten",
+        "lorekeeper"
+      ],
+      "icono": "ventana"
+    },
+    {
+      "id": "sistemas",
+      "titulo": "Systems and networks",
+      "texto": "Linux, Bash and network tools, learned in ASIR and taken into my own projects.",
+      "proyectos": [
+        "pokemon-bash-simulator",
+        "retroterm-ai",
+        "as-study"
+      ],
+      "icono": "terminal"
+    },
+    {
+      "id": "ia",
+      "titulo": "AI assistants",
+      "texto": "Chats and automations with Cloudflare Workers and the Groq API.",
+      "proyectos": [
+        "retroterm-ai"
+      ],
+      "icono": "chispa"
+    },
+    {
+      "id": "juegos",
+      "titulo": "Browser games",
+      "texto": "HTML5 Canvas and JavaScript with no dependencies, for desktop and mobile.",
+      "proyectos": [
+        "wonder-iv",
+        "ninja-de-escritorio",
+        "hilo-cortado",
+        "dead-heat",
+        "panal-roto",
+        "caja-de-arena"
+      ],
+      "icono": "mando"
+    },
+    {
+      "id": "backend",
+      "titulo": "PHP and MySQL",
+      "texto": "Apps with users, a database and the MVC pattern.",
+      "proyectos": [
+        "nexus"
+      ],
+      "icono": "datos"
+    },
+    {
+      "id": "datos",
+      "titulo": "Data visualisation with D3",
+      "texto": "Relationship maps, timelines and interactive simulations.",
+      "proyectos": [
+        "project-dossier",
+        "hemiciclo"
+      ],
+      "icono": "grafo"
+    }
+  ]
+}

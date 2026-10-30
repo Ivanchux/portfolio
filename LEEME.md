@@ -47,6 +47,10 @@ Todo el contenido vive en archivos de datos. No hay que tocar las páginas.
 | `datos/sobre-mi.json` | Textos de «Sobre mí» |
 | `datos/os-textos.json`, `datos/os-sistema.json` | Frases y archivos falsos de IVANDEV OS |
 | `src/css/tokens.css` | Colores, tipografías y espacios de toda la web |
+| `datos/en/` | Textos en inglés: proyectos, categorías, «Qué sé hacer», «Sobre mí» y el OS |
+| `src/paginas/en/`, `src/plantillas/en/` | Páginas y plantillas en inglés |
+
+**Dos idiomas.** `npm run build` genera la web en español en la raíz y la inglesa en `/en/`, con un botón ES/EN en la cabecera. Si un texto no tiene traducción en `datos/en/`, se usa el español.
 
 **Cualquier valor `POR_CONFIRMAR` no se publica.** Al compilar se listan los que quedan.
 

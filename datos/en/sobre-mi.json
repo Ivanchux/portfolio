@@ -1,0 +1,101 @@
+{
+  "intro": [
+    "I'm Iván Brihuega, Ivanchux online. I'm in my second year of Network Computer Systems Administration (ASIR) in Madrid, and I'm a self-taught web developer.",
+    "I move between systems, networks and the web: I like building infrastructure you can see, touch and play with. I'm ambitious and restless, and I almost always have several projects on the go."
+  ],
+  "como_trabajo": [
+    {
+      "titulo": "With AI, the modern way",
+      "texto": "I build with AI tools in almost every step. They let me try more ideas, move faster and spend my time deciding what to build and checking that it works."
+    },
+    {
+      "titulo": "No frameworks when they aren't needed",
+      "texto": "Plain HTML, CSS and JavaScript, often in a single file with no dependencies. What I make can be opened, read and understood."
+    },
+    {
+      "titulo": "Accessible and measured",
+      "texto": "Visible focus, full keyboard support and respect for anyone who asks for less motion. On Retroterm-AI I applied a WCAG 2.1 AA audit to 16 pages and scored 100/95/100/100 on PageSpeed."
+    },
+    {
+      "titulo": "Your data, on your device",
+      "texto": "Several of my apps work offline, with no accounts and no tracking, and when they sync they do it encrypted."
+    }
+  ],
+  "pila": [
+    {
+      "nombre": "HTML, CSS and JavaScript",
+      "proyectos": [
+        "retroterm-ai",
+        "kaiten",
+        "ninja-de-escritorio",
+        "lorekeeper",
+        "inventario-vinilos",
+        "hemiciclo"
+      ]
+    },
+    {
+      "nombre": "PHP and MySQL",
+      "proyectos": [
+        "nexus"
+      ]
+    },
+    {
+      "nombre": "Cloudflare Workers and the Groq API",
+      "proyectos": [
+        "retroterm-ai",
+        "inventario-vinilos"
+      ]
+    },
+    {
+      "nombre": "Firebase",
+      "proyectos": [
+        "retroterm-ai"
+      ]
+    },
+    {
+      "nombre": "Linux and Bash",
+      "proyectos": [
+        "pokemon-bash-simulator"
+      ]
+    },
+    {
+      "nombre": "D3 and data visualisation",
+      "proyectos": [
+        "project-dossier",
+        "hemiciclo"
+      ]
+    },
+    {
+      "nombre": "Godot 4",
+      "proyectos": [],
+      "nota": "projects in progress, not published yet"
+    },
+    {
+      "nombre": "Generative AI for images, video and music",
+      "proyectos": [],
+      "nota": "my own experiments"
+    }
+  ],
+  "formacion": [
+    {
+      "etapa": "2nd year of ASIR",
+      "texto": "In progress, in Madrid."
+    },
+    {
+      "etapa": "1st year of ASIR",
+      "texto": "First systems projects and websites with a database. My end-of-year project, built during my work placement, was Impronta.",
+      "proyectos": [
+        "nexus",
+        "pokemon-bash-simulator",
+        "impronta"
+      ]
+    }
+  ],
+  "clasificado": {
+    "titulo": "Classified file",
+    "texto": "Besides what you see here, I have experiments and projects I can't show yet. They are big, they take time and some of them mix development with generative AI for images, video and music.",
+    "lineas": 4,
+    "cierre": "When they're ready, they'll show up in the lab."
+  },
+  "busco": "I'm looking for a work placement, a first job and collaborations in web development and systems."
+}

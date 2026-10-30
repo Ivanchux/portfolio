@@ -1,0 +1,16 @@
+<!-- {"titulo": "{{p.nombre}} · Projects by {{nombre_publico}}", "descripcion": "{{p.resumen}}", "seccion": "proyectos", "css": ["ficha"]} -->
+<article class="ficha contenedor">
+  <nav class="migas" aria-label="You are here">
+    <a href="{{raiz}}proyectos/">Projects</a> <span aria-hidden="true">›</span> <span aria-current="page">{{p.nombre}}</span>
+  </nav>
+  <header class="ficha__cabecera cristal">
+    <div class="tarjeta__chips">{{{chip_cat}}}{{{estado}}}</div>
+    <h1>{{p.nombre}}</h1>
+    <p class="ficha__resumen">{{p.resumen}}</p>
+    <div class="ficha__enlaces">{{{enlaces}}}</div>
+  </header>
+  {{{galeria}}}
+  <div class="ficha__cuerpo">
+    {{{secciones}}}
+  </div>
+</article>

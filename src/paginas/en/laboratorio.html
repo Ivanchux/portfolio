@@ -1,0 +1,18 @@
+<!-- {"titulo": "Lab · {{nombre_publico}}", "descripcion": "Experiments and work in progress by {{nombre_publico}}, with their real status.", "seccion": "laboratorio", "css": ["paginas"]} -->
+<div class="pagina contenedor">
+  <header class="pagina__cabecera lab__cabecera cristal" data-revelar>
+    <div><h1>Lab</h1>
+    <p>Experiments and projects still in motion. They are alive: they change, break and get better.</p></div>
+    <span class="cubo" aria-hidden="true"></span>
+  </header>
+  <a class="experimento-os" href="{{raiz}}laboratorio/os/" data-revelar>
+    <span class="experimento-os__pantalla" aria-hidden="true"><span>GNU GRUB  version 2.12</span><span class="sel">ivandev OS (guest)</span><span>ivandev OS (recovery mode)</span></span>
+    <span class="experimento-os__texto"><span class="estado estado--vivo">Experiment</span><strong>IVANDEV OS</strong><span>A fake operating system, with a boot screen, terminal, processes and a layered map. For the curious only.</span></span>
+  </a>
+  <section aria-labelledby="curso-titulo">
+    <h2 id="curso-titulo" class="seccion-titulo" data-revelar><span class="burbuja-icono">{{{icono_matraz}}}</span>In progress <small>{{n_curso}}</small></h2>
+    <ul class="tarjetas">
+      {{{en_curso}}}
+    </ul>
+  </section>
+</div>

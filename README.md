@@ -47,6 +47,10 @@ All content lives in data files. Pages do not need to be edited.
 | `datos/sobre-mi.json` | "About me" texts |
 | `datos/os-textos.json`, `datos/os-sistema.json` | IVANDEV OS phrases and fake files |
 | `src/css/tokens.css` | Colours, fonts and spacing for the whole site |
+| `datos/en/` | English texts: projects, categories, skills, "About me" and the OS |
+| `src/paginas/en/`, `src/plantillas/en/` | English pages and templates |
+
+**Two languages.** `npm run build` generates the Spanish site at the root and the English one in `/en/`, with an ES/EN button in the header. Any text without a translation in `datos/en/` falls back to Spanish.
 
 **Any `POR_CONFIRMAR` value is never published.** The build lists the ones left.
 

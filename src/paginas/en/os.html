@@ -1,0 +1,16 @@
+<!-- {"titulo": "IVANDEV OS · Lab of {{nombre_publico}}", "descripcion": "IVANDEV OS, a fake operating system built with plain JavaScript: boot screen, terminal, processes and a project map.", "seccion": "laboratorio", "css": ["paginas"], "js": ["os-pagina"]} -->
+<div class="pagina contenedor" id="os-sin-js">
+  <nav class="migas" aria-label="You are here"><a href="{{raiz}}laboratorio/">Lab</a> <span aria-hidden="true">›</span> <span aria-current="page">IVANDEV OS</span></nav>
+  <header class="pagina__cabecera cristal">
+    <h1>IVANDEV OS</h1>
+    <p>A fake operating system inside the portfolio: boot screen, layered desktop, terminal, processes and a file explorer. It needs JavaScript to run.</p>
+  </header>
+  <section class="habilidad cristal">
+    <h2>Projects inside</h2>
+    <ul>
+      {{{lista_os}}}
+    </ul>
+  </section>
+</div>
+<div class="os-completo" id="os-completo" hidden></div>
+<script type="application/json" id="datos-os">{{{datos_os}}}</script>

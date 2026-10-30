@@ -23,7 +23,7 @@ test("ninguna página publica POR_CONFIRMAR", async () => {
 });
 
 test("sin precios ni lenguaje de venta de servicios", async () => {
-  const prohibido = /€|\beuros?\b|\b(presupuestos?|contratar|contrátame|tarifas?|comprar|precios?|mis servicios|ofrezco|facturo|facturación|autónomo)\b/i;
+  const prohibido = /€|\beuros?\b|\b(presupuestos?|contratar|contrátame|tarifas?|comprar|precios?|mis servicios|ofrezco|facturo|facturación|autónomo|prices?|pricing|quotes?|hire me|buy|invoices?|freelanc\w*|my services)\b/i;
   for (const f of html) {
     const texto = await readFile(f, "utf8");
     assert.ok(!prohibido.test(texto), `${path.relative(DIST, f)}: ${texto.match(prohibido)?.[0]}`);

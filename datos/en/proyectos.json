@@ -1,0 +1,189 @@
+{
+  "_nota": "English texts for each project. Names, links and captures come from datos/proyectos.json; only translated fields go here.",
+  "proyectos": {
+    "retroterm-ai": {
+      "estado": "Live",
+      "resumen": "Retro-futuristic hub with a terminal look: AI assistant, code editor, games, articles and network tools.",
+      "descripcion": [
+        "Retroterm-AI is a site with a CRT terminal look that brings several tools together in one place.",
+        "It includes ARIA, an AI assistant running on Cloudflare Workers and the Groq API with a Llama model; CODE_CRT, an in-browser code editor; a DeFi terminal; technical articles; network tools such as IP, binary and hex conversion or CIDR calculation; and a games section with Naval Strike and Wonder IV.",
+        "It has three colour themes (green, cyan and amber) that are remembered between visits."
+      ],
+      "problema": "Bringing together useful tools for the IT field (networking, code and AI) in a single place, while also working as a personal website.",
+      "papel": "Personal project, started in my first year of ASIR: full design and development.",
+      "datos_medidos": ["PageSpeed: 100 performance, 95 accessibility, 100 best practices and 100 SEO.", "WCAG 2.1 AA accessibility audit applied to 16 pages, with its fixes."],
+      "alts": [
+        "Retroterm-AI home page with links to developer mode, ARIA, games, articles, DeFi, project network, tools, roadmap and terminal.",
+        "CODE_CRT editor with three panels for HTML, CSS and JavaScript and the preview below.",
+        "A conversation with ARIA, the AI assistant, in a terminal-style chat window.",
+        "DeFi terminal with a table of cryptocurrencies, rates and changes.",
+        "Articles section with categories on the left and technical article cards.",
+        "Tools panel: IP, binary and hex conversion, CIDR and wildcard, ports, password generator, storage and CSS colours.",
+        "Wonder IV screen with the wonders of the ancient world as levels.",
+        "A chess game against the Turk, with a green board and panels for system status and move history."
+      ]
+    },
+    "wonder-iv": {
+      "estado": "In development",
+      "resumen": "Match-three puzzle in the browser: each level is a wonder rebuilt piece by piece while its ASCII art appears line by line.",
+      "descripcion": [
+        "A 7 × 7 board with seven tile types. Each wonder is split into three eras that ask for specific tiles and multiply the score.",
+        "Special gems when you line up four or five, four limited-use powers (bomb, lightning, shuffle and aurora) and stars based on the moves you have left.",
+        "Eight wonders, from the Pyramid to the Oracle, with rising difficulty. It was born inside Retroterm-AI and is now developed on its own, in plain HTML, CSS and JavaScript."
+      ],
+      "papel": "Personal project: game design, SVG gems, ASCII art and development.",
+      "alts": ["A Wonder IV game on the Pyramid: gem board on the left and the wonder being rebuilt on the right.", "Wonder IV menu with the eight wonders and their difficulty.", "Wonder IV on a phone."]
+    },
+    "ninja-de-escritorio": {
+      "estado": "Live",
+      "resumen": "Slice retro computer icons in a Windows 95 style game, plain HTML5, for desktop and mobile.",
+      "descripcion": [
+        "Slice folders, floppy disks and CD-ROMs, dodge viruses and blue screens and beat malware bosses.",
+        "A roguelike Descent mode: nine floors, one for each layer of the PC, with a branching map, 23 upgrades, 6 synergies, relics and a three-phase final boss.",
+        "All the art is pixel art drawn by code, in a single index.html with no libraries. It plays with a mouse or a finger and respects the reduced motion setting."
+      ],
+      "papel": "Personal project: game design, code-generated pixel art and development.",
+      "alts": ["Ninja de Escritorio menu with Windows 95 style windows and buttons.", "A game of Ninja de Escritorio slicing folder and floppy icons.", "Branching map of Descent mode, with waves, elites, a market and bosses.", "Fight against the final boss, the Master Processor.", "Ninja de Escritorio on a phone, played with a finger."]
+    },
+    "kaiten": {
+      "estado": "Live",
+      "resumen": "Installable web app to count sushi pieces: tap and it adds one.",
+      "descripcion": [
+        "Touch counter with combos, pace and a personal record for nine piece types in three categories.",
+        "Stats with a seven-day chart, a meal history with place, duration and cost, reviews with photos and a map of your places built with OpenFreeMap and MapLibre.",
+        "Achievements, daily challenges and colour themes. On a computer, from 1000 px, it shows a live panel next to the counter.",
+        "It works offline, installs as an app and keeps everything on the device: no accounts, no server and no tracking."
+      ],
+      "problema": "Keeping track of what you eat at a conveyor-belt sushi restaurant, and what it costs, without signing up for anything and without a connection.",
+      "papel": "Personal project: design, SVG illustrations and development in a single file.",
+      "alts": ["Kaiten on a computer: piece counter with the current meal panel next to it.", "Kaiten counter on a phone, with the central plate to add pieces.", "Kaiten stats with the chart for the last seven days.", "A meal review in Kaiten with rating, tags and photos."]
+    },
+    "hilo-cortado": {
+      "estado": "In development",
+      "resumen": "Side-scrolling beat 'em up with wooden puppets rebelling against the puppeteer: every hit spends a string.",
+      "descripcion": [
+        "Cut the arm strings and the enemy drops its weapon; cut the head string and it collapses. The strings are both your life and your weapon.",
+        "The characters have no sprites: they are cut-out puppets whose poses are interpolated by code, hanging from a visible control bar.",
+        "Local co-op for two, with keyboard or gamepad, in a single index.html with no dependencies."
+      ],
+      "papel": "Personal project: game design, procedural animation and development.",
+      "alts": ["First act of Hilo Cortado: puppets fighting on the theatre stage.", "A boss fight in Hilo Cortado.", "Hilo Cortado title screen."]
+    },
+    "dead-heat": {
+      "estado": "In development",
+      "resumen": "A maze of embers to collect with ice walls that melt: you change the route.",
+      "descripcion": [
+        "You are a flame in an ice maze. The embers you collect charge heat, and heat melts walls, opens shortcuts and releases water that spreads through the corridors.",
+        "Water slows some enemies and speeds up others, and if it freezes again it can trap them. A big ember makes enemies vulnerable for a few seconds.",
+        "Pixel art drawn by code, synthesised sound and music, in a single index.html with no dependencies."
+      ],
+      "papel": "Personal project: game design, code-drawn graphics, sound and development.",
+      "alts": ["A Dead Heat game: the flame moves through an ice maze collecting embers.", "The flame melts an ice wall and opens a shortcut.", "Water spread through the corridors after melting the ice."]
+    },
+    "panal-roto": {
+      "estado": "In development",
+      "resumen": "Falling-piece puzzle on a hexagonal board, with lines in three directions and chain collapses.",
+      "descripcion": [
+        "A honeycomb of 9 columns by 16 rows and the ten possible shapes made of four hexagons. Lines close in zigzag and along both diagonals.",
+        "After each clear, whatever is left collapses, and if the fall completes another line a chain begins. It includes a colour-blind mode.",
+        "A single index.html with no dependencies, using HTML5 Canvas and sound synthesised with Web Audio, plus automated tests."
+      ],
+      "papel": "Personal project: game design and development.",
+      "alts": ["A Panal Roto game on the hexagonal board.", "Panal Roto menu.", "Panal Roto on a phone."]
+    },
+    "caja-de-arena": {
+      "estado": "In development",
+      "resumen": "Particle simulator in the browser: sand, water, fire, gunpowder, acid, plants and lava reacting to each other.",
+      "descripcion": ["Each material follows local rules: fire sets wood alight, lava boils water away and acid dissolves sand.", "A brush in three sizes, pause, sample scenes and keyboard shortcuts to pick materials."],
+      "papel": "Personal project: design and development.",
+      "alts": ["Caja de Arena with a sample scene of sand, water and other materials."]
+    },
+    "lorekeeper": {
+      "estado": "Live",
+      "resumen": "Serverless, portable reading tracker with 3D books, a timer, stats and optional achievements.",
+      "descripcion": [
+        "A reading timer that keeps counting with the app closed, audiobooks included, and 3D books in the colour of their cover.",
+        "A library with shelves, series and loans; search in Google Books, Open Library and Apple Books, an ISBN scanner and import from CSV or Excel.",
+        "Stats, a yearly summary, 24 achievements and optional levels, and six visual styles. It even works by double-clicking the file, and keeps everything on the device."
+      ],
+      "papel": "Personal project: design and development in plain JavaScript and CSS.",
+      "alts": ["A collage of LoreKeeper screens with 3D books, stats and the library.", "LoreKeeper's six visual styles, three dark and three light."]
+    },
+    "hemiciclo": {
+      "estado": "In development",
+      "resumen": "General election night simulator: a real map of the provinces and a 350-seat Congress filling up live.",
+      "descripcion": [
+        "Animated vote count across the 52 constituencies with their real shapes, seat allocation with D'Hondt and a breaking-news column with swings and key seats.",
+        "Scenarios with probabilities calculated from 400 Monte Carlo simulations, live coalitions, a coalition builder and a historical mode from 1977 to 2023.",
+        "It is built from src/ into a single index.html, with automated tests and screenshots at 1440 and 390 px that check nothing overflows. It is the base of a political strategy game in the works."
+      ],
+      "papel": "Personal project: design, election engine and interface.",
+      "alts": ["Hemiciclo on election night: map of provinces and Congress filling up seat by seat.", "Coalitions panel with the possible deals and the coalition builder.", "Historical mode with results from 1977 to 2023.", "Hemiciclo on a phone."]
+    },
+    "inventario-vinilos": {
+      "estado": "Live",
+      "resumen": "Web app to catalogue a record collection, published on GitHub Pages.",
+      "descripcion": [
+        "Shelves with records in a carousel, a table view exportable to Excel and stats by genre, decade, artist and format.",
+        "When you add a record it queries MusicBrainz and Cover Art Archive to fill in year, genre and cover; it also accepts a photo taken with your phone.",
+        "Sync between devices encrypted on the device itself, through a Cloudflare Worker that cannot read the data, automatic backups and tests in a real browser before every release."
+      ],
+      "problema": "Cataloguing a large record collection without losing a single one: version 2 was rebuilt inside so that a browser glitch can never empty the collection.",
+      "papel": "Personal project: design, development and sync server.",
+      "alts": ["Inventory shelves with records in a carousel.", "A record's page with cover, rating, tracks and notes.", "Collection stats by genre, decade and artist.", "Record inventory on a phone."]
+    },
+    "impronta": {
+      "estado": "Finished",
+      "resumen": "Hand-made website for a fictional print shop, built during my work placement, with a WordPress version, a process dossier and a weekly log.",
+      "descripcion": [
+        "Corporate website for a fictional print shop in Madrid, with eleven pages: home with video, services catalogue, history and team, a blog with three articles, contact, legal pages and a custom error page.",
+        "It includes a business card generator that draws the card in real time in three styles and downloads the front and back as PNG.",
+        "On my own initiative, beyond what the brief required: CSS variables, fluid typography with clamp(), a theme saved in the browser, a step-by-step form more complete than required, a cookie panel with categories and Open Graph metadata.",
+        "The project was also delivered as a WordPress version, together with a process dossier and a weekly log."
+      ],
+      "papel": "End-of-year project of my first year of ASIR, built during my work placement (FCT) for the Markup Languages module: full design and development.",
+      "alts": ["Impronta home page: “We print what you imagine” on a midnight blue background with gold details.", "Impronta services page with digital printing and its finishes.", "Business card generator with the form and the card preview.", "Impronta home page on a phone."]
+    },
+    "nexus": {
+      "estado": "In development",
+      "resumen": "Themed social network built from scratch in PHP and MySQL, connecting people through their taste in music and video games.",
+      "descripcion": [
+        "Sign-up with bcrypt-hashed passwords and PHP sessions, a feed of posts with votes and replies, and profiles with avatar, bio and status.",
+        "An affinity engine matches your tastes with everyone else's and ranks users by compatibility percentage, showing the tastes you share.",
+        "A MySQL database with users, tastes, posts, connections and votes; the profile is saved with fetch without reloading the page."
+      ],
+      "papel": "Personal project from my first year of ASIR: full design, database and development.",
+      "alts": ["NEXUS home page: community search with filters for music, gaming, metal and other genres."]
+    },
+    "project-dossier": {
+      "resumen": "Static case archive with a D3 connections map and internal editing tools.",
+      "descripcion": ["A documentary archive of classified and declassified cases, with a D3 force map, a timeline, a sortable archive and five case files with interactive timelines.", "Each file is based on public domain or already published documents; the project does not claim that the theories it collects are true."],
+      "alts": ["Project Dossier home page with case counters and case file cards.", "A Project Dossier case file.", "D3 connections map between cases, people and organisations.", "Project Dossier board."]
+    },
+    "edulab": {
+      "estado": "In development",
+      "resumen": "Educational platform with gamified modules to learn technology by playing.",
+      "descripcion": ["An experience and rank system saved in the browser. Modules: SQLQuest (six SQL mini-games), Signal Repair (13 CSS missions with Flexbox and Grid) and SysAdmin (an interactive terminal, Linux permissions and Bash)."],
+      "alts": ["EduLab home page with the list of subjects, the experience earned and access to SQLQuest.", "SQLQuest: mini-games to learn SQL from SELECT to JOIN.", "Signal Repair: CSS missions with Flexbox, Grid and positioning."]
+    },
+    "as-study": {
+      "estado": "In development",
+      "resumen": "Single-file study tool for ASIR, installable as an app.",
+      "descripcion": ["Pomodoro timer, global search, stats, flashcards with spaced repetition and an exam mode."],
+      "alts": ["ASIR Study widget panel with the card of the day and quick links.", "ASIR Study on a phone."]
+    },
+    "pokemon-bash-simulator": {
+      "estado": "Finished",
+      "resumen": "Turn-based battle simulator written in Bash, where every creature is a Linux user.",
+      "descripcion": ["Every creature is a real system user created with useradd, types are Linux groups and stats live in files inside their home folder. The loser is removed with userdel -r and a “centre” script restores them all.", "It grew over three versions: turn-based combat with critical hits and speed; multiple types and a special attack; and the final version."],
+      "papel": "Linux system administration project from my first year of ASIR."
+    },
+    "retroamp": {
+      "estado": "In development",
+      "resumen": "Retro music player with custom skins, installable as an app on your phone.",
+      "descripcion": ["An in-browser player with a 90s look and skins that can be exported and imported as JSON.", "It loads your own MP3 files, generates a vinyl cover for each song with Canvas and plays them with the Web Audio API."],
+      "papel": "Personal project: design and development.",
+      "alts": ["RetroAmp on a computer: player with equaliser and playlist.", "RetroAmp on a phone, with the generated vinyl cover and the controls."]
+    }
+  }
+}

@@ -7,10 +7,13 @@
   if (!pantalla || !fuente) return;
 
   const datos = JSON.parse(fuente.textContent);
+  const T = datos._t;
+  delete datos._t;
   const anuncio = document.getElementById("monitor-anuncio");
   const led = document.getElementById("led-disco");
   const reducido = matchMedia("(prefers-reduced-motion: reduce)");
-  const NOMBRES_MODO = { verde: "verde", ambar: "ámbar", hielo: "hielo" };
+  const NOMBRES_MODO = T.modos;
+  const rellenar = (t, v) => t.replace(/\{(\w+)\}/g, (m, k) => v[k] ?? m);
   const base = document.currentScript?.src || location.href;
   let desmontarOS = null;
 
@@ -36,7 +39,7 @@
   }
 
   function botonFicha(p) {
-    return el("a", { class: "pantalla__boton pantalla__boton--hueco", href: p.ficha, texto: "Ficha del proyecto" });
+    return el("a", { class: "pantalla__boton pantalla__boton--hueco", href: p.ficha, texto: T.ficha });
   }
 
   // ---------- Simulador de Bash: combate con aire de Game Boy y el código real resaltado ----------
@@ -65,11 +68,11 @@
     const vida = (n) => el("span", { class: "gb__vida" }, el("i", { style: "--vida:100%" }));
     const rival = el("div", { class: "gb__ficha gb__ficha--rival" }, el("b", { texto: b }), vida());
     const propio = el("div", { class: "gb__ficha gb__ficha--propio" }, el("b", { texto: a }), vida());
-    const texto = el("p", { class: "gb__texto", texto: `¡Un combate entre usuarios de Linux!` });
+    const texto = el("p", { class: "gb__texto", texto: T.bashIntro });
     const sA = sprite("fuego", "gb__sprite gb__sprite--propio"), sB = sprite("agua", "gb__sprite gb__sprite--rival");
     const escena = el("div", { class: "gb", "aria-hidden": "true" }, rival, sB, sA, propio, texto);
     const lineas = p.bash.codigo.map((l, i) => el("span", { class: "bash__l" + (l.startsWith("#") ? " bash__c" : ""), "data-n": String(i + 1), texto: l || " " }));
-    const codigo = el("pre", { class: "bash", tabindex: "0", "aria-label": `Fragmento del código de combate de ${p.nombre}` }, el("code", {}, ...lineas));
+    const codigo = el("pre", { class: "bash", tabindex: "0", "aria-label": `${T.codigoDe} ${p.nombre}` }, el("code", {}, ...lineas));
     if (!reducido.matches) {
       const st = { [a]: { vida: 100, ataque: 52, defensa: 40, bonus: 50, sprite: sA, barra: propio.querySelector("i") }, [b]: { vida: 100, ataque: 48, defensa: 38, bonus: 200, sprite: sB, barra: rival.querySelector("i") } };
       let turno = a;
@@ -86,11 +89,11 @@
         at.sprite.classList.add("ataca"); df.sprite.classList.add("golpe");
         df.vida = Math.max(0, df.vida - dano);
         df.barra.style.setProperty("--vida", df.vida + "%");
-        texto.textContent = `¡${turno} ataca! factor=${factor}${critico ? " ¡CRÍTICO!" : ""} → daño ${dano}`;
+        texto.textContent = `${rellenar(T.ataca, { a: turno })} factor=${factor}${critico ? T.critico : ""} → ${T.dano} ${dano}`;
         if (df.vida === 0) {
           bucleBash = setTimeout(() => {
             resaltar([13, 14]);
-            texto.textContent = `userdel -r ${nDf.toLowerCase()} · ${turno} gana`;
+            texto.textContent = `userdel -r ${nDf.toLowerCase()} · ${turno} ${T.gana}`;
             df.sprite.classList.add("borrado");
             bucleBash = setTimeout(() => {
               for (const k of [a, b]) { st[k].vida = 100; st[k].barra.style.setProperty("--vida", "100%"); st[k].sprite.classList.remove("borrado"); }
@@ -113,12 +116,12 @@
     pararBash();
     pantalla.classList.remove("pantalla--vivo");
     pantalla.replaceChildren(
-      barra(p, "disco insertado"),
+      barra(p, T.insertado),
       p.bash ? vistaBash(p) : el("div", { class: "pantalla__vista" },
         p.captura && el("img", { src: p.captura.src, alt: p.captura.alt, width: "960", height: "545" }),
         el("p", { class: "pantalla__texto", texto: p.resumen })),
       el("div", { class: "pantalla__acciones" },
-        p.vivo && el("a", { class: "pantalla__boton", "data-accion": "vivo", href: p.vivo, target: "_blank", rel: "noopener", texto: "▶ Ver en vivo" }),
+        p.vivo && el("a", { class: "pantalla__boton", "data-accion": "vivo", href: p.vivo, target: "_blank", rel: "noopener", texto: T.verVivo }),
         botonFicha(p)));
   }
 
@@ -129,7 +132,7 @@
     const iframe = el("iframe", {
       class: "pantalla__iframe",
       src: p.vivo,
-      title: `Vista en vivo de ${p.nombre}`,
+      title: `${T.vistaDe} ${p.nombre}`,
       sandbox: "allow-scripts allow-same-origin allow-forms allow-popups",
       referrerpolicy: "no-referrer",
     });
@@ -156,15 +159,15 @@
     const p = datos[slug];
     if (!p.vivo) return;
     pantalla.classList.add("pantalla--vivo");
-    const cerrar = el("button", { class: "pantalla__boton", type: "button", "data-accion": "cerrar", texto: "■ Cerrar" });
+    const cerrar = el("button", { class: "pantalla__boton", type: "button", "data-accion": "cerrar", texto: T.cerrar });
     pantalla.replaceChildren(
-      barra(p, "en vivo"),
+      barra(p, T.enVivo),
       el("div", { class: "pantalla__vista" },
         marcoEnVivo(p)),
       el("div", { class: "pantalla__acciones pantalla__acciones--vivo" },
         cerrar,
-        el("a", { class: "pantalla__boton pantalla__boton--hueco", href: p.vivo, target: "_blank", rel: "noopener", texto: "Abrir en pestaña nueva ↗" })));
-    anuncio.textContent = `Cargando ${p.nombre} en vivo dentro del monitor.`;
+        el("a", { class: "pantalla__boton pantalla__boton--hueco", href: p.vivo, target: "_blank", rel: "noopener", texto: T.pestana })));
+    anuncio.textContent = rellenar(T.cargandoVivo, { n: p.nombre });
     cerrar.focus();
   }
 
@@ -177,7 +180,7 @@
     document.removeEventListener("keydown", saltar, true);
     pantalla.removeEventListener("click", saltar);
     mostrarVista(slug);
-    anuncio.textContent = `Disquete insertado: ${datos[slug].nombre}.`;
+    anuncio.textContent = `${T.insertadoAviso} ${datos[slug].nombre}.`;
     if (enfocar) document.getElementById("pantalla-titulo")?.focus();
   }
 
@@ -221,7 +224,7 @@
         disco.focus();
       },
     });
-    anuncio.textContent = "IVANDEV OS arrancado en el monitor.";
+    anuncio.textContent = T.os;
   }
 
   function insertar(slug, enfocar) {
@@ -241,9 +244,9 @@
     const p = datos[slug];
     const salida = el("pre", { class: "pantalla__arranque" });
     pantalla.classList.remove("pantalla--vivo");
-    pantalla.replaceChildren(barra(p, "leyendo…"), salida);
+    pantalla.replaceChildren(barra(p, T.leyendo), salida);
     led?.classList.add("leyendo");
-    const pasos = ["A:\\> leyendo disquete ", "…", " OK\n", `Cargando ${p.nombre} `, "…", " OK"];
+    const pasos = [T.leyendoDisquete, "…", " OK\n", `${T.cargando} ${p.nombre} `, "…", " OK"];
     pasos.forEach((texto, i) => {
       arranque.lineas.push(setTimeout(() => {
         salida.append(texto.includes("OK") ? el("span", { class: "ok", texto }) : texto);
@@ -310,7 +313,7 @@
       mostrarEnVivo(actual);
     } else if (accion === "cerrar") {
       mostrarVista(actual);
-      anuncio.textContent = "Vista en vivo cerrada.";
+      anuncio.textContent = T.cerrada;
       pantalla.querySelector('[data-accion="vivo"]')?.focus();
     }
   });
@@ -319,7 +322,7 @@
   const mando = document.getElementById("modo-pantalla");
   if (mando && window.modoPantalla) {
     const rotular = () => {
-      mando.setAttribute("aria-label", `Modo de pantalla: ${NOMBRES_MODO[window.modoPantalla.actual()]}. Pulsa para cambiar`);
+      mando.setAttribute("aria-label", `${T.modo}: ${NOMBRES_MODO[window.modoPantalla.actual()]}. ${T.pulsa}`);
     };
     mando.hidden = false;
     rotular();
@@ -327,7 +330,7 @@
       const { MODOS, actual: modo, poner } = window.modoPantalla;
       poner(MODOS[(MODOS.indexOf(modo()) + 1) % MODOS.length]);
       rotular();
-      anuncio.textContent = `Modo de pantalla: ${NOMBRES_MODO[window.modoPantalla.actual()]}.`;
+      anuncio.textContent = `${T.modo}: ${NOMBRES_MODO[window.modoPantalla.actual()]}.`;
     });
     document.addEventListener("modo-pantalla", rotular);
   }

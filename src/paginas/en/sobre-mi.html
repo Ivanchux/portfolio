@@ -1,0 +1,33 @@
+<!-- {"titulo": "About me · {{nombre_publico}}", "descripcion": "Who {{nombre_publico}} is: second-year ASIR student in Madrid, self-taught web developer, how he works, with which tools and what he is looking for.", "seccion": "sobre-mi", "css": ["paginas"]} -->
+<div class="pagina contenedor sobre">
+  <header class="pagina__cabecera sobre__cabecera cristal" data-revelar>
+    <span class="monograma" aria-hidden="true"><span class="monograma__logo"></span></span>
+    <div><h1>About me</h1><div class="sobre__intro">{{{intro}}}</div></div>
+  </header>
+
+  <section aria-labelledby="como-titulo">
+    <h2 id="como-titulo" class="seccion-titulo" data-revelar>How I work</h2>
+    <ul class="bento bento--cuatro">{{{como}}}</ul>
+  </section>
+
+  <div class="sobre__fila">
+    <section class="cristal sobre__bloque" aria-labelledby="pila-titulo">
+      <h2 id="pila-titulo"><span class="burbuja-icono">{{{icono_pila}}}</span>What I work with and where to see it</h2>
+      <ul class="pila">{{{pila}}}</ul>
+    </section>
+    <section class="cristal sobre__bloque" aria-labelledby="formacion-titulo">
+      <h2 id="formacion-titulo"><span class="burbuja-icono">{{{icono_birrete}}}</span>Education</h2>
+      <ol class="formacion">{{{formacion}}}</ol>
+    </section>
+  </div>
+
+  <section class="clasificado" data-revelar aria-labelledby="clasificado-titulo">
+    <p class="clasificado__sello" aria-hidden="true">Classified</p>
+    <h2 id="clasificado-titulo">{{clas_titulo}}</h2>
+    <p>{{clas_texto}}</p>
+    <div class="clasificado__lineas" role="img" aria-label="Redacted lines: classified content">{{{clas_lineas}}}</div>
+    <p class="clasificado__cierre">{{clas_cierre}} <a href="{{raiz}}laboratorio/">Go to the lab</a>.</p>
+  </section>
+
+  <p class="pagina__cierre">{{busco}} <a href="{{raiz}}contacto/">Let's talk</a>.</p>
+</div>
