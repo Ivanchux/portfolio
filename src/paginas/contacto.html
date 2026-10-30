@@ -1,0 +1,10 @@
+<!-- {"titulo": "Contacto · {{nombre_publico}}", "descripcion": "Cómo contactar con {{nombre_publico}} para prácticas, empleo, colaboraciones o proyectos.", "seccion": "contacto", "css": ["paginas"], "js": ["contacto"]} -->
+<div class="pagina contenedor contacto">
+  <header class="pagina__cabecera cristal">
+    {{^comercial}}<h1>Hablemos</h1>
+    <p>Busco prácticas, empleo y colaboraciones en desarrollo web y sistemas. Si tienes algo en mente, escríbeme.</p>{{/comercial}}
+    {{#comercial}}<h1>Contacto</h1>
+    <p>Cuéntame qué necesitas y te respondo con un presupuesto orientativo.</p>{{/comercial}}
+  </header>
+  {{{formulario}}}
+</div>

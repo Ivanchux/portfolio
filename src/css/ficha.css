@@ -22,5 +22,3 @@
 .ficha__bloque { padding: var(--e-5); }
 .ficha__bloque:first-child { grid-column: 1 / -1; }
 .ficha__bloque ul { margin: 0; padding-left: 1.2em; }
-.etiquetas { list-style: none; padding: 0 !important; display: flex; flex-wrap: wrap; gap: var(--e-2); }
-.etiquetas li { padding: 2px var(--e-3); border-radius: 999px; border: 1px solid var(--tinta-suave); font-weight: 700; font-size: 0.9rem; }

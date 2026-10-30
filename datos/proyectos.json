@@ -39,35 +39,51 @@
       "capturas": [
         {
           "src": "img/capturas/retroterm-1.webp",
-          "alt": "Portada de Retroterm-AI con accesos a modo desarrollo, ARIA, juegos, artículos, DeFi, red de proyectos, herramientas, roadmap y terminal."
+          "alt": "Portada de Retroterm-AI con accesos a modo desarrollo, ARIA, juegos, artículos, DeFi, red de proyectos, herramientas, roadmap y terminal.",
+          "ancho": 960,
+          "alto": 545
         },
         {
           "src": "img/capturas/retroterm-2.webp",
-          "alt": "Editor CODE_CRT con tres paneles de HTML, CSS y JavaScript y la vista previa debajo."
+          "alt": "Editor CODE_CRT con tres paneles de HTML, CSS y JavaScript y la vista previa debajo.",
+          "ancho": 960,
+          "alto": 545
         },
         {
           "src": "img/capturas/retroterm-3.webp",
-          "alt": "Conversación con ARIA, el asistente de IA, en una ventana de chat de estilo terminal."
+          "alt": "Conversación con ARIA, el asistente de IA, en una ventana de chat de estilo terminal.",
+          "ancho": 960,
+          "alto": 545
         },
         {
           "src": "img/capturas/retroterm-4.webp",
-          "alt": "Terminal de DeFi con una tabla de criptomonedas, precios y variaciones."
+          "alt": "Terminal de DeFi con una tabla de criptomonedas, precios y variaciones.",
+          "ancho": 960,
+          "alto": 545
         },
         {
           "src": "img/capturas/retroterm-5.webp",
-          "alt": "Sección de artículos con categorías a la izquierda y fichas de artículos técnicos."
+          "alt": "Sección de artículos con categorías a la izquierda y fichas de artículos técnicos.",
+          "ancho": 960,
+          "alto": 545
         },
         {
           "src": "img/capturas/retroterm-6.webp",
-          "alt": "Panel de herramientas: conversión IP, binario y hexadecimal, CIDR y wildcard, puertos, generador de contraseñas, almacenamiento y colores CSS."
+          "alt": "Panel de herramientas: conversión IP, binario y hexadecimal, CIDR y wildcard, puertos, generador de contraseñas, almacenamiento y colores CSS.",
+          "ancho": 960,
+          "alto": 545
         },
         {
           "src": "img/capturas/retroterm-7.webp",
-          "alt": "Pantalla de Wonder IV con las maravillas del mundo antiguo como niveles."
+          "alt": "Pantalla de Wonder IV con las maravillas del mundo antiguo como niveles.",
+          "ancho": 960,
+          "alto": 545
         },
         {
           "src": "img/capturas/retroterm-8.webp",
-          "alt": "Partida de ajedrez contra el Turco, con un tablero verde y paneles de estado del sistema e historial de movimientos."
+          "alt": "Partida de ajedrez contra el Turco, con un tablero verde y paneles de estado del sistema e historial de movimientos.",
+          "ancho": 960,
+          "alto": 545
         }
       ],
       "fuente": "CONTENIDO_PORTFOLIO.md y capturas de referencia/"
@@ -75,7 +91,7 @@
     {
       "slug": "wonder-iv",
       "nombre": "Wonder IV",
-      "publicar": false,
+      "publicar": true,
       "color_disco": "#c08a1e",
       "estado": "En desarrollo",
       "resumen": "Puzle de combinar tres sobre las siete maravillas, en HTML, CSS y JavaScript sin dependencias.",
@@ -100,14 +116,16 @@
       "capturas": [
         {
           "src": "img/capturas/retroterm-7.webp",
-          "alt": "Pantalla de Wonder IV con las maravillas del mundo antiguo como niveles."
+          "alt": "Pantalla de Wonder IV con las maravillas del mundo antiguo como niveles.",
+          "ancho": 960,
+          "alto": 545
         }
       ]
     },
     {
       "slug": "ninja-de-escritorio",
       "nombre": "Ninja de Escritorio",
-      "publicar": false,
+      "publicar": true,
       "color_disco": "#3a6ea5",
       "estado": "POR_CONFIRMAR",
       "resumen": "Juego de cortar iconos de ordenador retro con estética Windows 95, en HTML5 sin dependencias, para PC y móvil.",
@@ -130,7 +148,7 @@
     {
       "slug": "kaiten",
       "nombre": "Kaiten",
-      "publicar": false,
+      "publicar": true,
       "color_disco": "#d2553f",
       "estado": "Publicado",
       "resumen": "Aplicación web instalable para contar piezas de sushi: se pulsa y suma una.",
@@ -147,11 +165,12 @@
         "GitHub Pages"
       ],
       "enlaces": {
-        "vivo": "POR_CONFIRMAR",
+        "vivo": "https://ivanchux.github.io/Kaiten/",
         "codigo": "https://github.com/Ivanchux/Kaiten"
       },
       "vista_previa": {
-        "tipo": "POR_CONFIRMAR"
+        "tipo": "iframe",
+        "url": "https://ivanchux.github.io/Kaiten/"
       },
       "capturas": []
     },
@@ -252,7 +271,7 @@
     {
       "slug": "inventario-vinilos",
       "nombre": "Inventario de vinilos",
-      "publicar": false,
+      "publicar": true,
       "color_disco": "#2b2b2b",
       "estado": "Publicado",
       "resumen": "Aplicación web para catalogar una colección de discos, publicada en GitHub Pages.",
@@ -266,18 +285,19 @@
         "GitHub Pages"
       ],
       "enlaces": {
-        "vivo": "POR_CONFIRMAR",
+        "vivo": "https://ivanchux.github.io/inventario-vinilos/",
         "codigo": "https://github.com/ivanchux/inventario-vinilos"
       },
       "vista_previa": {
-        "tipo": "POR_CONFIRMAR"
+        "tipo": "iframe",
+        "url": "https://ivanchux.github.io/inventario-vinilos/"
       },
       "capturas": []
     },
     {
       "slug": "impronta",
       "nombre": "Impronta",
-      "publicar": false,
+      "publicar": true,
       "color_disco": "#b03a2e",
       "estado": "Terminado",
       "resumen": "Web de una imprenta ficticia hecha a mano para las prácticas, con versión en WordPress, dossier del proceso y diario semanal.",
@@ -304,7 +324,7 @@
     {
       "slug": "nexus",
       "nombre": "NEXUS",
-      "publicar": false,
+      "publicar": true,
       "color_disco": "#2f9e5b",
       "estado": "POR_CONFIRMAR",
       "resumen": "Red social hecha desde cero en PHP y MySQL con patrón MVC.",
@@ -326,13 +346,20 @@
       "vista_previa": {
         "tipo": "captura"
       },
-      "capturas": [],
+      "capturas": [
+        {
+          "src": "img/capturas/nexus-1.webp",
+          "alt": "Portada de NEXUS: buscador de comunidad con filtros por música, gaming, metal y otros géneros.",
+          "ancho": 960,
+          "alto": 429
+        }
+      ],
       "fuente": "referencia/Curriculum_WEB_v2 y captura"
     },
     {
       "slug": "project-dossier",
       "nombre": "Project Dossier",
-      "publicar": false,
+      "publicar": true,
       "color_disco": "#c9861a",
       "estado": "POR_CONFIRMAR",
       "resumen": "Archivo estático de expedientes con un mapa de conexiones en D3 y herramientas internas de edición.",
@@ -354,12 +381,37 @@
       "vista_previa": {
         "tipo": "captura"
       },
-      "capturas": []
+      "capturas": [
+        {
+          "src": "img/capturas/project-dossier-1.webp",
+          "alt": "Portada de Project Dossier con contadores de casos y fichas de expedientes.",
+          "ancho": 960,
+          "alto": 539
+        },
+        {
+          "src": "img/capturas/project-dossier-2.webp",
+          "alt": "Vista de un expediente de Project Dossier.",
+          "ancho": 960,
+          "alto": 539
+        },
+        {
+          "src": "img/capturas/project-dossier-3.webp",
+          "alt": "Mapa de conexiones en D3 entre casos, personas y organizaciones.",
+          "ancho": 960,
+          "alto": 497
+        },
+        {
+          "src": "img/capturas/project-dossier-4.webp",
+          "alt": "Tablón de Project Dossier.",
+          "ancho": 960,
+          "alto": 497
+        }
+      ]
     },
     {
       "slug": "edulab",
       "nombre": "EduLab",
-      "publicar": false,
+      "publicar": true,
       "color_disco": "#1aa39a",
       "estado": "POR_CONFIRMAR",
       "resumen": "Plataforma educativa con módulos gamificados para aprender tecnología jugando.",
@@ -380,12 +432,19 @@
       "vista_previa": {
         "tipo": "captura"
       },
-      "capturas": []
+      "capturas": [
+        {
+          "src": "img/capturas/edulab-1.webp",
+          "alt": "Panel de EduLab con la lista de asignaturas, la experiencia acumulada y el módulo SQLQuest.",
+          "ancho": 960,
+          "alto": 430
+        }
+      ]
     },
     {
       "slug": "as-study",
       "nombre": "AS Study",
-      "publicar": false,
+      "publicar": true,
       "color_disco": "#3d7fb8",
       "estado": "POR_CONFIRMAR",
       "resumen": "Herramienta de estudio para ASIR en un solo archivo.",
@@ -407,12 +466,19 @@
       "vista_previa": {
         "tipo": "captura"
       },
-      "capturas": []
+      "capturas": [
+        {
+          "src": "img/capturas/as-study-1.webp",
+          "alt": "Panel de AS Study con la tarjeta del día, accesos rápidos y el progreso por asignatura.",
+          "ancho": 960,
+          "alto": 431
+        }
+      ]
     },
     {
       "slug": "pokemon-bash-simulator",
       "nombre": "Pokémon Bash Simulator",
-      "publicar": false,
+      "publicar": true,
       "color_disco": "#d9b13b",
       "estado": "POR_CONFIRMAR",
       "resumen": "Simulador de combates por turnos escrito en Bash, donde cada criatura es un usuario de Linux.",

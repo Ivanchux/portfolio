@@ -14,7 +14,9 @@ const PC = "POR_CONFIRMAR";
 const leerJSON = async (f) => JSON.parse(await readFile(path.join(RAIZ, f), "utf8"));
 const config = await leerJSON("site.config.json");
 if (process.env.MODO_COMERCIAL) config.modo_comercial = process.env.MODO_COMERCIAL === "true";
+if (process.env.CORREO) config.correo = process.env.CORREO;
 const { proyectos } = await leerJSON("datos/proyectos.json");
+const { habilidades, servicios } = await leerJSON("datos/servicios.json");
 const publicados = proyectos.filter((p) => p.publicar);
 
 const confirmado = (v) => v !== undefined && v !== null && v !== "" && v !== PC && !(Array.isArray(v) && (v.length === 0 || v.includes(PC)));
@@ -71,7 +73,7 @@ function datosMonitor(raiz) {
       nombre: p.nombre,
       resumen: p.resumen,
       ficha: `${raiz}proyectos/${p.slug}/`,
-      captura: p.capturas?.[0] ? { src: raiz + p.capturas[0].src, alt: p.capturas[0].alt } : null,
+      captura: p.capturas?.[0] ? { src: raiz + p.capturas[0].src, alt: p.capturas[0].alt, ancho: p.capturas[0].ancho, alto: p.capturas[0].alto } : null,
       vivo: vp.tipo === "iframe" && confirmado(vp.url) ? vp.url : null,
     };
   }
@@ -86,7 +88,7 @@ function pantallaInicial(raiz) {
   const cap = p.capturas?.[0];
   return `<div class="pantalla__barra"><span>A:\\&gt; <strong id="pantalla-titulo" tabindex="-1">${esc(p.nombre.toUpperCase())}</strong></span><span>disco insertado</span></div>
               <div class="pantalla__vista">
-                ${cap ? `<img src="${raiz}${cap.src}" width="960" height="545" alt="${esc(cap.alt)}">` : ""}
+                ${cap ? `<img src="${raiz}${cap.src}" width="${cap.ancho}" height="${cap.alto}" alt="${esc(cap.alt)}">` : ""}
                 <p class="pantalla__texto">${esc(p.resumen)}</p>
               </div>
               <div class="pantalla__acciones">
@@ -111,12 +113,96 @@ function fichaHTML(p, raiz) {
   if (confirmado(p.enlaces?.codigo)) enl.push(`<a class="boton boton--secundario" href="${esc(p.enlaces.codigo)}">Ver el código</a>`);
   else pendientes.add(`${p.slug}: enlace al código`);
   const galeria = (p.capturas || [])
-    .map((c) => `<figure class="galeria__item"><img src="${raiz}${c.src}" width="960" height="545" loading="lazy" alt="${esc(c.alt)}"></figure>`)
+    .map((c) => `<figure class="galeria__item"><img src="${raiz}${c.src}" width="${c.ancho}" height="${c.alto}" loading="lazy" alt="${esc(c.alt)}"></figure>`)
     .join("");
   const galeriaHTML = galeria
     ? `<div class="galeria" tabindex="0" role="region" aria-label="Capturas de ${esc(p.nombre)}">${galeria}</div>`
     : "";
-  return { secciones: partes.join("\n"), enlaces: enl.join(" "), galeria: galeriaHTML };
+  const estado = confirmado(p.estado) ? `<p class="ficha__estado">${esc(p.estado)}</p>` : "";
+  if (!estado) pendientes.add(`${p.slug}: estado`);
+  return { secciones: partes.join("\n"), enlaces: enl.join(" "), galeria: galeriaHTML, estado };
+}
+
+const precio = (clave) => {
+  const v = config.precios?.[clave];
+  return typeof v === "number" ? `desde ${v.toLocaleString("es-ES")} €` : null;
+};
+const enlacesProyectos = (slugs, raiz) =>
+  slugs
+    .map((s) => publicados.find((p) => p.slug === s))
+    .filter(Boolean)
+    .map((p) => `<li><a href="${raiz}proyectos/${p.slug}/">${esc(p.nombre)}</a></li>`)
+    .join("");
+
+function listaHabilidades(raiz) {
+  return habilidades
+    .map((h) => {
+      const prueba = enlacesProyectos(h.proyectos, raiz);
+      return `<li class="habilidad cristal"><h2>${esc(h.titulo)}</h2><p>${esc(h.texto)}</p>${prueba ? `<p class="habilidad__prueba">Lo demuestro en:</p><ul class="etiquetas">${prueba}</ul>` : ""}</li>`;
+    })
+    .join("\n");
+}
+
+function listaServicios(raiz) {
+  return servicios
+    .map((s) => {
+      const pr = precio(s.precio);
+      if (!pr) pendientes.add(`servicio ${s.id}: precio`);
+      if (s.alcance === PC) pendientes.add(`servicio ${s.id}: alcance`);
+      const prueba = enlacesProyectos(s.proyectos, raiz);
+      return `<li class="habilidad cristal"><h2>${esc(s.titulo)}</h2>${pr ? `<p class="habilidad__precio">${esc(pr)}</p>` : ""}<p>${esc(s.texto)}</p>${confirmado(s.alcance) ? `<p>${esc(s.alcance)}</p>` : ""}${prueba ? `<p class="habilidad__prueba">Ejemplos:</p><ul class="etiquetas">${prueba}</ul>` : ""}<a class="boton" href="${raiz}contacto/?servicio=${s.id}">Pedir presupuesto<span class="visualmente-oculto"> de ${esc(s.titulo)}</span></a></li>`;
+    })
+    .join("\n");
+}
+
+function blocInicio(raiz) {
+  if (config.modo_comercial) {
+    const filas = servicios
+      .filter((s) => precio(s.precio))
+      .slice(0, 4)
+      .map((s) => `<li>${esc(s.titulo)} <span class="bloc__precio">${esc(precio(s.precio))}</span></li>`)
+      .join("");
+    return `<h2>Presupuestos</h2><ul>${filas}</ul><span class="bloc__mas">Ver servicios y precios</span>`;
+  }
+  return `<h2>Qué sé hacer</h2><ul>${habilidades.slice(0, 4).map((h) => `<li>${esc(h.titulo)}</li>`).join("")}</ul><span class="bloc__mas">Ver con qué lo demuestro</span>`;
+}
+
+function listadoProyectos(raiz) {
+  return publicados
+    .map((p) => {
+      const cap = p.capturas?.[0];
+      return `<li class="archivo cristal" style="--color-disco:${esc(p.color_disco || "#2a6fdb")}">
+        <div class="archivo__texto">
+          <h2><a href="${raiz}proyectos/${p.slug}/">${esc(p.nombre)}</a></h2>
+          ${confirmado(p.estado) ? `<p class="archivo__estado">${esc(p.estado)}</p>` : ""}
+          <p>${esc(p.resumen)}</p>
+          ${confirmado(p.tecnologias) ? `<ul class="etiquetas">${p.tecnologias.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>` : ""}
+        </div>
+        ${cap ? `<img class="archivo__captura" src="${raiz}${cap.src}" width="${cap.ancho}" height="${cap.alto}" loading="lazy" alt="">` : `<span class="archivo__sin-captura" aria-hidden="true">${esc(p.nombre)}</span>`}
+      </li>`;
+    })
+    .join("\n");
+}
+
+function formularioContacto() {
+  if (!confirmado(config.correo)) {
+    pendientes.add("contacto: formulario (falta el correo)");
+    return `<div class="contacto__aviso cristal"><p><strong>El correo de contacto estará disponible pronto.</strong></p><p>Mientras tanto, puedes encontrarme en <a href="${esc(config.github)}">GitHub</a>.</p></div>`;
+  }
+  const asuntos = config.modo_comercial
+    ? servicios.map((s) => `<option value="${s.id}">Presupuesto: ${esc(s.titulo)}</option>`).join("") + `<option value="otro">Otra consulta</option>`
+    : ["Prácticas", "Empleo", "Colaboración", "Otra consulta"].map((a) => `<option>${a}</option>`).join("");
+  return `<form class="formulario cristal" id="formulario-contacto" action="mailto:${esc(config.correo)}" method="post" enctype="text/plain" data-correo="${esc(config.correo)}">
+    <p class="formulario__nota">Al enviar se abre tu programa de correo con el mensaje preparado. Esta web no guarda nada.</p>
+    <label for="f-nombre">Tu nombre</label>
+    <input id="f-nombre" name="nombre" autocomplete="name" required>
+    <label for="f-asunto">Asunto</label>
+    <select id="f-asunto" name="asunto">${asuntos}</select>
+    <label for="f-mensaje">Mensaje</label>
+    <textarea id="f-mensaje" name="mensaje" rows="6" required></textarea>
+    <button class="boton" type="submit">Preparar el correo</button>
+    <p class="formulario__directo">O escribe directamente a <a href="mailto:${esc(config.correo)}">${esc(config.correo)}</a>.</p>
+  </form>`;
 }
 
 // ---------- Páginas ----------
@@ -157,11 +243,16 @@ for (const dir of ["css", "js", "fuentes", "img"]) {
 const generadas = [];
 generadas.push(
   await pagina("index.html", "paginas/index.html", {
+    bloc: blocInicio(""),
     discos: discosHTML(""),
     pantalla_inicial: pantallaInicial(""),
     datos_monitor: datosMonitor(""),
   })
 );
+generadas.push(await pagina("proyectos/index.html", "paginas/proyectos.html", { listado: listadoProyectos("../") }));
+if (config.modo_comercial) generadas.push(await pagina("servicios/index.html", "paginas/servicios.html", { lista: listaServicios("../") }));
+else generadas.push(await pagina("que-se-hacer/index.html", "paginas/que-se-hacer.html", { lista: listaHabilidades("../") }));
+generadas.push(await pagina("contacto/index.html", "paginas/contacto.html", { formulario: formularioContacto() }));
 for (const p of publicados) {
   const raiz = "../../";
   generadas.push(await pagina(`proyectos/${p.slug}/index.html`, "plantillas/proyecto.html", { p, ...fichaHTML(p, raiz) }));

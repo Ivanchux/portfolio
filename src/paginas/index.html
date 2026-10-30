@@ -6,7 +6,7 @@
       <p class="presentacion__texto">Construyo con HTML, CSS y JavaScript planos, PHP y MySQL, Godot 4 y Cloudflare Workers. Estudio Administración de Sistemas Informáticos en Red, así que también me ocupo de lo que hay detrás de la web.</p>
       <div class="presentacion__acciones">
         <a class="boton" href="{{raiz}}proyectos/">Ver proyectos</a>
-        <a class="boton boton--secundario" href="{{raiz}}contacto/">Hablemos</a>
+        <a class="boton boton--secundario" href="{{raiz}}contacto/">{{^comercial}}Hablemos{{/comercial}}{{#comercial}}Pedir presupuesto{{/comercial}}</a>
       </div>
     </div>
   </section>
@@ -45,22 +45,17 @@
 
       <div class="objeto bloc">
         <a class="bloc__hoja" href="{{^comercial}}{{raiz}}que-se-hacer/{{/comercial}}{{#comercial}}{{raiz}}servicios/{{/comercial}}">
-          <h2>Qué sé hacer</h2>
-          <ul>
-            <li>Webs y landings a mano</li>
-            <li>Sistemas y redes</li>
-            <li>Asistentes de IA con Workers y Groq</li>
-            <li>Juegos en navegador y en Godot</li>
-          </ul>
-          <span class="bloc__mas">Ver con qué lo demuestro</span>
+          {{{bloc}}}
         </a>
       </div>
 
       <div class="objeto nota">
         <a class="nota__papel" href="{{raiz}}contacto/">
-          <strong>Hablemos</strong>
+          {{^comercial}}<strong>Hablemos</strong>
           Prácticas, empleo o colaboraciones.
-          <span>Escríbeme</span>
+          <span>Escríbeme</span>{{/comercial}}{{#comercial}}<strong>¿Tienes un proyecto?</strong>
+          Cuéntamelo y te preparo un presupuesto.
+          <span>Pedir presupuesto</span>{{/comercial}}
         </a>
         <svg class="telefono" viewBox="0 0 120 92" aria-hidden="true">
           <defs>
