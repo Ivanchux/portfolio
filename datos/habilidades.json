@@ -1,0 +1,60 @@
+{
+  "_nota": "Lo que sé hacer y los proyectos que lo demuestran. Los proyectos solo se enlazan si están publicados.",
+  "habilidades": [
+    {
+      "id": "web",
+      "titulo": "Webs y landings hechas a mano",
+      "texto": "HTML, CSS y JavaScript planos, sin frameworks, con accesibilidad y rendimiento medidos.",
+      "proyectos": [
+        "retroterm-ai",
+        "impronta",
+        "inventario-vinilos",
+        "kaiten"
+      ]
+    },
+    {
+      "id": "sistemas",
+      "titulo": "Sistemas y redes",
+      "texto": "Linux, Bash y herramientas de red, aprendidos en ASIR y llevados a proyectos propios.",
+      "proyectos": [
+        "pokemon-bash-simulator",
+        "retroterm-ai",
+        "as-study"
+      ]
+    },
+    {
+      "id": "ia",
+      "titulo": "Asistentes de IA",
+      "texto": "Chats y automatizaciones con Cloudflare Workers y la API de Groq.",
+      "proyectos": [
+        "retroterm-ai"
+      ]
+    },
+    {
+      "id": "juegos",
+      "titulo": "Juegos en el navegador",
+      "texto": "HTML5 Canvas y JavaScript sin dependencias, para ordenador y móvil.",
+      "proyectos": [
+        "wonder-iv",
+        "ninja-de-escritorio",
+        "edulab"
+      ]
+    },
+    {
+      "id": "backend",
+      "titulo": "PHP y MySQL",
+      "texto": "Aplicaciones con usuarios, base de datos y patrón MVC.",
+      "proyectos": [
+        "nexus"
+      ]
+    },
+    {
+      "id": "datos",
+      "titulo": "Visualización de datos con D3",
+      "texto": "Mapas de relaciones y líneas de tiempo interactivas.",
+      "proyectos": [
+        "project-dossier"
+      ]
+    }
+  ]
+}

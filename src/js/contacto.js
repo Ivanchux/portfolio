@@ -5,10 +5,6 @@
   if (!form) return;
   const asunto = form.querySelector("#f-asunto");
 
-  // Asunto precargado desde la página de servicios: ?servicio=web
-  const servicio = new URLSearchParams(location.search).get("servicio");
-  if (servicio && asunto.querySelector(`option[value="${CSS.escape(servicio)}"]`)) asunto.value = servicio;
-
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     if (!form.reportValidity()) return;

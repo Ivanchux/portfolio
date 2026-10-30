@@ -6,8 +6,6 @@ import { readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 
 const DIST = path.resolve("dist");
-const config = JSON.parse(await readFile("site.config.json", "utf8"));
-if (process.env.MODO_COMERCIAL) config.modo_comercial = process.env.MODO_COMERCIAL === "true";
 
 async function archivos(dir, ext) {
   const salida = [];
@@ -24,8 +22,8 @@ test("ninguna página publica POR_CONFIRMAR", async () => {
   for (const f of html) assert.ok(!(await readFile(f, "utf8")).includes("POR_CONFIRMAR"), f);
 });
 
-test("modo portfolio: sin importes ni palabras comerciales", { skip: config.modo_comercial }, async () => {
-  const prohibido = /€|\b(presupuestos?|contratar|tarifas?|comprar)\b/i;
+test("sin precios ni lenguaje de venta de servicios", async () => {
+  const prohibido = /€|\beuros?\b|\b(presupuestos?|contratar|contrátame|tarifas?|comprar|precios?|servicios|facturo|facturación|autónomo)\b/i;
   for (const f of html) {
     const texto = await readFile(f, "utf8");
     assert.ok(!prohibido.test(texto), `${path.relative(DIST, f)}: ${texto.match(prohibido)?.[0]}`);

@@ -280,7 +280,6 @@ a.disquete[aria-current="true"] { transform: translateY(-22px); box-shadow: inse
   a.disquete[aria-current="true"] { transform: none; }
 }
 
-.bloc__precio { font-weight: 700; white-space: nowrap; }
 
 /* Con muchos disquetes, la caja muestra varias filas escalonadas */
 .caja__discos { display: grid; grid-template-columns: repeat(3, auto); justify-content: start; row-gap: 0; }

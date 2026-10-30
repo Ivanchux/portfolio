@@ -13,10 +13,9 @@ const PC = "POR_CONFIRMAR";
 
 const leerJSON = async (f) => JSON.parse(await readFile(path.join(RAIZ, f), "utf8"));
 const config = await leerJSON("site.config.json");
-if (process.env.MODO_COMERCIAL) config.modo_comercial = process.env.MODO_COMERCIAL === "true";
 if (process.env.CORREO) config.correo = process.env.CORREO;
 const { proyectos } = await leerJSON("datos/proyectos.json");
-const { habilidades, servicios } = await leerJSON("datos/servicios.json");
+const { habilidades } = await leerJSON("datos/habilidades.json");
 const publicados = proyectos.filter((p) => p.publicar);
 
 const confirmado = (v) => v !== undefined && v !== null && v !== "" && v !== PC && !(Array.isArray(v) && (v.length === 0 || v.includes(PC)));
@@ -25,7 +24,6 @@ const pendientes = new Set();
 
 // ---------- Plantillas ----------
 // {{> parcial}}  {{clave}} (escapada)  {{{clave}}} (sin escapar)
-// {{#comercial}}…{{/comercial}}  {{^comercial}}…{{/comercial}}
 const parciales = {};
 async function parcial(nombre) {
   parciales[nombre] ??= await readFile(path.join(SRC, "plantillas", nombre + ".html"), "utf8");
@@ -40,8 +38,6 @@ async function render(texto, ctx) {
     for (const n of new Set(nombres)) salida = salida.replaceAll(new RegExp(`\\{\\{>\\s*${n}\\s*\\}\\}`, "g"), await parcial(n));
   }
   salida = salida
-    .replace(/\{\{#comercial\}\}([\s\S]*?)\{\{\/comercial\}\}/g, (_, c) => (config.modo_comercial ? c : ""))
-    .replace(/\{\{\^comercial\}\}([\s\S]*?)\{\{\/comercial\}\}/g, (_, c) => (config.modo_comercial ? "" : c))
     .replace(/\{\{\{\s*([\w.]+)\s*\}\}\}/g, (_, k) => String(valor(ctx, k) ?? ""))
     .replace(/\{\{\s*([\w.]+)\s*\}\}/g, (_, k) => esc(valor(ctx, k) ?? ""));
   return salida;
@@ -50,9 +46,8 @@ async function render(texto, ctx) {
 // ---------- Piezas generadas ----------
 const MENU = [
   { id: "inicio", texto: "Inicio", ruta: "" },
-  config.modo_comercial ? { id: "servicios", texto: "Servicios", ruta: "servicios/" } : { id: "que-se-hacer", texto: "Qué sé hacer", ruta: "que-se-hacer/" },
+  { id: "que-se-hacer", texto: "Qué sé hacer", ruta: "que-se-hacer/" },
   { id: "proyectos", texto: "Proyectos", ruta: "proyectos/" },
-  ...(config.modo_comercial ? [{ id: "productos", texto: "Productos", ruta: "productos/" }] : []),
   { id: "laboratorio", texto: "Laboratorio", ruta: "laboratorio/" },
   { id: "sobre-mi", texto: "Sobre mí", ruta: "sobre-mi/" },
   { id: "contacto", texto: "Contacto", ruta: "contacto/" },
@@ -123,10 +118,6 @@ function fichaHTML(p, raiz) {
   return { secciones: partes.join("\n"), enlaces: enl.join(" "), galeria: galeriaHTML, estado };
 }
 
-const precio = (clave) => {
-  const v = config.precios?.[clave];
-  return typeof v === "number" ? `desde ${v.toLocaleString("es-ES")} €` : null;
-};
 const enlacesProyectos = (slugs, raiz) =>
   slugs
     .map((s) => publicados.find((p) => p.slug === s))
@@ -143,27 +134,7 @@ function listaHabilidades(raiz) {
     .join("\n");
 }
 
-function listaServicios(raiz) {
-  return servicios
-    .map((s) => {
-      const pr = precio(s.precio);
-      if (!pr) pendientes.add(`servicio ${s.id}: precio`);
-      if (s.alcance === PC) pendientes.add(`servicio ${s.id}: alcance`);
-      const prueba = enlacesProyectos(s.proyectos, raiz);
-      return `<li class="habilidad cristal"><h2>${esc(s.titulo)}</h2>${pr ? `<p class="habilidad__precio">${esc(pr)}</p>` : ""}<p>${esc(s.texto)}</p>${confirmado(s.alcance) ? `<p>${esc(s.alcance)}</p>` : ""}${prueba ? `<p class="habilidad__prueba">Ejemplos:</p><ul class="etiquetas">${prueba}</ul>` : ""}<a class="boton" href="${raiz}contacto/?servicio=${s.id}">Pedir presupuesto<span class="visualmente-oculto"> de ${esc(s.titulo)}</span></a></li>`;
-    })
-    .join("\n");
-}
-
 function blocInicio(raiz) {
-  if (config.modo_comercial) {
-    const filas = servicios
-      .filter((s) => precio(s.precio))
-      .slice(0, 4)
-      .map((s) => `<li>${esc(s.titulo)} <span class="bloc__precio">${esc(precio(s.precio))}</span></li>`)
-      .join("");
-    return `<h2>Presupuestos</h2><ul>${filas}</ul><span class="bloc__mas">Ver servicios y precios</span>`;
-  }
   return `<h2>Qué sé hacer</h2><ul>${habilidades.slice(0, 4).map((h) => `<li>${esc(h.titulo)}</li>`).join("")}</ul><span class="bloc__mas">Ver con qué lo demuestro</span>`;
 }
 
@@ -189,9 +160,7 @@ function formularioContacto() {
     pendientes.add("contacto: formulario (falta el correo)");
     return `<div class="contacto__aviso cristal"><p><strong>El correo de contacto estará disponible pronto.</strong></p><p>Mientras tanto, puedes encontrarme en <a href="${esc(config.github)}">GitHub</a>.</p></div>`;
   }
-  const asuntos = config.modo_comercial
-    ? servicios.map((s) => `<option value="${s.id}">Presupuesto: ${esc(s.titulo)}</option>`).join("") + `<option value="otro">Otra consulta</option>`
-    : ["Prácticas", "Empleo", "Colaboración", "Otra consulta"].map((a) => `<option>${a}</option>`).join("");
+  const asuntos = ["Prácticas", "Empleo", "Colaboración", "Otra consulta"].map((a) => `<option>${a}</option>`).join("");
   return `<form class="formulario cristal" id="formulario-contacto" action="mailto:${esc(config.correo)}" method="post" enctype="text/plain" data-correo="${esc(config.correo)}">
     <p class="formulario__nota">Al enviar se abre tu programa de correo con el mensaje preparado. Esta web no guarda nada.</p>
     <label for="f-nombre">Tu nombre</label>
@@ -250,8 +219,7 @@ generadas.push(
   })
 );
 generadas.push(await pagina("proyectos/index.html", "paginas/proyectos.html", { listado: listadoProyectos("../") }));
-if (config.modo_comercial) generadas.push(await pagina("servicios/index.html", "paginas/servicios.html", { lista: listaServicios("../") }));
-else generadas.push(await pagina("que-se-hacer/index.html", "paginas/que-se-hacer.html", { lista: listaHabilidades("../") }));
+generadas.push(await pagina("que-se-hacer/index.html", "paginas/que-se-hacer.html", { lista: listaHabilidades("../") }));
 generadas.push(await pagina("contacto/index.html", "paginas/contacto.html", { formulario: formularioContacto() }));
 for (const p of publicados) {
   const raiz = "../../";
@@ -262,6 +230,6 @@ for (const p of publicados) {
 for (const [k, v] of Object.entries(config)) if (v === PC) pendientes.add(`config: ${k}`);
 for (const [k, v] of Object.entries(config.perfiles || {})) if (v === PC) pendientes.add(`config: perfil ${k}`);
 
-console.log(`Modo ${config.modo_comercial ? "comercial" : "portfolio"} · ${generadas.length} páginas en ${path.relative(RAIZ, DIST)}/`);
+console.log(`${generadas.length} páginas en ${path.relative(RAIZ, DIST)}/`);
 generadas.forEach((g) => console.log("  " + g));
 if (pendientes.size) console.log(`\nSin publicar por estar ${PC} (${pendientes.size}):\n  ` + [...pendientes].join("\n  "));

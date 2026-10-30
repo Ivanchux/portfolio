@@ -1,4 +1,4 @@
-/* Páginas interiores: proyectos, qué sé hacer, servicios y contacto. */
+/* Páginas interiores: proyectos, qué sé hacer y contacto. */
 
 .pagina { padding-block: var(--e-5) var(--e-7); }
 .pagina__cabecera { padding: var(--e-5) clamp(1.25rem, 3vw, 2.25rem); margin-bottom: var(--e-5); }
@@ -31,13 +31,11 @@
   .archivo:nth-child(even) .archivo__texto { order: 0; }
 }
 
-/* Qué sé hacer / Servicios: lista con tamaños desiguales, no una rejilla de tarjetas iguales */
+/* Qué sé hacer: lista con tamaños desiguales, no una rejilla de tarjetas iguales */
 .habilidades { list-style: none; margin: 0; padding: 0; columns: 2 22rem; column-gap: var(--e-4); }
 .habilidad { break-inside: avoid; margin-bottom: var(--e-4); padding: var(--e-5); }
 .habilidad h2 { font-size: var(--t-1); }
 .habilidad__prueba { margin-bottom: var(--e-2); font-weight: 700; color: var(--tinta-suave); }
-.habilidad__precio { font: 600 var(--t-2)/1 var(--tipo-titulo); color: var(--acento); }
-.habilidad .boton { margin-top: var(--e-4); }
 .etiquetas a { color: inherit; text-decoration: none; }
 .etiquetas a:hover { text-decoration: underline; }
 
