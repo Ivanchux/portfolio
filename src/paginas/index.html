@@ -1,0 +1,80 @@
+<!-- {"titulo": "{{nombre_publico}} · Desarrollo web, sistemas y juegos en el navegador", "descripcion": "Portfolio de {{nombre_publico}}, desarrollador web y estudiante de 2.º de ASIR en Madrid. Webs, herramientas y juegos hechos con HTML, CSS y JavaScript planos.", "seccion": "inicio", "css": ["escritorio"], "js": ["monitor"]} -->
+  <section class="presentacion contenedor">
+    <div class="presentacion__panel cristal">
+      <p class="presentacion__antetitulo">Desarrollador web · 2.º de ASIR · Madrid</p>
+      <h1>Webs, herramientas y juegos que funcionan en el navegador</h1>
+      <p class="presentacion__texto">Construyo con HTML, CSS y JavaScript planos, PHP y MySQL, Godot 4 y Cloudflare Workers. Estudio Administración de Sistemas Informáticos en Red, así que también me ocupo de lo que hay detrás de la web.</p>
+      <div class="presentacion__acciones">
+        <a class="boton" href="{{raiz}}proyectos/">Ver proyectos</a>
+        <a class="boton boton--secundario" href="{{raiz}}contacto/">Hablemos</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="escena contenedor" aria-labelledby="escena-titulo">
+    <h2 id="escena-titulo" class="visualmente-oculto">Mi escritorio</h2>
+    <div class="mesa">
+
+      <div class="objeto monitor">
+        <div class="monitor__carcasa">
+          <div class="monitor__marco">
+            <div class="pantalla" id="pantalla">
+              {{{pantalla_inicial}}}
+            </div>
+          </div>
+          <i class="monitor__tornillo" aria-hidden="true"></i><i class="monitor__tornillo" aria-hidden="true"></i><i class="monitor__tornillo" aria-hidden="true"></i><i class="monitor__tornillo" aria-hidden="true"></i>
+          <span class="monitor__placa" aria-hidden="true">IVANCHUX · 26</span>
+          <span class="monitor__ranura" aria-hidden="true"><i class="monitor__led" id="led-disco"></i></span>
+          <span class="monitor__mandos"><button class="monitor__modo" type="button" id="modo-pantalla" hidden aria-label="Modo de pantalla: verde. Pulsa para cambiar"><i class="monitor__mando" aria-hidden="true"></i><i class="monitor__mando" aria-hidden="true"></i><span aria-hidden="true">modo</span></button></span>
+        </div>
+        <div class="monitor__pie" aria-hidden="true"></div>
+        <p class="visualmente-oculto" id="monitor-anuncio" aria-live="polite"></p>
+      </div>
+
+      <div class="objeto estante">
+        <h2 class="objeto__rotulo estante__titulo" id="estante-titulo">Proyectos · elige un disquete</h2>
+        <div class="caja">
+          <ul class="caja__discos" aria-labelledby="estante-titulo">
+            {{{discos}}}
+          </ul>
+          <a class="disquete disquete--sistema" href="{{raiz}}laboratorio/os/" aria-label="Disquete con la etiqueta «sistema»"><span class="disquete__etiqueta">sistema</span></a>
+          <div class="caja__frente" aria-hidden="true"></div>
+        </div>
+        <p class="estante__nota">Pulsa un disquete y se carga en el monitor.</p>
+      </div>
+
+      <div class="objeto bloc">
+        <a class="bloc__hoja" href="{{^comercial}}{{raiz}}que-se-hacer/{{/comercial}}{{#comercial}}{{raiz}}servicios/{{/comercial}}">
+          <h2>Qué sé hacer</h2>
+          <ul>
+            <li>Webs y landings a mano</li>
+            <li>Sistemas y redes</li>
+            <li>Asistentes de IA con Workers y Groq</li>
+            <li>Juegos en navegador y en Godot</li>
+          </ul>
+          <span class="bloc__mas">Ver con qué lo demuestro</span>
+        </a>
+      </div>
+
+      <div class="objeto nota">
+        <a class="nota__papel" href="{{raiz}}contacto/">
+          <strong>Hablemos</strong>
+          Prácticas, empleo o colaboraciones.
+          <span>Escríbeme</span>
+        </a>
+        <svg class="telefono" viewBox="0 0 120 92" aria-hidden="true">
+          <defs>
+            <linearGradient id="tel-cuerpo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--plastico-luz)"/><stop offset="1" stop-color="var(--plastico-sombra)"/></linearGradient>
+          </defs>
+          <path d="M14 48 Q16 34 34 32 L86 32 Q104 34 106 48 L112 84 Q112 90 104 90 L16 90 Q8 90 8 84 Z" fill="url(#tel-cuerpo)"/>
+          <path d="M6 22 Q8 6 30 8 L90 8 Q112 6 114 22 L112 30 Q110 34 100 32 L92 22 L28 22 L20 32 Q10 34 8 30 Z" fill="url(#tel-cuerpo)" stroke="rgba(0,0,0,.15)"/>
+          <g fill="#6d6450">
+            <circle cx="44" cy="56" r="4"/><circle cx="60" cy="56" r="4"/><circle cx="76" cy="56" r="4"/>
+            <circle cx="44" cy="70" r="4"/><circle cx="60" cy="70" r="4"/><circle cx="76" cy="70" r="4"/>
+          </g>
+        </svg>
+      </div>
+
+    </div>
+  </section>
+<script type="application/json" id="datos-monitor">{{{datos_monitor}}}</script>

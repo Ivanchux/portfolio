@@ -243,3 +243,39 @@ a.disquete--sistema:hover, a.disquete--sistema:focus-visible { transform: rotate
 .caja__discos .disquete::before { top: auto; bottom: 0; border-radius: 2px 2px 0 0; }
 .caja__discos .disquete::after { top: auto; bottom: 5%; }
 .caja__discos .disquete__etiqueta { top: 7%; bottom: auto; }
+
+/* ---------- Disquetera, modo de pantalla y estados del monitor ---------- */
+.monitor__ranura {
+  position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%);
+  width: 26%; height: 14px; border-radius: 3px;
+  background: linear-gradient(180deg, #2b2a26, #4a463d);
+  box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.7), 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+.monitor__ranura .monitor__led { position: absolute; right: -16px; top: 3px; background: #6c7a63; box-shadow: none; }
+.monitor__ranura .monitor__led.leyendo { background: #ffb000; box-shadow: 0 0 8px #ffb000; animation: parpadeo 0.18s steps(2) infinite; }
+@keyframes parpadeo { 50% { opacity: 0.3; } }
+
+.monitor__mandos { gap: 0; }
+.monitor__modo {
+  display: inline-flex; align-items: center; gap: 8px; padding: 4px 6px; cursor: pointer;
+  border: 0; border-radius: 999px; background: transparent;
+  font: 600 0.7rem/1 var(--tipo-titulo); letter-spacing: 0.12em; text-transform: uppercase; color: #5d5440;
+}
+.monitor__modo:hover .monitor__mando { filter: brightness(1.08); }
+.monitor__modo .monitor__mando { transition: transform 0.25s ease; }
+.monitor__modo:active .monitor__mando:first-child { transform: rotate(60deg); }
+
+a.disquete[aria-current="true"] { transform: translateY(-22px); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.25), 0 0 0 3px var(--horizonte), 0 0 0 5px var(--boton-2); }
+.disquete.entrando { animation: entrar 0.35s ease-in; }
+@keyframes entrar { 50% { transform: translateY(-40px) scale(0.96); } }
+
+.pantalla__arranque { margin: 0; padding: 14px 18px; white-space: pre-wrap; color: var(--pantalla-texto); }
+.pantalla__arranque .ok { color: var(--pantalla-acento); }
+
+.pantalla--vivo::after { display: none; }
+.pantalla__iframe { flex: 1; width: 100%; min-height: 0; border: 0; background: #fff; border-radius: 6px; }
+.pantalla__aviso { margin: 0; color: var(--pantalla-tenue); font-size: 0.85em; }
+
+@media (prefers-reduced-motion: reduce) {
+  a.disquete[aria-current="true"] { transform: none; }
+}

@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{titulo}}</title>
+<meta name="description" content="{{descripcion}}">
+<link rel="preload" href="{{raiz}}fuentes/atkinson-hyperlegible-next-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{raiz}}fuentes/chakra-petch-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="{{raiz}}css/tokens.css">
+<link rel="stylesheet" href="{{raiz}}css/base.css">
+{{{css_extra}}}
+<script src="{{raiz}}js/tema.js"></script>
+{{{js_extra}}}
+</head>
+<body>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+{{> fondo}}
+{{> cabecera}}
+<main id="contenido">
+{{{contenido}}}
+</main>
+{{> pie}}
+</body>
+</html>
