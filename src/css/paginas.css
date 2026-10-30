@@ -146,7 +146,7 @@ body.os-activo .cabecera, body.os-activo .pie, body.os-activo #os-sin-js, body.o
 .monograma {
   flex: none; display: grid; place-items: center; width: clamp(4.5rem, 12vw, 7rem); aspect-ratio: 1; border-radius: 50%;
   font: 600 clamp(1.6rem, 4vw, 2.6rem)/1 var(--tipo-titulo); color: #fff;
-  background: radial-gradient(circle at 30% 24%, rgba(255, 255, 255, .9) 0 9%, transparent 10%), linear-gradient(160deg, rgba(255, 255, 255, .5), transparent 55%), linear-gradient(160deg, var(--boton-1), #1f8fb3);
+  background: radial-gradient(circle at 18% 18%, rgba(255, 255, 255, .85) 0 5%, transparent 6%), linear-gradient(160deg, rgba(255, 255, 255, .5), transparent 55%), linear-gradient(160deg, var(--boton-1), #1f8fb3);
   box-shadow: inset 0 -6px 12px rgba(0, 0, 0, .2), 0 10px 24px rgba(15, 110, 120, .35);
 }
 @media (max-width: 560px) { .sobre__cabecera { flex-direction: column; align-items: flex-start; } }
