@@ -1,5 +1,7 @@
 // IVANDEV OS en un navegador real (Playwright). Se lanza con: npm run test:os
 // Recorre todos los hallazgos solo con el teclado y comprueba el arranque secreto.
+// La frase secreta no está en el repositorio: se pasa en la variable OS_SECRETO.
+// Sin ella, los dos tests que la escriben se saltan.
 
 import { test, before, after } from "node:test";
 import assert from "node:assert/strict";
@@ -12,6 +14,12 @@ const { chromium } = createRequire(import.meta.url)("playwright");
 const PUERTO = 8300 + Math.floor(Math.random() * 500);
 const URL_OS = `http://localhost:${PUERTO}/laboratorio/os/`;
 const SECRETO = process.env.OS_SECRETO;
+const sinSecreto = SECRETO ? false : "falta la variable OS_SECRETO";
+const huella = (s) => {
+  let h = 0x811c9dc5;
+  for (const c of s) h = Math.imul(h ^ c.codePointAt(0), 0x01000193) >>> 0;
+  return h;
+};
 let servidor, navegador;
 
 before(async () => {
@@ -36,7 +44,7 @@ async function abrir(opciones = {}) {
 const contador = (p) => p.locator('[data-r="cnt"]').textContent();
 const foco = (p) => p.evaluate(() => document.activeElement.textContent.trim());
 
-test("recorrido completo solo con teclado: el contador llega a N/N y el final aparece solo entonces", async () => {
+test("recorrido completo solo con teclado: el contador llega a N/N y el final aparece solo entonces", { skip: sinSecreto }, async () => {
   const { pagina: p, errores } = await abrir();
   const total = Number((await contador(p)).split("/")[1]);
   assert.match(await contador(p), /^0\/\d+$/);
@@ -101,7 +109,7 @@ test("recorrido completo solo con teclado: el contador llega a N/N y el final ap
   await p.close();
 });
 
-test("arranque secreto: root ve el contacto; invitado no", async () => {
+test("arranque secreto: root ve el contacto; invitado no", { skip: sinSecreto }, async () => {
   const { pagina: p } = await abrir({ reducedMotion: "reduce" });
   await p.keyboard.press("Enter");
   await p.locator("[data-login]:focus").waitFor();
@@ -122,6 +130,8 @@ test("arranque secreto: root ve el contacto; invitado no", async () => {
 });
 
 test("la frase del arranque secreto no aparece en ningún archivo publicado", async () => {
+  // Se busca por su huella: el test no necesita conocer la frase
+  const LLAVE = Number((await readFile("src/os/os.js", "utf8")).match(/const LLAVE = (\d+)/)[1]);
   async function todos(dir) {
     const salida = [];
     for (const e of await readdir(dir, { withFileTypes: true })) {
@@ -132,6 +142,8 @@ test("la frase del arranque secreto no aparece en ningún archivo publicado", as
     return salida;
   }
   for (const f of await todos(path.resolve("dist"))) {
-    assert.ok(!(await readFile(f)).includes(SECRETO), f);
+    if (!/\.(html|js|css|json|txt|xml|svg)$/.test(f)) continue;
+    const fichas = (await readFile(f, "utf8")).split(/[\s"'`<>()\[\]{},;\\]+/);
+    assert.ok(!fichas.some((t) => huella(t) === LLAVE), f);
   }
 });
