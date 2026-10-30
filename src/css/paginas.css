@@ -190,3 +190,19 @@ body.os-activo .cabecera, body.os-activo .pie, body.os-activo #os-sin-js, body.o
 .sobre-correo::before { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom right, transparent 49%, #b9d3dd 50%, transparent 51%), linear-gradient(to bottom left, transparent 49%, #b9d3dd 50%, transparent 51%); background-size: 100% 70%; background-repeat: no-repeat; }
 .formulario input, .formulario select, .formulario textarea { transition: border-color .2s, box-shadow .2s; }
 .formulario input:focus, .formulario select:focus, .formulario textarea:focus { border-color: var(--acento); box-shadow: 0 0 0 4px color-mix(in srgb, var(--acento) 20%, transparent); }
+
+/* Logo dentro de la esfera de «Sobre mí» y cubo del laboratorio */
+.monograma__logo {
+  display: block; width: 32%; height: 72%; background: #fff;
+  -webkit-mask: url("../img/logo.png") center / contain no-repeat; mask: url("../img/logo.png") center / contain no-repeat;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, .25));
+}
+.lab__cabecera { display: flex; align-items: center; justify-content: space-between; gap: var(--e-5); }
+.cubo {
+  flex: none; width: clamp(5rem, 13vw, 8rem); aspect-ratio: 365 / 420;
+  background: linear-gradient(160deg, #7fdcea, var(--boton-1) 45%, #7a58c4);
+  -webkit-mask: url("../img/logo-cubo.png") center / contain no-repeat; mask: url("../img/logo-cubo.png") center / contain no-repeat;
+  filter: drop-shadow(0 10px 14px rgba(20, 70, 100, .25));
+  animation: flotar 7s ease-in-out infinite alternate;
+}
+@media (max-width: 560px) { .lab__cabecera { flex-direction: column-reverse; align-items: flex-start; } }

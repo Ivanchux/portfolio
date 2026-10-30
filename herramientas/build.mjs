@@ -352,6 +352,19 @@ for (const dir of ["css", "js", "os", "fuentes", "img"]) {
   if (existsSync(path.join(SRC, dir))) await cp(path.join(SRC, dir), path.join(DIST, dir), { recursive: true });
 }
 
+// Doble clic: Chrome no deja usar como máscara una imagen local, así que los logos se incrustan en el CSS
+if (process.env.ARCHIVO) {
+  for (const f of ["base.css", "paginas.css"]) {
+    const ruta = path.join(DIST, "css", f);
+    let css = await readFile(ruta, "utf8");
+    for (const img of ["logo.png", "logo-cubo.png"]) {
+      const datos = (await readFile(path.join(SRC, "img", img))).toString("base64");
+      css = css.replaceAll(`url("../img/${img}")`, `url("data:image/png;base64,${datos}")`);
+    }
+    await writeFile(ruta, css);
+  }
+}
+
 const generadas = [];
 generadas.push(
   await pagina("index.html", "paginas/index.html", {
