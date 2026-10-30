@@ -1,15 +1,17 @@
 <!-- {"titulo": "Laboratorio · {{nombre_publico}}", "descripcion": "Experimentos y proyectos en curso de {{nombre_publico}}, con su estado real.", "seccion": "laboratorio", "css": ["paginas"]} -->
 <div class="pagina contenedor">
-  <header class="pagina__cabecera cristal">
+  <header class="pagina__cabecera cristal" data-revelar>
     <h1>Laboratorio</h1>
-    <p>Experimentos y proyectos que siguen en marcha, con su estado real.</p>
+    <p>Experimentos y proyectos que siguen en marcha. Están vivos: cambian, se rompen y mejoran.</p>
   </header>
-  <ul class="habilidades">
-    <li class="habilidad cristal">
-      <h2><a href="{{raiz}}laboratorio/os/">IVANDEV OS</a></h2>
-      <p class="archivo__estado">Experimento</p>
-      <p>Un sistema operativo de mentira, con arranque, terminal, procesos y mapas de capas. Solo para curiosos.</p>
-    </li>
-    {{{en_curso}}}
-  </ul>
+  <a class="experimento-os" href="{{raiz}}laboratorio/os/" data-revelar>
+    <span class="experimento-os__pantalla" aria-hidden="true"><span>GNU GRUB  versión 2.12</span><span class="sel">ivandev OS (invitado)</span><span>ivandev OS (modo recuperación)</span></span>
+    <span class="experimento-os__texto"><span class="estado estado--vivo">Experimento</span><strong>IVANDEV OS</strong><span>Un sistema operativo de mentira, con arranque, terminal, procesos y un mapa por capas. Solo para curiosos.</span></span>
+  </a>
+  <section aria-labelledby="curso-titulo">
+    <h2 id="curso-titulo" class="seccion-titulo" data-revelar><span class="burbuja-icono">{{{icono_matraz}}}</span>En marcha <small>{{n_curso}}</small></h2>
+    <ul class="tarjetas">
+      {{{en_curso}}}
+    </ul>
+  </section>
 </div>

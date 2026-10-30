@@ -1,9 +1,17 @@
 <!-- {"titulo": "Contacto · {{nombre_publico}}", "descripcion": "Cómo contactar con {{nombre_publico}} para prácticas, empleo, colaboraciones o proyectos.", "seccion": "contacto", "css": ["paginas"], "js": ["contacto"]} -->
 <div class="pagina contenedor contacto">
-  <header class="pagina__cabecera cristal">
+  <header class="pagina__cabecera cristal" data-revelar>
     <h1>Hablemos</h1>
     <p>Busco prácticas, empleo y colaboraciones en desarrollo web y sistemas. Si tienes algo en mente, escríbeme.</p>
     
   </header>
-  {{{formulario}}}
+  <div class="contacto__rejilla">
+    {{{formulario}}}
+    <aside class="contacto__lateral cristal" data-revelar aria-labelledby="otras-vias">
+      <span class="sobre-correo" aria-hidden="true"></span>
+      <h2 id="otras-vias">También me encuentras en</h2>
+      <ul class="vias"><li><a href="{{github}}">GitHub · Ivanchux</a></li></ul>
+      <p>¿Prefieres ver antes lo que hago? Echa un vistazo a los <a href="{{raiz}}proyectos/">proyectos</a> o al <a href="{{raiz}}laboratorio/">laboratorio</a>.</p>
+    </aside>
+  </div>
 </div>

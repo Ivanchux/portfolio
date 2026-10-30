@@ -286,20 +286,6 @@ a.disquete[aria-current="true"] { transform: translateY(-22px); box-shadow: inse
 }
 
 
-/* Con muchos disquetes, la caja muestra varias filas escalonadas */
-.caja__discos { display: grid; grid-template-columns: repeat(3, auto); justify-content: start; row-gap: 0; }
-.caja__discos li:nth-child(n + 4) { margin-top: -38px; }
-.caja__discos li { position: relative; }
-.caja__discos li:nth-child(n + 4) { z-index: 1; }
-.caja__discos li:nth-child(n + 7) { z-index: 2; }
-.caja__discos li:nth-child(n + 10) { z-index: 3; }
-@media (max-width: 860px) {
-  .caja__discos { grid-template-columns: repeat(4, auto); }
-  .caja__discos li:nth-child(n + 4) { margin-top: 0; z-index: auto; }
-  .caja__discos li:nth-child(n + 5) { margin-top: -30px; z-index: 1; }
-  .caja__discos li:nth-child(n + 9) { z-index: 2; }
-}
-
 /* IVANDEV OS dentro del monitor */
 .pantalla--os { display: block; }
 .pantalla--os::after { display: none; }
@@ -307,3 +293,44 @@ a.disquete[aria-current="true"] { transform: translateY(-22px); box-shadow: inse
 .pantalla.pantalla--os { font-size: 11px; }
 .pantalla--os .ios__barra { gap: 4px; padding: 4px 6px; }
 .pantalla--os .ios__barra button { padding: 2px 6px; }
+
+/* ---------- Archivador de disquetes por categoría ---------- */
+.archivador__pestanas { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: var(--e-3); }
+.archivador__pestanas .pestana { font-size: .8rem; padding: .35em .7em; }
+.archivador__pestanas .pestana span { white-space: nowrap; }
+.caja {
+  padding: 16px 14px 18px; border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, .9);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .55) 0%, rgba(255, 255, 255, .12) 30%, transparent 31%),
+    linear-gradient(180deg, rgba(120, 215, 225, .38), rgba(25, 150, 150, .32));
+  box-shadow: inset 0 1px 0 #fff, 0 14px 26px rgba(10, 80, 90, .2);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+}
+.caja__frente { display: none; }
+.caja__discos { display: grid; grid-template-columns: repeat(3, 1fr); justify-content: stretch; gap: 14px 10px; padding: 0; min-height: 200px; align-content: start; }
+.caja__discos li { display: grid; place-items: center; }
+.caja__discos .disquete { width: 100%; max-width: 92px; }
+.caja__discos .disquete::before { top: auto; bottom: 0; }
+/* Etiqueta: franja de color de la categoría con su tipo y el nombre escrito a mano */
+.disquete__etiqueta { display: flex; flex-direction: column; justify-content: flex-start; padding: 0; overflow: hidden; height: 58%; }
+.disquete__tipo {
+  display: block; width: 100%; padding: 1px 0; font: 600 .52rem/1.3 var(--tipo-titulo); font-style: normal; letter-spacing: .12em;
+  color: #fff; background: color-mix(in srgb, var(--cat, #555) 85%, #000);
+}
+.disquete__nombre { display: grid; place-items: center; flex: 1; padding: 1px 3px; font-size: .72rem; line-height: 1.05; }
+.disquete__led { position: absolute; right: 6px; bottom: 6px; width: 7px; height: 7px; border-radius: 50%; background: #38d27a; box-shadow: 0 0 6px #38d27a; animation: latido 1.8s ease-out infinite; }
+a.disquete { transition: transform .25s cubic-bezier(.2, .8, .2, 1.3), box-shadow .25s ease, filter .25s; }
+a.disquete:hover, a.disquete:focus-visible { transform: translateY(-8px) rotate(-2deg); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .25), 0 12px 18px rgba(0, 0, 0, .28); }
+a.disquete[aria-current="true"] { transform: translateY(-6px); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .25), 0 0 0 3px #fff, 0 0 0 6px var(--cat, var(--boton-2)), 0 10px 22px rgba(0, 0, 0, .25); }
+.disquete--sistema { right: -10px; bottom: -14px; }
+@media (max-width: 860px) { .disquete--sistema { right: 2px; } }
+.estante { position: relative; }
+@media (max-width: 860px) {
+  .caja__discos { grid-template-columns: repeat(4, 1fr); }
+  .caja__discos li:nth-child(n + 5) { margin-top: 0; }
+}
+@media (max-width: 420px) { .caja__discos { grid-template-columns: repeat(3, 1fr); } }
+@media (prefers-reduced-motion: reduce) {
+  a.disquete:hover, a.disquete:focus-visible, a.disquete[aria-current="true"] { transform: none; }
+}

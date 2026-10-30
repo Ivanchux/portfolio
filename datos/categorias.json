@@ -1,0 +1,32 @@
+{
+  "categorias": [
+    {
+      "id": "web",
+      "nombre": "Webs y apps",
+      "corto": "WEB",
+      "color": "#1f8fb3",
+      "texto": "Sitios y aplicaciones que se usan a diario: instalables, sin conexión y con los datos en tu dispositivo."
+    },
+    {
+      "id": "juegos",
+      "nombre": "Juegos",
+      "corto": "JUEGO",
+      "color": "#d9622b",
+      "texto": "Juegos de navegador en HTML5 Canvas, sin librerías, con arte y sonido generados por código."
+    },
+    {
+      "id": "aprendizaje",
+      "nombre": "Aprendizaje",
+      "corto": "ESTUDIO",
+      "color": "#3c9a4f",
+      "texto": "Herramientas para estudiar ASIR y aprender tecnología jugando."
+    },
+    {
+      "id": "sistemas",
+      "nombre": "Sistemas y datos",
+      "corto": "SISTEMA",
+      "color": "#7a58c4",
+      "texto": "Linux, Bash, simulaciones y visualización de datos."
+    }
+  ]
+}

@@ -1,10 +1,11 @@
-<!-- {"titulo": "Proyectos · {{nombre_publico}}", "descripcion": "Proyectos de {{nombre_publico}}: webs, herramientas, juegos y aplicaciones hechas con HTML, CSS, JavaScript, PHP y Godot.", "seccion": "proyectos", "css": ["paginas"]} -->
+<!-- {"titulo": "Proyectos · {{nombre_publico}}", "descripcion": "Proyectos de {{nombre_publico}} por categorías: webs y apps, juegos, aprendizaje, y sistemas y datos.", "seccion": "proyectos", "css": ["paginas"]} -->
 <div class="pagina contenedor">
-  <header class="pagina__cabecera cristal">
+  <header class="pagina__cabecera pagina__cabecera--con-icono cristal" data-revelar>
     <h1>Proyectos</h1>
-    <p>Lo que he construido, con capturas, tecnologías y enlaces. En el <a href="{{raiz}}./">escritorio</a> puedes cargar cada uno en el monitor.</p>
+    <p>Lo que he construido, ordenado por lo que es. En el <a href="{{raiz}}./">escritorio</a> puedes cargar cada uno en el monitor.</p>
+    <div class="filtros" data-filtros="grupos-proyectos" role="group" aria-label="Filtrar por categoría" hidden>{{{filtros}}}</div>
   </header>
-  <ul class="archivos">
-    {{{listado}}}
-  </ul>
+  <div id="grupos-proyectos" class="grupos">
+    {{{grupos}}}
+  </div>
 </div>

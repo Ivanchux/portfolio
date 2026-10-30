@@ -33,14 +33,15 @@
 
       <div class="objeto estante">
         <h2 class="objeto__rotulo estante__titulo" id="estante-titulo">Proyectos · elige un disquete</h2>
+        <div class="archivador__pestanas" data-filtros="caja-discos" role="group" aria-label="Categorías de proyectos" hidden>{{{pestanas}}}</div>
         <div class="caja">
-          <ul class="caja__discos" aria-labelledby="estante-titulo">
+          <ul class="caja__discos" id="caja-discos" aria-labelledby="estante-titulo">
             {{{discos}}}
           </ul>
-          <a class="disquete disquete--sistema" href="{{raiz}}laboratorio/os/" data-os aria-label="Disquete con la etiqueta «sistema»"><span class="disquete__etiqueta">sistema</span></a>
+          <a class="disquete disquete--sistema" href="{{raiz}}laboratorio/os/" data-os aria-label="Disquete con la etiqueta «sistema»"><span class="disquete__etiqueta"><span class="disquete__nombre">sistema</span></span></a>
           <div class="caja__frente" aria-hidden="true"></div>
         </div>
-        <p class="estante__nota">Pulsa un disquete y se carga en el monitor.</p>
+        <p class="estante__nota">Elige una categoría y pulsa un disquete: se carga en el monitor.</p>
       </div>
 
       <div class="objeto bloc">

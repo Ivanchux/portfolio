@@ -11,7 +11,8 @@
         "inventario-vinilos",
         "kaiten",
         "lorekeeper"
-      ]
+      ],
+      "icono": "ventana"
     },
     {
       "id": "sistemas",
@@ -21,7 +22,8 @@
         "pokemon-bash-simulator",
         "retroterm-ai",
         "as-study"
-      ]
+      ],
+      "icono": "terminal"
     },
     {
       "id": "ia",
@@ -29,7 +31,8 @@
       "texto": "Chats y automatizaciones con Cloudflare Workers y la API de Groq.",
       "proyectos": [
         "retroterm-ai"
-      ]
+      ],
+      "icono": "chispa"
     },
     {
       "id": "juegos",
@@ -42,7 +45,8 @@
         "dead-heat",
         "panal-roto",
         "caja-de-arena"
-      ]
+      ],
+      "icono": "mando"
     },
     {
       "id": "backend",
@@ -50,7 +54,8 @@
       "texto": "Aplicaciones con usuarios, base de datos y patrón MVC.",
       "proyectos": [
         "nexus"
-      ]
+      ],
+      "icono": "datos"
     },
     {
       "id": "datos",
@@ -59,7 +64,8 @@
       "proyectos": [
         "project-dossier",
         "hemiciclo"
-      ]
+      ],
+      "icono": "grafo"
     }
   ]
 }

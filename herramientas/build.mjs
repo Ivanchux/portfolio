@@ -5,6 +5,7 @@ import { readFile, writeFile, mkdir, rm, cp, readdir } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { ICONOS, ICONO_CATEGORIA } from "./iconos.mjs";
 
 const RAIZ = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SRC = path.join(RAIZ, "src");
@@ -16,6 +17,7 @@ const config = await leerJSON("site.config.json");
 if (process.env.CORREO) config.correo = process.env.CORREO;
 const { proyectos } = await leerJSON("datos/proyectos.json");
 const { habilidades } = await leerJSON("datos/habilidades.json");
+const { categorias } = await leerJSON("datos/categorias.json");
 const { _nota: _m, ...sobreMi } = await leerJSON("datos/sobre-mi.json");
 const { _nota: _t, ...osTextos } = await leerJSON("datos/os-textos.json");
 const { _nota: _s, ...osSistema } = await leerJSON("datos/os-sistema.json");
@@ -58,10 +60,36 @@ const MENU = [
 const menuHTML = (raiz, actual) =>
   MENU.map((m) => `<li><a href="${raiz}${m.ruta || "./"}"${m.id === actual ? ' aria-current="page"' : ""}>${esc(m.texto)}</a></li>`).join("\n        ");
 
-const discosHTML = (raiz) =>
-  publicados
-    .map((p) => `<li><a class="disquete" style="--color-disco:${esc(p.color_disco || "#2a6fdb")}" href="${raiz}proyectos/${p.slug}/" data-proyecto="${p.slug}" aria-label="Insertar el disquete de ${esc(p.nombre)}"${p.destacado ? ' aria-current="true"' : ""}><span class="disquete__etiqueta">${esc(p.nombre)}</span></a></li>`)
+const categoria = (id) => categorias.find((k) => k.id === id) || categorias[0];
+const icono = (nombre) => ICONOS[nombre] || "";
+const iconoCat = (id) => icono(ICONO_CATEGORIA[id]);
+const enDesarrollo = (p) => /desarrollo/i.test(p.estado || "");
+const estadoHTML = (p) =>
+  confirmado(p.estado) ? `<span class="estado${enDesarrollo(p) ? " estado--vivo" : ""}">${esc(p.estado)}</span>` : "";
+const chipCat = (p) => {
+  const k = categoria(p.categoria);
+  return `<span class="chip-cat" style="--cat:${k.color}">${iconoCat(k.id)}${esc(k.nombre)}</span>`;
+};
+
+// Escritorio: pestañas por categoría y disquetes con etiqueta propia
+function archivadorHTML(raiz) {
+  const destacado = publicados.find((p) => p.destacado) || publicados[0];
+  const inicial = destacado?.categoria || categorias[0].id;
+  const pestanas = categorias
+    .map((k) => {
+      const n = publicados.filter((p) => p.categoria === k.id).length;
+      if (!n) return "";
+      return `<button type="button" class="pestana" data-filtro="${k.id}" aria-pressed="${k.id === inicial}" style="--cat:${k.color}">${iconoCat(k.id)}<span>${esc(k.nombre)}</span><b>${n}</b></button>`;
+    })
+    .join("");
+  const discos = publicados
+    .map((p) => {
+      const k = categoria(p.categoria);
+      return `<li data-categoria="${k.id}"><a class="disquete" style="--color-disco:${esc(p.color_disco || "#2a6fdb")};--cat:${k.color}" href="${raiz}proyectos/${p.slug}/" data-proyecto="${p.slug}" aria-label="Insertar el disquete de ${esc(p.nombre)} (${esc(k.nombre)})"${p.destacado ? ' aria-current="true"' : ""}><span class="disquete__etiqueta"><span class="disquete__tipo">${esc(k.corto)}</span><span class="disquete__nombre">${esc(p.nombre)}</span></span>${enDesarrollo(p) ? '<i class="disquete__led" aria-hidden="true"></i>' : ""}</a></li>`;
+    })
     .join("\n            ");
+  return { pestanas, discos, inicial };
+}
 
 function datosMonitor(raiz) {
   const d = {};
@@ -117,7 +145,7 @@ function fichaHTML(p, raiz) {
   const galeriaHTML = galeria
     ? `<div class="galeria" tabindex="0" role="region" aria-label="Capturas de ${esc(p.nombre)}">${galeria}</div>`
     : "";
-  const estado = confirmado(p.estado) ? `<p class="ficha__estado">${esc(p.estado)}</p>` : "";
+  const estado = estadoHTML(p);
   if (!estado) pendientes.add(`${p.slug}: estado`);
   return { secciones: partes.join("\n"), enlaces: enl.join(" "), galeria: galeriaHTML, estado };
 }
@@ -129,11 +157,18 @@ const enlacesProyectos = (slugs, raiz) =>
     .map((p) => `<li><a href="${raiz}proyectos/${p.slug}/">${esc(p.nombre)}</a></li>`)
     .join("");
 
+const discosMini = (slugs, raiz) =>
+  slugs
+    .map((s) => publicados.find((p) => p.slug === s))
+    .filter(Boolean)
+    .map((p) => `<li><a href="${raiz}proyectos/${p.slug}/" style="--color-disco:${esc(p.color_disco || "#2a6fdb")}"><i aria-hidden="true"></i>${esc(p.nombre)}</a></li>`)
+    .join("");
+
 function listaHabilidades(raiz) {
   return habilidades
-    .map((h) => {
-      const prueba = enlacesProyectos(h.proyectos, raiz);
-      return `<li class="habilidad cristal"><h2>${esc(h.titulo)}</h2><p>${esc(h.texto)}</p>${prueba ? `<p class="habilidad__prueba">Lo demuestro en:</p><ul class="etiquetas">${prueba}</ul>` : ""}</li>`;
+    .map((h, i) => {
+      const prueba = discosMini(h.proyectos, raiz);
+      return `<li class="habilidad habilidad--${h.id}${i === 0 ? " habilidad--grande" : ""} cristal" data-revelar><span class="burbuja-icono">${icono(h.icono)}</span><h2>${esc(h.titulo)}</h2><p>${esc(h.texto)}</p>${prueba ? `<p class="habilidad__prueba">Lo demuestro en</p><ul class="discos-mini">${prueba}</ul>` : ""}</li>`;
     })
     .join("\n");
 }
@@ -148,21 +183,34 @@ const textoSobre = (hex) => {
   return 0.2126 * r + 0.7152 * g + 0.0722 * b > 0.18 ? "#1b1b1b" : "#ffffff";
 };
 
-function listadoProyectos(raiz) {
-  return publicados
-    .map((p) => {
-      const cap = p.capturas?.[0];
-      return `<li class="archivo cristal" style="--color-disco:${esc(p.color_disco || "#2a6fdb")};--texto-disco:${textoSobre(p.color_disco || "#2a6fdb")}">
-        <div class="archivo__texto">
-          <h2><a href="${raiz}proyectos/${p.slug}/">${esc(p.nombre)}</a></h2>
-          ${confirmado(p.estado) ? `<p class="archivo__estado">${esc(p.estado)}</p>` : ""}
+function tarjetaProyecto(p, raiz, grande = false) {
+  const cap = p.capturas?.[0];
+  return `<li class="tarjeta${grande ? " tarjeta--grande" : ""}" data-categoria="${esc(p.categoria)}" data-revelar style="--color-disco:${esc(p.color_disco || "#2a6fdb")};--texto-disco:${textoSobre(p.color_disco || "#2a6fdb")};--cat:${categoria(p.categoria).color}">
+        <div class="tarjeta__imagen">${cap ? `<img src="${raiz}${cap.src}" width="${cap.ancho}" height="${cap.alto}" loading="lazy" alt="">` : `<span class="tarjeta__sin-captura" aria-hidden="true">${esc(p.nombre)}</span>`}</div>
+        <div class="tarjeta__texto">
+          <div class="tarjeta__chips">${chipCat(p)}${estadoHTML(p)}</div>
+          <h3><a href="${raiz}proyectos/${p.slug}/">${esc(p.nombre)}</a></h3>
           <p>${esc(p.resumen)}</p>
-          ${confirmado(p.tecnologias) ? `<ul class="etiquetas">${p.tecnologias.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>` : ""}
+          ${confirmado(p.tecnologias) ? `<ul class="etiquetas etiquetas--mini">${p.tecnologias.slice(0, 5).map((t) => `<li>${esc(t)}</li>`).join("")}</ul>` : ""}
         </div>
-        ${cap ? `<img class="archivo__captura" src="${raiz}${cap.src}" width="${cap.ancho}" height="${cap.alto}" loading="lazy" alt="">` : `<span class="archivo__sin-captura" aria-hidden="true">${esc(p.nombre)}</span>`}
       </li>`;
+}
+
+function listadoProyectos(raiz) {
+  const filtros = [`<button type="button" class="pestana" data-filtro="todos" aria-pressed="true"><span>Todos</span><b>${publicados.length}</b></button>`]
+    .concat(categorias.map((k) => `<button type="button" class="pestana" data-filtro="${k.id}" aria-pressed="false" style="--cat:${k.color}">${iconoCat(k.id)}<span>${esc(k.nombre)}</span><b>${publicados.filter((p) => p.categoria === k.id).length}</b></button>`))
+    .join("");
+  const grupos = categorias
+    .map((k) => {
+      const lista = publicados.filter((p) => p.categoria === k.id);
+      if (!lista.length) return "";
+      return `<section class="grupo" data-categoria="${k.id}" aria-labelledby="g-${k.id}" style="--cat:${k.color}">
+      <header class="grupo__cabecera" data-revelar><span class="burbuja-icono">${iconoCat(k.id)}</span><div><h2 id="g-${k.id}">${esc(k.nombre)} <small>${lista.length}</small></h2><p>${esc(k.texto)}</p></div></header>
+      <ul class="tarjetas">${lista.map((p, i) => tarjetaProyecto(p, raiz, i === 0)).join("")}</ul>
+    </section>`;
     })
     .join("\n");
+  return { filtros, grupos };
 }
 
 function formularioContacto() {
@@ -203,10 +251,7 @@ function datosOS(raiz) {
 }
 
 function laboratorio(raiz) {
-  const enCurso = publicados.filter((p) => /desarrollo/i.test(p.estado || ""));
-  return enCurso
-    .map((p) => `<li class="habilidad cristal"><h2><a href="${raiz}proyectos/${p.slug}/">${esc(p.nombre)}</a></h2><p class="archivo__estado">${esc(p.estado)}</p><p>${esc(p.resumen)}</p></li>`)
-    .join("\n");
+  return publicados.filter(enDesarrollo).map((p) => tarjetaProyecto(p, raiz)).join("\n");
 }
 
 const listaOS = (raiz) =>
@@ -220,24 +265,26 @@ const paraDobleClic = (html) =>
 
 function paginaSobreMi(raiz) {
   const M = sobreMi;
-  const enlaces = (slugs = []) => enlacesProyectos(slugs, raiz);
+  const ICONO_COMO = ["chispa", "codigo", "ojo", "candado"];
   return {
     intro: M.intro.map((t) => `<p>${esc(t)}</p>`).join(""),
-    como: M.como_trabajo.map((x) => `<li class="habilidad cristal"><h3>${esc(x.titulo)}</h3><p>${esc(x.texto)}</p></li>`).join("\n"),
+    como: M.como_trabajo.map((x, i) => `<li class="habilidad cristal" data-revelar><span class="burbuja-icono">${icono(ICONO_COMO[i % 4])}</span><h3>${esc(x.titulo)}</h3><p>${esc(x.texto)}</p></li>`).join("\n"),
     pila: M.pila
       .map((x) => {
-        const e = enlaces(x.proyectos);
-        return `<li><span class="pila__nombre">${esc(x.nombre)}</span>${e ? `<ul class="etiquetas">${e}</ul>` : `<span class="pila__nota">${esc(x.nota || "")}</span>`}</li>`;
+        const e = discosMini(x.proyectos, raiz);
+        return `<li data-revelar><span class="pila__nombre">${esc(x.nombre)}</span>${e ? `<ul class="discos-mini">${e}</ul>` : `<span class="pila__nota">${esc(x.nota || "")}</span>`}</li>`;
       })
       .join("\n"),
     formacion: M.formacion
-      .map((x) => { const e = enlaces(x.proyectos); return `<li><h3>${esc(x.etapa)}</h3><p>${esc(x.texto)}</p>${e ? `<ul class="etiquetas">${e}</ul>` : ""}</li>`; })
+      .map((x, i) => { const e = discosMini(x.proyectos || [], raiz); return `<li data-revelar${i === 0 ? ' class="formacion__actual"' : ""}><h3>${esc(x.etapa)}</h3><p>${esc(x.texto)}</p>${e ? `<ul class="discos-mini">${e}</ul>` : ""}</li>`; })
       .join("\n"),
     clas_titulo: M.clasificado.titulo,
     clas_texto: M.clasificado.texto,
     clas_cierre: M.clasificado.cierre,
     clas_lineas: Array.from({ length: M.clasificado.lineas }, (_, i) => `<span class="tachado" style="--largo:${[92, 78, 85, 60, 70][i % 5]}%"></span>`).join(""),
     busco: M.busco,
+    icono_birrete: icono("birrete"),
+    icono_pila: icono("codigo"),
   };
 }
 
@@ -309,22 +356,22 @@ const generadas = [];
 generadas.push(
   await pagina("index.html", "paginas/index.html", {
     bloc: blocInicio(""),
-    discos: discosHTML(""),
+    ...(() => { const a = archivadorHTML(""); return { discos: a.discos, pestanas: a.pestanas }; })(),
     pantalla_inicial: pantallaInicial(""),
     datos_monitor: datosMonitor(""),
     datos_os: datosOS(""),
   })
 );
-generadas.push(await pagina("proyectos/index.html", "paginas/proyectos.html", { listado: listadoProyectos("../") }));
+generadas.push(await pagina("proyectos/index.html", "paginas/proyectos.html", listadoProyectos("../")));
 generadas.push(await pagina("que-se-hacer/index.html", "paginas/que-se-hacer.html", { lista: listaHabilidades("../") }));
-generadas.push(await pagina("laboratorio/index.html", "paginas/laboratorio.html", { en_curso: laboratorio("../") }));
+generadas.push(await pagina("laboratorio/index.html", "paginas/laboratorio.html", { en_curso: laboratorio("../"), icono_matraz: icono("matraz"), n_curso: publicados.filter(enDesarrollo).length }));
 generadas.push(await pagina("laboratorio/os/index.html", "paginas/os.html", { lista_os: listaOS("../../"), datos_os: datosOS("../../") }));
 generadas.push(await pagina("sobre-mi/index.html", "paginas/sobre-mi.html", paginaSobreMi("../")));
 generadas.push(await pagina("legal/index.html", "paginas/legal.html"));
 generadas.push(await pagina("contacto/index.html", "paginas/contacto.html", { formulario: formularioContacto() }));
 for (const p of publicados) {
   const raiz = "../../";
-  generadas.push(await pagina(`proyectos/${p.slug}/index.html`, "plantillas/proyecto.html", { p, ...fichaHTML(p, raiz) }));
+  generadas.push(await pagina(`proyectos/${p.slug}/index.html`, "plantillas/proyecto.html", { p, ...fichaHTML(p, raiz), chip_cat: chipCat(p) }));
 }
 
 // robots.txt siempre; sitemap.xml solo con el dominio confirmado

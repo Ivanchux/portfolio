@@ -88,7 +88,8 @@
           "alto": 545
         }
       ],
-      "fuente": "CONTENIDO_PORTFOLIO.md y capturas de referencia/"
+      "fuente": "CONTENIDO_PORTFOLIO.md y capturas de referencia/",
+      "categoria": "web"
     },
     {
       "slug": "wonder-iv",
@@ -136,7 +137,8 @@
           "alto": 844,
           "alt": "Wonder IV en el móvil."
         }
-      ]
+      ],
+      "categoria": "juegos"
     },
     {
       "slug": "ninja-de-escritorio",
@@ -196,7 +198,8 @@
           "alto": 900,
           "alt": "Ninja de Escritorio en el móvil, jugando con el dedo."
         }
-      ]
+      ],
+      "categoria": "juegos"
     },
     {
       "slug": "kaiten",
@@ -255,7 +258,8 @@
           "alto": 900,
           "alt": "Reseña de una comida en Kaiten con valoración, etiquetas y fotos."
         }
-      ]
+      ],
+      "categoria": "web"
     },
     {
       "slug": "hilo-cortado",
@@ -302,7 +306,8 @@
           "alto": 540,
           "alt": "Pantalla de título de Hilo Cortado."
         }
-      ]
+      ],
+      "categoria": "juegos"
     },
     {
       "slug": "dead-heat",
@@ -349,7 +354,8 @@
           "alto": 540,
           "alt": "Agua repartida por los pasillos tras derretir el hielo."
         }
-      ]
+      ],
+      "categoria": "juegos"
     },
     {
       "publicar": true,
@@ -396,7 +402,8 @@
           "alto": 900,
           "alt": "Panal Roto en el móvil."
         }
-      ]
+      ],
+      "categoria": "juegos"
     },
     {
       "publicar": true,
@@ -429,7 +436,8 @@
           "alto": 687,
           "alt": "Caja de Arena con una escena de ejemplo de arena, agua y otros materiales."
         }
-      ]
+      ],
+      "categoria": "juegos"
     },
     {
       "slug": "aerium",
@@ -496,7 +504,8 @@
           "alto": 382,
           "alt": "Las seis estéticas de LoreKeeper, tres oscuras y tres claras."
         }
-      ]
+      ],
+      "categoria": "web"
     },
     {
       "slug": "hemiciclo",
@@ -551,7 +560,8 @@
           "alto": 900,
           "alt": "Hemiciclo en el móvil."
         }
-      ]
+      ],
+      "categoria": "sistemas"
     },
     {
       "slug": "inventario-vinilos",
@@ -610,7 +620,8 @@
           "alto": 900,
           "alt": "Inventario de vinilos en el móvil."
         }
-      ]
+      ],
+      "categoria": "web"
     },
     {
       "slug": "impronta",
@@ -647,7 +658,8 @@
           "alto": 433,
           "alt": "Presentación de Impronta, la web de una imprenta ficticia."
         }
-      ]
+      ],
+      "categoria": "web"
     },
     {
       "slug": "nexus",
@@ -686,7 +698,8 @@
           "alto": 429
         }
       ],
-      "fuente": "referencia/Curriculum_WEB_v2 y captura"
+      "fuente": "referencia/Curriculum_WEB_v2 y captura",
+      "categoria": "web"
     },
     {
       "slug": "project-dossier",
@@ -739,7 +752,8 @@
           "ancho": 960,
           "alto": 497
         }
-      ]
+      ],
+      "categoria": "sistemas"
     },
     {
       "slug": "edulab",
@@ -784,7 +798,8 @@
           "alto": 687,
           "alt": "Signal Repair: misiones de CSS con Flexbox, Grid y posicionamiento."
         }
-      ]
+      ],
+      "categoria": "aprendizaje"
     },
     {
       "slug": "as-study",
@@ -824,7 +839,8 @@
           "alto": 844,
           "alt": "ASIR Study en el móvil."
         }
-      ]
+      ],
+      "categoria": "aprendizaje"
     },
     {
       "slug": "pokemon-bash-simulator",
@@ -850,7 +866,8 @@
       "vista_previa": {
         "tipo": "enlace"
       },
-      "capturas": []
+      "capturas": [],
+      "categoria": "sistemas"
     },
     {
       "slug": "orbis",
@@ -924,7 +941,8 @@
       "vista_previa": {
         "tipo": "captura"
       },
-      "capturas": []
+      "capturas": [],
+      "categoria": "web"
     },
     {
       "slug": "silent-worlds",
