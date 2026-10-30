@@ -1,0 +1,11 @@
+{
+  "_nota": "Archivos falsos del explorador de IVANDEV OS.",
+  "sistema": {
+    "kernel.log": "[0.000] ivandev kernel 0.4 arrancando\n[0.412] montando /home /srv /root\n[0.790] servicios: ssh ldap web\n[1.100] aviso: una sesión quedó abierta",
+    "grub.cfg": "set default=0\nset timeout=5\n# la edición de arranque no está protegida con contraseña"
+  },
+  "papelera": {
+    "copia_final_FINAL_v2.txt": "Aquí no hay nada.\n(Los buenos procesos no mueren.)"
+  },
+  "compose_ejemplo": "services:\n  web:\n    image: nginx:alpine\n    ports:\n      - 80:80\n    depends_on:\n      - api\n  api:\n    image: node:22\n    depends_on:\n      - db\n      - cache\n  db:\n    image: postgres:16\n  cache:\n    image: redis:7\n"
+}

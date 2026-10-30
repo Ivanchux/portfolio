@@ -1,0 +1,16 @@
+<!-- {"titulo": "IVANDEV OS · Laboratorio de {{nombre_publico}}", "descripcion": "IVANDEV OS, un sistema operativo de mentira hecho con JavaScript plano: arranque, terminal, procesos y un mapa de proyectos.", "seccion": "laboratorio", "css": ["paginas"], "js": ["os-pagina"]} -->
+<div class="pagina contenedor" id="os-sin-js">
+  <nav class="migas" aria-label="Estás en"><a href="{{raiz}}laboratorio/">Laboratorio</a> <span aria-hidden="true">›</span> <span aria-current="page">IVANDEV OS</span></nav>
+  <header class="pagina__cabecera cristal">
+    <h1>IVANDEV OS</h1>
+    <p>Un sistema operativo de mentira dentro del portfolio: arranque, escritorio por capas, terminal, procesos y un explorador de archivos. Para usarlo hace falta JavaScript.</p>
+  </header>
+  <section class="habilidad cristal">
+    <h2>Proyectos que contiene</h2>
+    <ul>
+      {{{lista_os}}}
+    </ul>
+  </section>
+</div>
+<div class="os-completo" id="os-completo" hidden></div>
+<script type="application/json" id="datos-os">{{{datos_os}}}</script>

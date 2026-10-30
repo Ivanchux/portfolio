@@ -37,7 +37,7 @@
           <ul class="caja__discos" aria-labelledby="estante-titulo">
             {{{discos}}}
           </ul>
-          <a class="disquete disquete--sistema" href="{{raiz}}laboratorio/os/" aria-label="Disquete con la etiqueta «sistema»"><span class="disquete__etiqueta">sistema</span></a>
+          <a class="disquete disquete--sistema" href="{{raiz}}laboratorio/os/" data-os aria-label="Disquete con la etiqueta «sistema»"><span class="disquete__etiqueta">sistema</span></a>
           <div class="caja__frente" aria-hidden="true"></div>
         </div>
         <p class="estante__nota">Pulsa un disquete y se carga en el monitor.</p>
@@ -71,3 +71,4 @@
     </div>
   </section>
 <script type="application/json" id="datos-monitor">{{{datos_monitor}}}</script>
+<script type="application/json" id="datos-os">{{{datos_os}}}</script>

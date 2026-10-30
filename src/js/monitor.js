@@ -11,6 +11,8 @@
   const led = document.getElementById("led-disco");
   const reducido = matchMedia("(prefers-reduced-motion: reduce)");
   const NOMBRES_MODO = { verde: "verde", ambar: "ámbar", hielo: "hielo" };
+  const base = document.currentScript?.src || location.href;
+  let desmontarOS = null;
 
   let actual = document.querySelector('a.disquete[aria-current="true"]')?.dataset.proyecto || Object.keys(datos)[0];
   let arranque = null;
@@ -89,8 +91,43 @@
   // Cualquier tecla o clic durante el arranque lo salta
   function saltar() { terminarArranque(); }
 
+  function apagarOS() {
+    if (!desmontarOS) return;
+    desmontarOS();
+    desmontarOS = null;
+    pantalla.classList.remove("pantalla--os");
+  }
+
+  // El disquete «sistema» arranca IVANDEV OS dentro del monitor. En pantallas pequeñas se abre a pantalla completa.
+  async function arrancarOS(disco) {
+    const fuenteOS = document.getElementById("datos-os");
+    if (!fuenteOS || pantalla.clientWidth < 420) return (location.href = disco.href);
+    if (arranque) terminarArranque();
+    apagarOS();
+    if (!document.querySelector("link[data-os-css]")) {
+      const css = el("link", { rel: "stylesheet", href: new URL("../os/os.css", base).href, "data-os-css": "" });
+      const listo = new Promise((ok) => { css.onload = ok; css.onerror = ok; });
+      document.head.append(css);
+      await listo;
+    }
+    const { montar } = await import(new URL("../os/os.js", base).href);
+    document.querySelectorAll("a.disquete[data-proyecto]").forEach((d) => d.removeAttribute("aria-current"));
+    pantalla.classList.remove("pantalla--vivo");
+    pantalla.classList.add("pantalla--os");
+    desmontarOS = montar(pantalla, JSON.parse(fuenteOS.textContent), {
+      sinArranque: reducido.matches,
+      alSalir: () => {
+        apagarOS();
+        insertar(actual, false);
+        disco.focus();
+      },
+    });
+    anuncio.textContent = "IVANDEV OS arrancado en el monitor.";
+  }
+
   function insertar(slug, enfocar) {
     if (!datos[slug]) return;
+    apagarOS();
     if (arranque) terminarArranque();
     actual = slug;
     document.querySelectorAll("a.disquete[data-proyecto]").forEach((d) => {
@@ -121,6 +158,12 @@
   }
 
   document.addEventListener("click", (e) => {
+    const sistema = e.target.closest("a.disquete[data-os]");
+    if (sistema && !e.ctrlKey && !e.metaKey && !e.shiftKey && e.button === 0) {
+      e.preventDefault();
+      arrancarOS(sistema);
+      return;
+    }
     const disco = e.target.closest("a.disquete[data-proyecto]");
     if (!disco || e.ctrlKey || e.metaKey || e.shiftKey || e.button !== 0) return;
     e.preventDefault();

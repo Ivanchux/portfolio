@@ -16,6 +16,8 @@ const config = await leerJSON("site.config.json");
 if (process.env.CORREO) config.correo = process.env.CORREO;
 const { proyectos } = await leerJSON("datos/proyectos.json");
 const { habilidades } = await leerJSON("datos/habilidades.json");
+const { _nota: _t, ...osTextos } = await leerJSON("datos/os-textos.json");
+const { _nota: _s, ...osSistema } = await leerJSON("datos/os-sistema.json");
 const publicados = proyectos.filter((p) => p.publicar);
 
 const confirmado = (v) => v !== undefined && v !== null && v !== "" && v !== PC && !(Array.isArray(v) && (v.length === 0 || v.includes(PC)));
@@ -174,6 +176,34 @@ function formularioContacto() {
   </form>`;
 }
 
+// Datos para IVANDEV OS: solo proyectos publicados y solo datos confirmados
+function datosOS(raiz) {
+  const d = {
+    textos: osTextos,
+    sistema: osSistema,
+    perfil: {
+      nombre: config.nombre_publico,
+      alias: config.alias,
+      github: config.github,
+      correo: confirmado(config.correo) ? config.correo : null,
+      web: confirmado(config.dominio) ? `https://${config.dominio}` : null,
+      contacto: `${raiz}contacto/`,
+    },
+    proyectos: publicados.map((p) => ({ id: p.slug, nombre: p.nombre, resumen: p.resumen, ficha: `${raiz}proyectos/${p.slug}/` })),
+  };
+  return JSON.stringify(d).replace(/</g, "\\u003c");
+}
+
+function laboratorio(raiz) {
+  const enCurso = publicados.filter((p) => /desarrollo/i.test(p.estado || ""));
+  return enCurso
+    .map((p) => `<li class="habilidad cristal"><h2><a href="${raiz}proyectos/${p.slug}/">${esc(p.nombre)}</a></h2><p class="archivo__estado">${esc(p.estado)}</p><p>${esc(p.resumen)}</p></li>`)
+    .join("\n");
+}
+
+const listaOS = (raiz) =>
+  publicados.map((p) => `<li><a href="${raiz}proyectos/${p.slug}/">${esc(p.nombre)}</a>: ${esc(p.resumen)}</li>`).join("\n");
+
 // ---------- Páginas ----------
 async function pagina(rutaSalida, fuente, ctxExtra = {}) {
   const profundidad = rutaSalida.split("/").length - 1;
@@ -205,7 +235,7 @@ async function pagina(rutaSalida, fuente, ctxExtra = {}) {
 
 await rm(DIST, { recursive: true, force: true });
 await mkdir(DIST, { recursive: true });
-for (const dir of ["css", "js", "fuentes", "img"]) {
+for (const dir of ["css", "js", "os", "fuentes", "img"]) {
   if (existsSync(path.join(SRC, dir))) await cp(path.join(SRC, dir), path.join(DIST, dir), { recursive: true });
 }
 
@@ -216,10 +246,13 @@ generadas.push(
     discos: discosHTML(""),
     pantalla_inicial: pantallaInicial(""),
     datos_monitor: datosMonitor(""),
+    datos_os: datosOS(""),
   })
 );
 generadas.push(await pagina("proyectos/index.html", "paginas/proyectos.html", { listado: listadoProyectos("../") }));
 generadas.push(await pagina("que-se-hacer/index.html", "paginas/que-se-hacer.html", { lista: listaHabilidades("../") }));
+generadas.push(await pagina("laboratorio/index.html", "paginas/laboratorio.html", { en_curso: laboratorio("../") }));
+generadas.push(await pagina("laboratorio/os/index.html", "paginas/os.html", { lista_os: listaOS("../../"), datos_os: datosOS("../../") }));
 generadas.push(await pagina("contacto/index.html", "paginas/contacto.html", { formulario: formularioContacto() }));
 for (const p of publicados) {
   const raiz = "../../";

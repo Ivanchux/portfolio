@@ -49,3 +49,9 @@
 }
 .formulario .boton { justify-self: start; margin-top: var(--e-4); }
 .formulario__nota, .formulario__directo { color: var(--tinta-suave); margin: 0; }
+
+/* IVANDEV OS a pantalla completa */
+.migas { margin-bottom: var(--e-4); font-weight: 700; color: var(--tinta-suave); }
+body .os-completo { position: fixed; inset: 0; z-index: 100; }
+body.os-activo { overflow: hidden; }
+body.os-activo .cabecera, body.os-activo .pie, body.os-activo #os-sin-js, body.os-activo .fondo { display: none; }
