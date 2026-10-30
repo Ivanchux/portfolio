@@ -72,6 +72,7 @@ function datosMonitor(raiz) {
       ficha: `${raiz}proyectos/${p.slug}/`,
       captura: p.capturas?.[0] ? { src: raiz + p.capturas[0].src, alt: p.capturas[0].alt, ancho: p.capturas[0].ancho, alto: p.capturas[0].alto } : null,
       vivo: vp.tipo === "iframe" && confirmado(vp.url) ? vp.url : null,
+      formato: vp.formato === "movil" ? "movil" : "escritorio",
     };
   }
   // Se incrusta como JSON: se evita que un «</script>» rompa la etiqueta

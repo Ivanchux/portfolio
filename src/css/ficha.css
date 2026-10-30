@@ -11,12 +11,12 @@
 .ficha__enlaces { display: flex; flex-wrap: wrap; gap: var(--e-3); }
 
 .galeria {
-  display: grid; grid-auto-flow: column; grid-auto-columns: min(78%, 34rem); gap: var(--e-4);
-  overflow-x: auto; padding-bottom: var(--e-3); margin-bottom: var(--e-5);
+  display: flex; gap: var(--e-4); overflow-x: auto; padding-bottom: var(--e-3); margin-bottom: var(--e-5);
   scroll-snap-type: x mandatory;
 }
-.galeria__item { margin: 0; scroll-snap-align: start; }
-.galeria__item img { width: 100%; height: auto; border-radius: 10px; box-shadow: var(--cristal-sombra); }
+.galeria__item { margin: 0; flex: none; scroll-snap-align: start; }
+/* Misma altura para todas: las capturas de móvil quedan estrechas y las de escritorio, anchas */
+.galeria__item img { height: clamp(220px, 42vw, 420px); width: auto; max-width: 88vw; object-fit: contain; border-radius: 10px; box-shadow: var(--cristal-sombra); }
 
 .ficha__cuerpo { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: var(--e-4); }
 .ficha__bloque { padding: var(--e-5); }

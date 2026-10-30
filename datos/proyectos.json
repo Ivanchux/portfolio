@@ -34,7 +34,8 @@
       },
       "vista_previa": {
         "tipo": "iframe",
-        "url": "https://ivanchux.github.io/Retroterm-AI/"
+        "url": "https://ivanchux.github.io/Retroterm-AI/",
+        "formato": "escritorio"
       },
       "capturas": [
         {
@@ -127,23 +128,60 @@
       "nombre": "Ninja de Escritorio",
       "publicar": true,
       "color_disco": "#3a6ea5",
-      "estado": "POR_CONFIRMAR",
+      "estado": "Publicado",
       "resumen": "Juego de cortar iconos de ordenador retro con estética Windows 95, en HTML5 sin dependencias, para PC y móvil.",
-      "descripcion": [],
+      "descripcion": [
+        "Corta carpetas, disquetes y CD-ROM, esquiva virus y pantallazos azules y derrota jefes de malware.",
+        "Modo Descenso de tipo roguelike: nueve pisos, uno por cada capa del PC, con mapa ramificado, 23 mejoras, 6 sinergias, reliquias y un jefe final en tres fases.",
+        "Todo el arte está dibujado en píxeles por código, en un solo index.html sin librerías. Se juega con ratón o con el dedo y respeta la preferencia de reducir movimiento."
+      ],
       "problema": "POR_CONFIRMAR",
-      "papel": "POR_CONFIRMAR",
+      "papel": "Proyecto personal: diseño del juego, arte en píxeles generado por código y desarrollo.",
       "tecnologias": [
-        "HTML5",
+        "HTML5 Canvas",
         "JavaScript"
       ],
       "enlaces": {
-        "vivo": "POR_CONFIRMAR",
+        "vivo": "https://ivanchux.github.io/ninja-de-escritorio/",
         "codigo": "https://github.com/Ivanchux/ninja-de-escritorio"
       },
       "vista_previa": {
-        "tipo": "POR_CONFIRMAR"
+        "tipo": "iframe",
+        "url": "https://ivanchux.github.io/ninja-de-escritorio/",
+        "formato": "escritorio"
       },
-      "capturas": []
+      "capturas": [
+        {
+          "src": "img/capturas/ninja-de-escritorio-1.webp",
+          "ancho": 1100,
+          "alto": 700,
+          "alt": "Menú de Ninja de Escritorio con ventanas y botones al estilo de Windows 95."
+        },
+        {
+          "src": "img/capturas/ninja-de-escritorio-2.webp",
+          "ancho": 1100,
+          "alto": 660,
+          "alt": "Partida de Ninja de Escritorio cortando iconos de carpetas y disquetes."
+        },
+        {
+          "src": "img/capturas/ninja-de-escritorio-3.webp",
+          "ancho": 1100,
+          "alto": 700,
+          "alt": "Mapa ramificado del modo Descenso, con oleadas, élites, mercado y jefes."
+        },
+        {
+          "src": "img/capturas/ninja-de-escritorio-4.webp",
+          "ancho": 1100,
+          "alto": 660,
+          "alt": "Pelea contra el jefe final, el Procesador Maestro."
+        },
+        {
+          "src": "img/capturas/ninja-de-escritorio-5.webp",
+          "ancho": 450,
+          "alto": 900,
+          "alt": "Ninja de Escritorio en el móvil, jugando con el dedo."
+        }
+      ]
     },
     {
       "slug": "kaiten",
@@ -153,16 +191,20 @@
       "estado": "Publicado",
       "resumen": "Aplicación web instalable para contar piezas de sushi: se pulsa y suma una.",
       "descripcion": [
-        "Tiene niveles, estadísticas por pieza y por categoría, coste total, un mapa con fotos y reseñas personales y localización por GPS. Las reseñas y los datos se guardan, de momento, solo en el dispositivo."
+        "Contador táctil con combos, ritmo y récord personal para nueve tipos de pieza en tres categorías.",
+        "Estadísticas con gráfica de siete días, historial de comidas con lugar, duración y coste, reseñas con fotos y un mapa de tus sitios hecho con OpenFreeMap y MapLibre.",
+        "Logros, retos diarios y temas de color. En el ordenador, a partir de 1000 px, muestra un panel en directo junto al contador.",
+        "Funciona sin conexión, se instala como app y lo guarda todo en el dispositivo: sin cuentas, sin servidor y sin rastreo."
       ],
-      "problema": "POR_CONFIRMAR",
-      "papel": "POR_CONFIRMAR",
+      "problema": "Llevar la cuenta de lo que comes en un restaurante de sushi giratorio, y de cuánto cuesta, sin registrarte en nada y sin conexión.",
+      "papel": "Proyecto personal: diseño, ilustraciones en SVG y desarrollo en un solo archivo.",
       "tecnologias": [
         "HTML",
         "CSS",
         "JavaScript",
         "PWA",
-        "GitHub Pages"
+        "IndexedDB",
+        "MapLibre"
       ],
       "enlaces": {
         "vivo": "https://ivanchux.github.io/Kaiten/",
@@ -170,9 +212,35 @@
       },
       "vista_previa": {
         "tipo": "iframe",
-        "url": "https://ivanchux.github.io/Kaiten/"
+        "url": "https://ivanchux.github.io/Kaiten/",
+        "formato": "movil"
       },
-      "capturas": []
+      "capturas": [
+        {
+          "src": "img/capturas/kaiten-1.webp",
+          "ancho": 1100,
+          "alto": 687,
+          "alt": "Kaiten en el ordenador: contador de piezas con el panel de la comida en curso al lado."
+        },
+        {
+          "src": "img/capturas/kaiten-2.webp",
+          "ancho": 415,
+          "alto": 900,
+          "alt": "Contador de Kaiten en el móvil, con el plato central para sumar piezas."
+        },
+        {
+          "src": "img/capturas/kaiten-3.webp",
+          "ancho": 415,
+          "alto": 900,
+          "alt": "Estadísticas de Kaiten con la gráfica de los últimos siete días."
+        },
+        {
+          "src": "img/capturas/kaiten-4.webp",
+          "ancho": 415,
+          "alto": 900,
+          "alt": "Reseña de una comida en Kaiten con valoración, etiquetas y fotos."
+        }
+      ]
     },
     {
       "slug": "hilo-cortado",
@@ -247,26 +315,47 @@
     {
       "slug": "lorekeeper",
       "nombre": "LoreKeeper",
-      "publicar": false,
+      "publicar": true,
       "color_disco": "#7a5a2e",
-      "estado": "POR_CONFIRMAR",
-      "resumen": "Seguimiento de lectura con juego de rol, sin servidor y portable, con libros en 3D hechos en CSS.",
-      "descripcion": [],
+      "estado": "Publicado",
+      "resumen": "Seguimiento de lectura sin servidor y portable, con libros en 3D, temporizador, estadísticas y logros opcionales.",
+      "descripcion": [
+        "Temporizador de lectura que sigue contando con la app cerrada, también para audiolibros, y libros en 3D con el color de su portada.",
+        "Biblioteca con estanterías, sagas y préstamos; búsqueda en Google Books, Open Library y Apple Books, escáner de ISBN e importación desde CSV o Excel.",
+        "Estadísticas, resumen anual, 24 logros y niveles opcionales, y seis estéticas. Funciona incluso abriendo el archivo con doble clic, y lo guarda todo en el dispositivo."
+      ],
       "problema": "POR_CONFIRMAR",
-      "papel": "POR_CONFIRMAR",
+      "papel": "Proyecto personal: diseño y desarrollo en JavaScript y CSS planos.",
       "tecnologias": [
         "HTML",
         "CSS",
-        "JavaScript"
+        "JavaScript",
+        "IndexedDB",
+        "PWA"
       ],
       "enlaces": {
-        "vivo": "POR_CONFIRMAR",
-        "codigo": "POR_CONFIRMAR"
+        "vivo": "https://ivanchux.github.io/lorekeeper/",
+        "codigo": "https://github.com/Ivanchux/lorekeeper"
       },
       "vista_previa": {
-        "tipo": "POR_CONFIRMAR"
+        "tipo": "iframe",
+        "url": "https://ivanchux.github.io/lorekeeper/",
+        "formato": "movil"
       },
-      "capturas": []
+      "capturas": [
+        {
+          "src": "img/capturas/lorekeeper-1.webp",
+          "ancho": 1100,
+          "alto": 618,
+          "alt": "Montaje de pantallas de LoreKeeper con libros en 3D, estadísticas y biblioteca."
+        },
+        {
+          "src": "img/capturas/lorekeeper-2.webp",
+          "ancho": 1100,
+          "alto": 382,
+          "alt": "Las seis estéticas de LoreKeeper, tres oscuras y tres claras."
+        }
+      ]
     },
     {
       "slug": "inventario-vinilos",
@@ -275,14 +364,21 @@
       "color_disco": "#2b2b2b",
       "estado": "Publicado",
       "resumen": "Aplicación web para catalogar una colección de discos, publicada en GitHub Pages.",
-      "descripcion": [],
-      "problema": "POR_CONFIRMAR",
-      "papel": "POR_CONFIRMAR",
+      "descripcion": [
+        "Estanterías con los discos en carrusel, vista de tabla exportable a Excel y estadísticas por género, década, artista y formato.",
+        "Al añadir un disco consulta MusicBrainz y Cover Art Archive para rellenar año, género y portada; también admite una foto hecha con el móvil.",
+        "Sincronización entre dispositivos cifrada en el propio dispositivo, a través de un Worker de Cloudflare que no puede leer los datos, copias automáticas y pruebas en un navegador real antes de cada publicación."
+      ],
+      "problema": "Catalogar una colección grande de discos sin perder ninguno: la versión 2 se rehízo por dentro para que un fallo del navegador no pueda vaciar la colección.",
+      "papel": "Proyecto personal: diseño, desarrollo y servidor de sincronización.",
       "tecnologias": [
         "HTML",
         "CSS",
         "JavaScript",
-        "GitHub Pages"
+        "IndexedDB",
+        "Web Crypto",
+        "Cloudflare Workers",
+        "PWA"
       ],
       "enlaces": {
         "vivo": "https://ivanchux.github.io/inventario-vinilos/",
@@ -290,9 +386,35 @@
       },
       "vista_previa": {
         "tipo": "iframe",
-        "url": "https://ivanchux.github.io/inventario-vinilos/"
+        "url": "https://ivanchux.github.io/inventario-vinilos/",
+        "formato": "escritorio"
       },
-      "capturas": []
+      "capturas": [
+        {
+          "src": "img/capturas/inventario-vinilos-1.webp",
+          "ancho": 1100,
+          "alto": 687,
+          "alt": "Estanterías del inventario con los discos en carrusel."
+        },
+        {
+          "src": "img/capturas/inventario-vinilos-2.webp",
+          "ancho": 1100,
+          "alto": 687,
+          "alt": "Ficha de un disco con portada, valoración, canciones y notas."
+        },
+        {
+          "src": "img/capturas/inventario-vinilos-3.webp",
+          "ancho": 1100,
+          "alto": 687,
+          "alt": "Estadísticas de la colección por género, década y artista."
+        },
+        {
+          "src": "img/capturas/inventario-vinilos-4.webp",
+          "ancho": 415,
+          "alto": 900,
+          "alt": "Inventario de vinilos en el móvil."
+        }
+      ]
     },
     {
       "slug": "impronta",
@@ -302,10 +424,11 @@
       "estado": "Terminado",
       "resumen": "Web de una imprenta ficticia hecha a mano para las prácticas, con versión en WordPress, dossier del proceso y diario semanal.",
       "descripcion": [
+        "Web corporativa ficticia de una imprenta en Madrid: portada, catálogo, blog con tres artículos, contacto y un generador de tarjetas de visita que descarga el anverso y el reverso en PNG.",
         "Por iniciativa propia, más allá de lo que pedía la rúbrica: variables CSS, tipografía fluida con clamp(), tema guardado en el navegador, un formulario por pasos más completo de lo exigido, un panel de cookies por categorías y metadatos Open Graph."
       ],
       "problema": "POR_CONFIRMAR",
-      "papel": "POR_CONFIRMAR",
+      "papel": "Proyecto de prácticas (FCT) del módulo de Lenguajes de Marcas: diseño y desarrollo completos.",
       "tecnologias": [
         "HTML",
         "CSS",
@@ -313,13 +436,22 @@
         "WordPress"
       ],
       "enlaces": {
-        "vivo": "POR_CONFIRMAR",
-        "codigo": "POR_CONFIRMAR"
+        "vivo": "https://ivanchux.github.io/impronta/",
+        "codigo": "https://github.com/Ivanchux/impronta"
       },
       "vista_previa": {
-        "tipo": "POR_CONFIRMAR"
+        "tipo": "iframe",
+        "url": "https://ivanchux.github.io/impronta/",
+        "formato": "escritorio"
       },
-      "capturas": []
+      "capturas": [
+        {
+          "src": "img/capturas/impronta-1.webp",
+          "ancho": 577,
+          "alto": 433,
+          "alt": "Presentación de Impronta, la web de una imprenta ficticia."
+        }
+      ]
     },
     {
       "slug": "nexus",
@@ -364,7 +496,8 @@
       "estado": "POR_CONFIRMAR",
       "resumen": "Archivo estático de expedientes con un mapa de conexiones en D3 y herramientas internas de edición.",
       "descripcion": [
-        "Mapa de fuerzas con D3, línea de tiempo, archivo ordenable y cinco expedientes con cronologías interactivas."
+        "Archivo documental de casos clasificados y desclasificados, con mapa de fuerzas en D3, línea de tiempo, archivo ordenable y cinco expedientes con cronologías interactivas.",
+        "Cada ficha se basa en documentos de dominio público o ya publicados; el proyecto no afirma la veracidad de las teorías que recoge."
       ],
       "problema": "POR_CONFIRMAR",
       "papel": "POR_CONFIRMAR",
@@ -376,7 +509,7 @@
       ],
       "enlaces": {
         "vivo": "POR_CONFIRMAR",
-        "codigo": "POR_CONFIRMAR"
+        "codigo": "https://github.com/Ivanchux/Project-Dossier"
       },
       "vista_previa": {
         "tipo": "captura"
@@ -480,20 +613,21 @@
       "nombre": "Pokémon Bash Simulator",
       "publicar": true,
       "color_disco": "#d9b13b",
-      "estado": "POR_CONFIRMAR",
+      "estado": "Terminado",
       "resumen": "Simulador de combates por turnos escrito en Bash, donde cada criatura es un usuario de Linux.",
       "descripcion": [
-        "Las estadísticas viven en ficheros, los tipos son grupos del sistema y el perdedor se elimina con userdel -r. Incluye críticos, efectividad de tipos y doble tipo."
+        "Cada criatura es un usuario real del sistema creado con useradd, los tipos son grupos de Linux y las estadísticas viven en ficheros dentro de su carpeta personal. El perdedor se elimina con userdel -r y un script de «centro» los restaura todos.",
+        "Creció en tres versiones: combate por turnos con críticos y velocidad; varios tipos y ataque especial; y la versión definitiva."
       ],
       "problema": "POR_CONFIRMAR",
-      "papel": "POR_CONFIRMAR",
+      "papel": "Proyecto de administración de sistemas Linux de 1.º de ASIR.",
       "tecnologias": [
         "Bash",
         "Linux"
       ],
       "enlaces": {
         "vivo": "POR_CONFIRMAR",
-        "codigo": "POR_CONFIRMAR"
+        "codigo": "https://github.com/Ivanchux/Pokemon-Bash-Simulator"
       },
       "vista_previa": {
         "tipo": "enlace"
