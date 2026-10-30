@@ -1,0 +1,109 @@
+/* Base compartida por todas las páginas. */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font: 400 var(--t-0)/1.6 var(--tipo-texto);
+  color: var(--tinta);
+  background-color: var(--horizonte);
+  background-image:
+    radial-gradient(ellipse 120% 60% at 50% 0%, var(--cielo-alto), transparent 70%),
+    linear-gradient(180deg, var(--cielo-medio) 0%, var(--horizonte) 60%);
+  background-attachment: fixed;
+}
+
+/* Fondo Aero: olas de luz, colina y burbujas. Solo decoración. */
+.fondo { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+
+img, svg { max-width: 100%; display: block; }
+
+a { color: var(--acento); text-underline-offset: 0.18em; }
+a:hover { text-decoration-thickness: 2px; }
+
+h1, h2, h3 { font-family: var(--tipo-titulo); font-weight: 600; line-height: 1.15; letter-spacing: 0.01em; margin: 0 0 var(--e-4); }
+h1 { font-size: var(--t-3); }
+h2 { font-size: var(--t-2); }
+h3 { font-size: var(--t-1); }
+p { margin: 0 0 var(--e-4); }
+
+/* Foco: anillo doble, visible sobre cristal claro y oscuro */
+:focus-visible {
+  outline: 3px solid var(--foco);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 7px var(--foco-halo);
+  border-radius: 6px;
+}
+
+.saltar {
+  position: absolute; left: var(--e-4); top: -100px; z-index: 100;
+  background: var(--tinta); color: var(--horizonte);
+  padding: var(--e-2) var(--e-4); border-radius: 8px;
+}
+.saltar:focus { top: var(--e-4); }
+
+.visualmente-oculto {
+  position: absolute !important; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+.contenedor { width: min(100% - 2rem, var(--ancho)); margin-inline: auto; }
+
+/* Panel de cristal (Aero) */
+.cristal {
+  background: var(--cristal);
+  border: 1px solid var(--cristal-borde);
+  border-radius: var(--radio);
+  box-shadow: var(--cristal-sombra), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+}
+
+/* Cabecera */
+.cabecera { position: sticky; top: 0; z-index: 20; padding-block: var(--e-3); }
+.cabecera__barra {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--e-4);
+  flex-wrap: wrap; padding: var(--e-2) var(--e-4);
+}
+.marca { font-family: var(--tipo-titulo); font-weight: 600; font-size: 1.15rem; color: var(--tinta); text-decoration: none; }
+.marca span { color: var(--tinta-suave); font-family: var(--tipo-texto); font-weight: 400; font-size: 0.9rem; margin-left: var(--e-2); }
+.menu { display: flex; flex-wrap: wrap; gap: var(--e-1) var(--e-2); list-style: none; margin: 0; padding: 0; }
+.menu a {
+  display: inline-block; padding: var(--e-1) var(--e-3); border-radius: 999px;
+  color: var(--tinta); text-decoration: none; font-weight: 700; font-size: 0.95rem;
+}
+.menu a:hover { background: rgba(255, 255, 255, 0.5); }
+.menu a[aria-current="page"] { background: var(--tinta); color: var(--horizonte); }
+
+/* Botones con brillo Aero */
+.boton {
+  display: inline-flex; align-items: center; gap: var(--e-2);
+  padding: 0.7em 1.4em; border-radius: 999px; border: 1px solid rgba(0, 0, 0, 0.12);
+  font: 700 1rem/1.2 var(--tipo-texto); text-decoration: none; cursor: pointer;
+  color: var(--boton-texto);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.06) 50%, transparent 51%),
+    linear-gradient(180deg, var(--boton-1), var(--boton-2));
+  box-shadow: 0 4px 12px rgba(11, 111, 99, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+.boton:hover { filter: brightness(1.06); }
+.boton--secundario {
+  color: var(--tinta);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.55));
+  box-shadow: 0 4px 12px rgba(20, 70, 100, 0.15), inset 0 1px 0 #fff;
+}
+@media (prefers-color-scheme: dark) {
+  .boton--secundario { background: rgba(255, 255, 255, 0.1); border-color: var(--cristal-borde); }
+  .menu a:hover { background: rgba(255, 255, 255, 0.08); }
+}
+
+/* Pie */
+.pie { padding-block: var(--e-7) var(--e-6); color: var(--tinta-suave); font-size: 0.9rem; }
+.pie__barra { display: flex; flex-wrap: wrap; gap: var(--e-4); justify-content: space-between; padding: var(--e-4) var(--e-5); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

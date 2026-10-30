@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Iván Brihuega · Desarrollo web, sistemas y juegos en el navegador</title>
+<meta name="description" content="Portfolio de Iván Brihuega, desarrollador web y estudiante de 2.º de ASIR en Madrid. Webs, herramientas y juegos hechos con HTML, CSS y JavaScript planos.">
+<link rel="preload" href="fuentes/atkinson-hyperlegible-next-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fuentes/chakra-petch-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/escritorio.css">
+</head>
+<body>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<svg class="fondo" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="ola" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="var(--ola)" stop-opacity="0"/><stop offset=".5" stop-color="var(--ola)"/><stop offset="1" stop-color="var(--ola)" stop-opacity="0"/></linearGradient>
+    <radialGradient id="burbuja" cx=".35" cy=".3" r=".75"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".25" stop-color="#fff" stop-opacity=".25"/><stop offset=".8" stop-color="var(--burbuja-borde)" stop-opacity=".25"/><stop offset="1" stop-color="var(--burbuja-borde)" stop-opacity=".7"/></radialGradient>
+    <linearGradient id="colina" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--colina-1)"/><stop offset="1" stop-color="var(--colina-2)"/></linearGradient>
+  </defs>
+  <path d="M-50 640 C 300 520 600 760 900 620 S 1350 520 1500 600 L1500 900 L-50 900 Z" fill="url(#colina)" opacity=".55"/>
+  <path d="M-50 230 C 280 120 520 360 820 250 S 1300 120 1500 220" fill="none" stroke="url(#ola)" stroke-width="46" opacity=".35"/>
+  <path d="M-50 300 C 300 200 560 420 860 310 S 1280 210 1500 300" fill="none" stroke="url(#ola)" stroke-width="10" opacity=".5"/>
+  <circle cx="1210" cy="150" r="64" fill="url(#burbuja)"/>
+  <circle cx="1310" cy="300" r="26" fill="url(#burbuja)"/>
+  <circle cx="1040" cy="470" r="18" fill="url(#burbuja)"/>
+  <circle cx="120" cy="520" r="34" fill="url(#burbuja)"/>
+  <circle cx="60" cy="140" r="14" fill="url(#burbuja)"/>
+</svg>
+
+<header class="cabecera">
+  <div class="contenedor cabecera__barra cristal">
+    <a class="marca" href="./">Iván Brihuega<span>Ivanchux</span></a>
+    <nav aria-label="Principal">
+      <ul class="menu">
+        <li><a href="./" aria-current="page">Inicio</a></li>
+        <li><a href="que-se-hacer/">Qué sé hacer</a></li>
+        <li><a href="proyectos/">Proyectos</a></li>
+        <li><a href="laboratorio/">Laboratorio</a></li>
+        <li><a href="sobre-mi/">Sobre mí</a></li>
+        <li><a href="contacto/">Contacto</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="contenido">
+  <section class="presentacion contenedor">
+    <div class="presentacion__panel cristal">
+      <p class="presentacion__antetitulo">Desarrollador web · 2.º de ASIR · Madrid</p>
+      <h1>Webs, herramientas y juegos que funcionan en el navegador</h1>
+      <p class="presentacion__texto">Construyo con HTML, CSS y JavaScript planos, PHP y MySQL, Godot 4 y Cloudflare Workers. Estudio Administración de Sistemas Informáticos en Red, así que también me ocupo de lo que hay detrás de la web.</p>
+      <div class="presentacion__acciones">
+        <a class="boton" href="proyectos/">Ver proyectos</a>
+        <a class="boton boton--secundario" href="contacto/">Hablemos</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="escena contenedor" aria-labelledby="escena-titulo">
+    <h2 id="escena-titulo" class="visualmente-oculto">Mi escritorio</h2>
+    <div class="mesa">
+
+      <div class="objeto monitor">
+        <div class="monitor__carcasa">
+          <div class="monitor__marco">
+            <div class="pantalla" id="pantalla" aria-live="polite">
+              <div class="pantalla__barra"><span>A:\&gt; <strong>RETROTERM-AI</strong></span><span>disco insertado</span></div>
+              <div class="pantalla__vista">
+                <img src="img/capturas/retroterm-1.webp" width="960" height="545" alt="Portada de Retroterm-AI: un panel con accesos al asistente ARIA, el editor, juegos, artículos y herramientas.">
+                <p class="pantalla__texto">Hub retrofuturista con asistente de IA, editor de código, juegos y herramientas de red.</p>
+              </div>
+              <div class="pantalla__acciones">
+                <button class="pantalla__boton" type="button">▶ Ver en vivo</button>
+                <a class="pantalla__boton pantalla__boton--hueco" href="proyectos/retroterm-ai/">Ficha del proyecto</a>
+              </div>
+            </div>
+          </div>
+          <i class="monitor__tornillo" aria-hidden="true"></i><i class="monitor__tornillo" aria-hidden="true"></i><i class="monitor__tornillo" aria-hidden="true"></i><i class="monitor__tornillo" aria-hidden="true"></i>
+          <span class="monitor__placa" aria-hidden="true">IVANCHUX · 26</span>
+          <span class="monitor__mandos" aria-hidden="true"><i class="monitor__led"></i><i class="monitor__mando"></i><i class="monitor__mando"></i></span>
+        </div>
+        <div class="monitor__pie" aria-hidden="true"></div>
+      </div>
+
+      <div class="objeto estante">
+        <h2 class="objeto__rotulo estante__titulo" id="estante-titulo">Proyectos · elige un disquete</h2>
+        <div class="caja">
+          <ul class="caja__discos" aria-labelledby="estante-titulo">
+            <li><a class="disquete" style="--color-disco:#1f8a70" href="proyectos/retroterm-ai/" aria-label="Insertar el disquete de Retroterm-AI"><span class="disquete__etiqueta">Retroterm-AI</span></a></li>
+          </ul>
+          <a class="disquete disquete--sistema" href="laboratorio/os/" aria-label="Disquete con la etiqueta «sistema»"><span class="disquete__etiqueta">sistema</span></a>
+          <div class="caja__frente" aria-hidden="true"></div>
+        </div>
+        <p class="estante__nota">Pulsa un disquete y se carga en el monitor.</p>
+      </div>
+
+      <div class="objeto bloc">
+        <a class="bloc__hoja" href="que-se-hacer/">
+          <h2>Qué sé hacer</h2>
+          <ul>
+            <li>Webs y landings a mano</li>
+            <li>Sistemas y redes</li>
+            <li>Asistentes de IA con Workers y Groq</li>
+            <li>Juegos en navegador y en Godot</li>
+          </ul>
+          <span class="bloc__mas">Ver con qué lo demuestro</span>
+        </a>
+      </div>
+
+      <div class="objeto nota">
+        <a class="nota__papel" href="contacto/">
+          <strong>Hablemos</strong>
+          Prácticas, empleo o colaboraciones.
+          <span>Escríbeme</span>
+        </a>
+        <svg class="telefono" viewBox="0 0 120 92" aria-hidden="true">
+          <defs>
+            <linearGradient id="tel-cuerpo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--plastico-luz)"/><stop offset="1" stop-color="var(--plastico-sombra)"/></linearGradient>
+          </defs>
+          <path d="M14 48 Q16 34 34 32 L86 32 Q104 34 106 48 L112 84 Q112 90 104 90 L16 90 Q8 90 8 84 Z" fill="url(#tel-cuerpo)"/>
+          <path d="M6 22 Q8 6 30 8 L90 8 Q112 6 114 22 L112 30 Q110 34 100 32 L92 22 L28 22 L20 32 Q10 34 8 30 Z" fill="url(#tel-cuerpo)" stroke="rgba(0,0,0,.15)"/>
+          <g fill="#6d6450">
+            <circle cx="44" cy="56" r="4"/><circle cx="60" cy="56" r="4"/><circle cx="76" cy="56" r="4"/>
+            <circle cx="44" cy="70" r="4"/><circle cx="60" cy="70" r="4"/><circle cx="76" cy="70" r="4"/>
+          </g>
+        </svg>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="pie">
+  <div class="contenedor pie__barra cristal">
+    <span>© 2026 Iván Brihuega</span>
+    <span><a href="https://github.com/Ivanchux">GitHub</a> · <a href="legal/">Aviso legal y privacidad</a></span>
+  </div>
+</footer>
+</body>
+</html>

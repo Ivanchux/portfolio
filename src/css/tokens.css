@@ -1,0 +1,101 @@
+/* Variables de diseño: el único sitio donde se definen colores, tipos y espacios. */
+
+@font-face { font-family: "Atkinson Next"; src: url("../fuentes/atkinson-hyperlegible-next-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Atkinson Next"; src: url("../fuentes/atkinson-hyperlegible-next-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "Atkinson Next"; src: url("../fuentes/atkinson-hyperlegible-next-latin-700-normal.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "Chakra Petch"; src: url("../fuentes/chakra-petch-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: "Departure Mono"; src: url("../fuentes/departure-mono-regular.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+
+:root {
+  color-scheme: light dark;
+
+  /* Tipografías */
+  --tipo-texto: "Atkinson Next", "Segoe UI", system-ui, sans-serif;
+  --tipo-titulo: "Chakra Petch", "Atkinson Next", system-ui, sans-serif;
+  --tipo-pantalla: "Departure Mono", ui-monospace, Menlo, Consolas, monospace;
+
+  /* Escala fluida */
+  --t-0: clamp(0.94rem, 0.9rem + 0.2vw, 1.05rem);
+  --t-1: clamp(1.1rem, 1rem + 0.4vw, 1.3rem);
+  --t-2: clamp(1.4rem, 1.2rem + 0.9vw, 1.9rem);
+  --t-3: clamp(2rem, 1.5rem + 2.2vw, 3.4rem);
+
+  /* Espacios */
+  --e-1: 0.25rem; --e-2: 0.5rem; --e-3: 0.75rem; --e-4: 1rem;
+  --e-5: 1.5rem; --e-6: 2rem; --e-7: 3rem; --e-8: 4.5rem;
+  --radio: 14px;
+  --ancho: 76rem;
+
+  /* Ambiente Aero (claro) */
+  --cielo-alto: #bfe6fb;
+  --cielo-medio: #e3f5fd;
+  --horizonte: #f6fcff;
+  --agua: #7fd3dc;
+  --burbuja-borde: #5fc4d6;
+  --ola: #ffffff;
+  --colina-1: #9fe0c4;
+  --colina-2: #e9f8f2;
+  --cristal: rgba(255, 255, 255, 0.72);
+  --cristal-borde: rgba(255, 255, 255, 0.95);
+  --cristal-sombra: 0 10px 30px rgba(20, 70, 100, 0.16);
+  --tinta: #0c2431;
+  --tinta-suave: #34505e;
+  --acento: #0a6a78;
+  --boton-1: #12897b;
+  --boton-2: #0a5f55;
+  --boton-texto: #ffffff;
+  --foco: #0c2431;
+  --foco-halo: #ffffff;
+
+  /* Objetos retro */
+  --plastico: #e9e1cd;
+  --plastico-luz: #f7f2e4;
+  --plastico-sombra: #b9ad8f;
+  --madera: #c99b6a;
+  --madera-oscura: #8c6239;
+  --metal: #c9d1d6;
+  --papel-nota: #ffe58a;
+  --tinta-boli: #1d3a8a;
+
+  /* Pantalla (modo de color por defecto: fósforo verde) */
+  --pantalla-fondo: #07140d;
+  --pantalla-texto: #b8f5cb;
+  --pantalla-tenue: #6fa784;
+  --pantalla-acento: #45f08f;
+}
+
+:root[data-pantalla="ambar"] {
+  --pantalla-fondo: #120b03; --pantalla-texto: #ffe2b0; --pantalla-tenue: #b48d52; --pantalla-acento: #ffb000;
+}
+:root[data-pantalla="hielo"] {
+  --pantalla-fondo: #061019; --pantalla-texto: #d6ecff; --pantalla-tenue: #7f9db6; --pantalla-acento: #7fd4ff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --cielo-alto: #061a26;
+    --cielo-medio: #0b2c3a;
+    --horizonte: #0f3a47;
+    --agua: #1d6f7a;
+    --burbuja-borde: #2a8ea3;
+    --ola: #7fdcea;
+    --colina-1: #0f4a4a;
+    --colina-2: #061a26;
+    --cristal: rgba(10, 34, 46, 0.78);
+    --cristal-borde: rgba(150, 220, 240, 0.28);
+    --cristal-sombra: 0 10px 30px rgba(0, 0, 0, 0.4);
+    --tinta: #e8f6fb;
+    --tinta-suave: #a9c7d3;
+    --acento: #7fdcea;
+    --boton-1: #3fc7b5;
+    --boton-2: #17a08f;
+    --boton-texto: #04201c;
+    --foco: #ffffff;
+    --foco-halo: #04121a;
+    --plastico: #cfc6b0;
+    --plastico-luz: #e2dac6;
+    --plastico-sombra: #8f8469;
+    --madera: #8a6440;
+    --madera-oscura: #5b3e22;
+  }
+}

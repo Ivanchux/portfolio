@@ -1,0 +1,24 @@
+{
+  "nombre_publico": "Iván Brihuega",
+  "alias": "Ivanchux",
+  "dominio": "POR_CONFIRMAR",
+  "correo": "POR_CONFIRMAR",
+  "titular_legal": "POR_CONFIRMAR",
+  "github": "https://github.com/Ivanchux",
+  "perfiles": {
+    "linkedin": "POR_CONFIRMAR",
+    "malt": "POR_CONFIRMAR",
+    "fiverr": "POR_CONFIRMAR",
+    "upwork": "POR_CONFIRMAR"
+  },
+  "centro_estudios": "POR_CONFIRMAR",
+  "modo_comercial": false,
+  "precios": {
+    "infraestructura": 150,
+    "web": 350,
+    "ia": 700,
+    "a_medida": 1200,
+    "video_ia": "POR_CONFIRMAR",
+    "datos_d3": "POR_CONFIRMAR"
+  }
+}
