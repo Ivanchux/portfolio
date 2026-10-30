@@ -14,154 +14,555 @@
         "Incluye ARIA, un asistente de IA que funciona con Cloudflare Workers y la API de Groq con un modelo Llama; CODE_CRT, un editor de código en el navegador; una terminal de DeFi; artículos técnicos; herramientas de red como conversión IP, binario y hexadecimal o cálculo CIDR; y una sección de juegos con Naval Strike y Wonder IV.",
         "Tiene tres temas de color (verde, cian y ámbar) que se recuerdan entre visitas."
       ],
-      "problema": "POR_CONFIRMAR",
-      "papel": "POR_CONFIRMAR",
+      "problema": "Reunir en un solo sitio herramientas útiles para el sector informático (red, código e IA) y servir a la vez como web personal.",
+      "papel": "Proyecto personal, empezado en el primer curso de ASIR: diseño y desarrollo completos.",
       "datos_medidos": [
         "PageSpeed: 100 en rendimiento, 95 en accesibilidad, 100 en buenas prácticas y 100 en SEO.",
         "Auditoría de accesibilidad WCAG 2.1 AA aplicada a 16 páginas, con sus correcciones."
       ],
-      "tecnologias": ["HTML", "CSS", "JavaScript", "Cloudflare Workers", "API de Groq", "GitHub Pages"],
-      "enlaces": { "vivo": "https://ivanchux.github.io/Retroterm-AI/", "codigo": "POR_CONFIRMAR" },
-      "vista_previa": { "tipo": "iframe", "url": "https://ivanchux.github.io/Retroterm-AI/" },
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Cloudflare Workers",
+        "API de Groq",
+        "GitHub Pages"
+      ],
+      "enlaces": {
+        "vivo": "https://ivanchux.github.io/Retroterm-AI/",
+        "codigo": "https://github.com/Ivanchux/Retroterm-AI"
+      },
+      "vista_previa": {
+        "tipo": "iframe",
+        "url": "https://ivanchux.github.io/Retroterm-AI/"
+      },
       "capturas": [
-        { "src": "img/capturas/retroterm-1.webp", "alt": "Portada de Retroterm-AI con accesos a modo desarrollo, ARIA, juegos, artículos, DeFi, red de proyectos, herramientas, roadmap y terminal." },
-        { "src": "img/capturas/retroterm-2.webp", "alt": "Editor CODE_CRT con tres paneles de HTML, CSS y JavaScript y la vista previa debajo." },
-        { "src": "img/capturas/retroterm-3.webp", "alt": "Conversación con ARIA, el asistente de IA, en una ventana de chat de estilo terminal." },
-        { "src": "img/capturas/retroterm-4.webp", "alt": "Terminal de DeFi con una tabla de criptomonedas, precios y variaciones." },
-        { "src": "img/capturas/retroterm-5.webp", "alt": "Sección de artículos con categorías a la izquierda y fichas de artículos técnicos." },
-        { "src": "img/capturas/retroterm-6.webp", "alt": "Panel de herramientas: conversión IP, binario y hexadecimal, CIDR y wildcard, puertos, generador de contraseñas, almacenamiento y colores CSS." },
-        { "src": "img/capturas/retroterm-7.webp", "alt": "Pantalla de Wonder IV con las maravillas del mundo antiguo como niveles." }
+        {
+          "src": "img/capturas/retroterm-1.webp",
+          "alt": "Portada de Retroterm-AI con accesos a modo desarrollo, ARIA, juegos, artículos, DeFi, red de proyectos, herramientas, roadmap y terminal."
+        },
+        {
+          "src": "img/capturas/retroterm-2.webp",
+          "alt": "Editor CODE_CRT con tres paneles de HTML, CSS y JavaScript y la vista previa debajo."
+        },
+        {
+          "src": "img/capturas/retroterm-3.webp",
+          "alt": "Conversación con ARIA, el asistente de IA, en una ventana de chat de estilo terminal."
+        },
+        {
+          "src": "img/capturas/retroterm-4.webp",
+          "alt": "Terminal de DeFi con una tabla de criptomonedas, precios y variaciones."
+        },
+        {
+          "src": "img/capturas/retroterm-5.webp",
+          "alt": "Sección de artículos con categorías a la izquierda y fichas de artículos técnicos."
+        },
+        {
+          "src": "img/capturas/retroterm-6.webp",
+          "alt": "Panel de herramientas: conversión IP, binario y hexadecimal, CIDR y wildcard, puertos, generador de contraseñas, almacenamiento y colores CSS."
+        },
+        {
+          "src": "img/capturas/retroterm-7.webp",
+          "alt": "Pantalla de Wonder IV con las maravillas del mundo antiguo como niveles."
+        },
+        {
+          "src": "img/capturas/retroterm-8.webp",
+          "alt": "Partida de ajedrez contra el Turco, con un tablero verde y paneles de estado del sistema e historial de movimientos."
+        }
       ],
       "fuente": "CONTENIDO_PORTFOLIO.md y capturas de referencia/"
     },
     {
-      "slug": "wonder-iv", "nombre": "Wonder IV", "publicar": false, "color_disco": "#c08a1e", "estado": "En desarrollo",
+      "slug": "wonder-iv",
+      "nombre": "Wonder IV",
+      "publicar": false,
+      "color_disco": "#c08a1e",
+      "estado": "En desarrollo",
       "resumen": "Puzle de combinar tres sobre las siete maravillas, en HTML, CSS y JavaScript sin dependencias.",
-      "descripcion": ["Nació dentro de Retroterm-AI y se ha separado para desarrollarlo en su propio repositorio, publicado con GitHub Pages."],
-      "problema": "POR_CONFIRMAR", "papel": "POR_CONFIRMAR",
-      "tecnologias": ["HTML", "CSS", "JavaScript", "GitHub Pages"],
-      "enlaces": { "vivo": "POR_CONFIRMAR", "codigo": "POR_CONFIRMAR" },
-      "vista_previa": { "tipo": "captura" },
-      "capturas": [{ "src": "img/capturas/retroterm-7.webp", "alt": "Pantalla de Wonder IV con las maravillas del mundo antiguo como niveles." }]
+      "descripcion": [
+        "Nació dentro de Retroterm-AI y se ha separado para desarrollarlo en su propio repositorio, publicado con GitHub Pages."
+      ],
+      "problema": "POR_CONFIRMAR",
+      "papel": "POR_CONFIRMAR",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "GitHub Pages"
+      ],
+      "enlaces": {
+        "vivo": "POR_CONFIRMAR",
+        "codigo": "POR_CONFIRMAR"
+      },
+      "vista_previa": {
+        "tipo": "captura"
+      },
+      "capturas": [
+        {
+          "src": "img/capturas/retroterm-7.webp",
+          "alt": "Pantalla de Wonder IV con las maravillas del mundo antiguo como niveles."
+        }
+      ]
     },
     {
-      "slug": "ninja-de-escritorio", "nombre": "Ninja de Escritorio", "publicar": false, "color_disco": "#3a6ea5", "estado": "POR_CONFIRMAR",
+      "slug": "ninja-de-escritorio",
+      "nombre": "Ninja de Escritorio",
+      "publicar": false,
+      "color_disco": "#3a6ea5",
+      "estado": "POR_CONFIRMAR",
       "resumen": "Juego de cortar iconos de ordenador retro con estética Windows 95, en HTML5 sin dependencias, para PC y móvil.",
-      "descripcion": [], "problema": "POR_CONFIRMAR", "papel": "POR_CONFIRMAR",
-      "tecnologias": ["HTML5", "JavaScript"],
-      "enlaces": { "vivo": "POR_CONFIRMAR", "codigo": "https://github.com/Ivanchux/ninja-de-escritorio" },
-      "vista_previa": { "tipo": "POR_CONFIRMAR" }, "capturas": []
+      "descripcion": [],
+      "problema": "POR_CONFIRMAR",
+      "papel": "POR_CONFIRMAR",
+      "tecnologias": [
+        "HTML5",
+        "JavaScript"
+      ],
+      "enlaces": {
+        "vivo": "POR_CONFIRMAR",
+        "codigo": "https://github.com/Ivanchux/ninja-de-escritorio"
+      },
+      "vista_previa": {
+        "tipo": "POR_CONFIRMAR"
+      },
+      "capturas": []
     },
     {
-      "slug": "kaiten", "nombre": "Kaiten", "publicar": false, "color_disco": "#d2553f", "estado": "Publicado",
+      "slug": "kaiten",
+      "nombre": "Kaiten",
+      "publicar": false,
+      "color_disco": "#d2553f",
+      "estado": "Publicado",
       "resumen": "Aplicación web instalable para contar piezas de sushi: se pulsa y suma una.",
-      "descripcion": ["Tiene niveles, estadísticas por pieza y por categoría, coste total, un mapa con fotos y reseñas personales y localización por GPS. Las reseñas y los datos se guardan, de momento, solo en el dispositivo."],
-      "problema": "POR_CONFIRMAR", "papel": "POR_CONFIRMAR",
-      "tecnologias": ["HTML", "CSS", "JavaScript", "PWA", "GitHub Pages"],
-      "enlaces": { "vivo": "POR_CONFIRMAR", "codigo": "https://github.com/Ivanchux/Kaiten" },
-      "vista_previa": { "tipo": "POR_CONFIRMAR" }, "capturas": []
+      "descripcion": [
+        "Tiene niveles, estadísticas por pieza y por categoría, coste total, un mapa con fotos y reseñas personales y localización por GPS. Las reseñas y los datos se guardan, de momento, solo en el dispositivo."
+      ],
+      "problema": "POR_CONFIRMAR",
+      "papel": "POR_CONFIRMAR",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "PWA",
+        "GitHub Pages"
+      ],
+      "enlaces": {
+        "vivo": "POR_CONFIRMAR",
+        "codigo": "https://github.com/Ivanchux/Kaiten"
+      },
+      "vista_previa": {
+        "tipo": "POR_CONFIRMAR"
+      },
+      "capturas": []
     },
     {
-      "slug": "hilo-cortado", "nombre": "Hilo Cortado", "publicar": false, "color_disco": "#8a2f3a", "estado": "POR_CONFIRMAR",
+      "slug": "hilo-cortado",
+      "nombre": "Hilo Cortado",
+      "publicar": false,
+      "color_disco": "#8a2f3a",
+      "estado": "POR_CONFIRMAR",
       "resumen": "Beat 'em up de avance lateral en HTML5 Canvas: marionetas que se rebelan contra el titiritero.",
-      "descripcion": ["Los hilos son a la vez la vida y el arma. Animación procedural por esqueleto, en un solo index.html sin dependencias."],
-      "problema": "POR_CONFIRMAR", "papel": "POR_CONFIRMAR",
-      "tecnologias": ["HTML5 Canvas", "JavaScript"],
-      "enlaces": { "vivo": "POR_CONFIRMAR", "codigo": "POR_CONFIRMAR" },
-      "vista_previa": { "tipo": "POR_CONFIRMAR" }, "capturas": []
+      "descripcion": [
+        "Los hilos son a la vez la vida y el arma. Animación procedural por esqueleto, en un solo index.html sin dependencias."
+      ],
+      "problema": "POR_CONFIRMAR",
+      "papel": "POR_CONFIRMAR",
+      "tecnologias": [
+        "HTML5 Canvas",
+        "JavaScript"
+      ],
+      "enlaces": {
+        "vivo": "POR_CONFIRMAR",
+        "codigo": "POR_CONFIRMAR"
+      },
+      "vista_previa": {
+        "tipo": "POR_CONFIRMAR"
+      },
+      "capturas": []
     },
     {
-      "slug": "dead-heat", "nombre": "Dead Heat", "publicar": false, "color_disco": "#5aa9c9", "estado": "POR_CONFIRMAR",
+      "slug": "dead-heat",
+      "nombre": "Dead Heat",
+      "publicar": false,
+      "color_disco": "#5aa9c9",
+      "estado": "POR_CONFIRMAR",
       "resumen": "Laberinto de recoger puntos y esquivar enemigos con muros de hielo que se derriten y cambian el recorrido.",
-      "descripcion": [], "problema": "POR_CONFIRMAR", "papel": "POR_CONFIRMAR",
-      "tecnologias": ["HTML5 Canvas", "JavaScript"],
-      "enlaces": { "vivo": "POR_CONFIRMAR", "codigo": "POR_CONFIRMAR" },
-      "vista_previa": { "tipo": "POR_CONFIRMAR" }, "capturas": []
+      "descripcion": [],
+      "problema": "POR_CONFIRMAR",
+      "papel": "POR_CONFIRMAR",
+      "tecnologias": [
+        "HTML5 Canvas",
+        "JavaScript"
+      ],
+      "enlaces": {
+        "vivo": "POR_CONFIRMAR",
+        "codigo": "POR_CONFIRMAR"
+      },
+      "vista_previa": {
+        "tipo": "POR_CONFIRMAR"
+      },
+      "capturas": []
     },
     {
-      "slug": "aerium", "nombre": "Aerium", "publicar": false, "color_disco": "#4fb8d8", "estado": "En desarrollo",
+      "slug": "aerium",
+      "nombre": "Aerium",
+      "publicar": false,
+      "color_disco": "#4fb8d8",
+      "estado": "En desarrollo",
       "resumen": "Mundo social isométrico en el navegador, con estética Frutiger Aero y un toque de terminal retro.",
-      "descripcion": [], "problema": "POR_CONFIRMAR", "papel": "POR_CONFIRMAR",
-      "tecnologias": ["POR_CONFIRMAR"],
-      "enlaces": { "vivo": "POR_CONFIRMAR", "codigo": "POR_CONFIRMAR" },
-      "vista_previa": { "tipo": "POR_CONFIRMAR" }, "capturas": []
+      "descripcion": [],
+      "problema": "POR_CONFIRMAR",
+      "papel": "POR_CONFIRMAR",
+      "tecnologias": [
+        "POR_CONFIRMAR"
+      ],
+      "enlaces": {
+        "vivo": "POR_CONFIRMAR",
+        "codigo": "POR_CONFIRMAR"
+      },
+      "vista_previa": {
+        "tipo": "POR_CONFIRMAR"
+      },
+      "capturas": []
     },
     {
-      "slug": "lorekeeper", "nombre": "LoreKeeper", "publicar": false, "color_disco": "#7a5a2e", "estado": "POR_CONFIRMAR",
+      "slug": "lorekeeper",
+      "nombre": "LoreKeeper",
+      "publicar": false,
+      "color_disco": "#7a5a2e",
+      "estado": "POR_CONFIRMAR",
       "resumen": "Seguimiento de lectura con juego de rol, sin servidor y portable, con libros en 3D hechos en CSS.",
-      "descripcion": [], "problema": "POR_CONFIRMAR", "papel": "POR_CONFIRMAR",
-      "tecnologias": ["HTML", "CSS", "JavaScript"],
-      "enlaces": { "vivo": "POR_CONFIRMAR", "codigo": "POR_CONFIRMAR" },
-      "vista_previa": { "tipo": "POR_CONFIRMAR" }, "capturas": []
+      "descripcion": [],
+      "problema": "POR_CONFIRMAR",
+      "papel": "POR_CONFIRMAR",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "enlaces": {
+        "vivo": "POR_CONFIRMAR",
+        "codigo": "POR_CONFIRMAR"
+      },
+      "vista_previa": {
+        "tipo": "POR_CONFIRMAR"
+      },
+      "capturas": []
     },
     {
-      "slug": "inventario-vinilos", "nombre": "Inventario de vinilos", "publicar": false, "color_disco": "#2b2b2b", "estado": "Publicado",
+      "slug": "inventario-vinilos",
+      "nombre": "Inventario de vinilos",
+      "publicar": false,
+      "color_disco": "#2b2b2b",
+      "estado": "Publicado",
       "resumen": "Aplicación web para catalogar una colección de discos, publicada en GitHub Pages.",
-      "descripcion": [], "problema": "POR_CONFIRMAR", "papel": "POR_CONFIRMAR",
-      "tecnologias": ["HTML", "CSS", "JavaScript", "GitHub Pages"],
-      "enlaces": { "vivo": "POR_CONFIRMAR", "codigo": "https://github.com/ivanchux/inventario-vinilos" },
-      "vista_previa": { "tipo": "POR_CONFIRMAR" }, "capturas": []
+      "descripcion": [],
+      "problema": "POR_CONFIRMAR",
+      "papel": "POR_CONFIRMAR",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "GitHub Pages"
+      ],
+      "enlaces": {
+        "vivo": "POR_CONFIRMAR",
+        "codigo": "https://github.com/ivanchux/inventario-vinilos"
+      },
+      "vista_previa": {
+        "tipo": "POR_CONFIRMAR"
+      },
+      "capturas": []
     },
     {
-      "slug": "impronta", "nombre": "Impronta", "publicar": false, "color_disco": "#b03a2e", "estado": "Terminado",
+      "slug": "impronta",
+      "nombre": "Impronta",
+      "publicar": false,
+      "color_disco": "#b03a2e",
+      "estado": "Terminado",
       "resumen": "Web de una imprenta ficticia hecha a mano para las prácticas, con versión en WordPress, dossier del proceso y diario semanal.",
-      "descripcion": ["Por iniciativa propia, más allá de lo que pedía la rúbrica: variables CSS, tipografía fluida con clamp(), tema guardado en el navegador, un formulario por pasos más completo de lo exigido, un panel de cookies por categorías y metadatos Open Graph."],
-      "problema": "POR_CONFIRMAR", "papel": "POR_CONFIRMAR",
-      "tecnologias": ["HTML", "CSS", "JavaScript", "WordPress"],
-      "enlaces": { "vivo": "POR_CONFIRMAR", "codigo": "POR_CONFIRMAR" },
-      "vista_previa": { "tipo": "POR_CONFIRMAR" }, "capturas": []
+      "descripcion": [
+        "Por iniciativa propia, más allá de lo que pedía la rúbrica: variables CSS, tipografía fluida con clamp(), tema guardado en el navegador, un formulario por pasos más completo de lo exigido, un panel de cookies por categorías y metadatos Open Graph."
+      ],
+      "problema": "POR_CONFIRMAR",
+      "papel": "POR_CONFIRMAR",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "WordPress"
+      ],
+      "enlaces": {
+        "vivo": "POR_CONFIRMAR",
+        "codigo": "POR_CONFIRMAR"
+      },
+      "vista_previa": {
+        "tipo": "POR_CONFIRMAR"
+      },
+      "capturas": []
     },
     {
-      "slug": "nexus", "nombre": "NEXUS", "publicar": false, "color_disco": "#2f9e5b", "estado": "POR_CONFIRMAR",
+      "slug": "nexus",
+      "nombre": "NEXUS",
+      "publicar": false,
+      "color_disco": "#2f9e5b",
+      "estado": "POR_CONFIRMAR",
       "resumen": "Red social hecha desde cero en PHP y MySQL con patrón MVC.",
-      "descripcion": ["Inicio de sesión con protección contra inyección SQL, perfiles, feed de publicaciones con respuestas y un sistema de afinidad entre usuarios."],
-      "problema": "POR_CONFIRMAR", "papel": "POR_CONFIRMAR",
-      "tecnologias": ["PHP", "MySQL", "MVC", "Git"],
-      "enlaces": { "vivo": "POR_CONFIRMAR", "codigo": "POR_CONFIRMAR" },
-      "vista_previa": { "tipo": "captura" }, "capturas": [],
+      "descripcion": [
+        "Inicio de sesión con protección contra inyección SQL, perfiles, feed de publicaciones con respuestas y un sistema de afinidad entre usuarios."
+      ],
+      "problema": "POR_CONFIRMAR",
+      "papel": "POR_CONFIRMAR",
+      "tecnologias": [
+        "PHP",
+        "MySQL",
+        "MVC",
+        "Git"
+      ],
+      "enlaces": {
+        "vivo": "POR_CONFIRMAR",
+        "codigo": "POR_CONFIRMAR"
+      },
+      "vista_previa": {
+        "tipo": "captura"
+      },
+      "capturas": [],
       "fuente": "referencia/Curriculum_WEB_v2 y captura"
     },
     {
-      "slug": "project-dossier", "nombre": "Project Dossier", "publicar": false, "color_disco": "#c9861a", "estado": "POR_CONFIRMAR",
+      "slug": "project-dossier",
+      "nombre": "Project Dossier",
+      "publicar": false,
+      "color_disco": "#c9861a",
+      "estado": "POR_CONFIRMAR",
       "resumen": "Archivo estático de expedientes con un mapa de conexiones en D3 y herramientas internas de edición.",
-      "descripcion": ["Mapa de fuerzas con D3, línea de tiempo, archivo ordenable y cinco expedientes con cronologías interactivas."],
-      "problema": "POR_CONFIRMAR", "papel": "POR_CONFIRMAR",
-      "tecnologias": ["HTML", "CSS", "JavaScript", "D3.js"],
-      "enlaces": { "vivo": "POR_CONFIRMAR", "codigo": "POR_CONFIRMAR" },
-      "vista_previa": { "tipo": "captura" }, "capturas": []
+      "descripcion": [
+        "Mapa de fuerzas con D3, línea de tiempo, archivo ordenable y cinco expedientes con cronologías interactivas."
+      ],
+      "problema": "POR_CONFIRMAR",
+      "papel": "POR_CONFIRMAR",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "D3.js"
+      ],
+      "enlaces": {
+        "vivo": "POR_CONFIRMAR",
+        "codigo": "POR_CONFIRMAR"
+      },
+      "vista_previa": {
+        "tipo": "captura"
+      },
+      "capturas": []
     },
     {
-      "slug": "edulab", "nombre": "EduLab", "publicar": false, "color_disco": "#1aa39a", "estado": "POR_CONFIRMAR",
+      "slug": "edulab",
+      "nombre": "EduLab",
+      "publicar": false,
+      "color_disco": "#1aa39a",
+      "estado": "POR_CONFIRMAR",
       "resumen": "Plataforma educativa con módulos gamificados para aprender tecnología jugando.",
-      "descripcion": ["Sistema de experiencia y rangos que se guarda en el navegador. Módulos: SQLQuest (seis minijuegos de SQL), Signal Repair (13 misiones de CSS con Flexbox y Grid) y SysAdmin (terminal interactiva, permisos de Linux y Bash)."],
-      "problema": "POR_CONFIRMAR", "papel": "POR_CONFIRMAR",
-      "tecnologias": ["HTML", "CSS", "JavaScript"],
-      "enlaces": { "vivo": "POR_CONFIRMAR", "codigo": "POR_CONFIRMAR" },
-      "vista_previa": { "tipo": "captura" }, "capturas": []
+      "descripcion": [
+        "Sistema de experiencia y rangos que se guarda en el navegador. Módulos: SQLQuest (seis minijuegos de SQL), Signal Repair (13 misiones de CSS con Flexbox y Grid) y SysAdmin (terminal interactiva, permisos de Linux y Bash)."
+      ],
+      "problema": "POR_CONFIRMAR",
+      "papel": "POR_CONFIRMAR",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "enlaces": {
+        "vivo": "POR_CONFIRMAR",
+        "codigo": "POR_CONFIRMAR"
+      },
+      "vista_previa": {
+        "tipo": "captura"
+      },
+      "capturas": []
     },
     {
-      "slug": "as-study", "nombre": "AS Study", "publicar": false, "color_disco": "#3d7fb8", "estado": "POR_CONFIRMAR",
+      "slug": "as-study",
+      "nombre": "AS Study",
+      "publicar": false,
+      "color_disco": "#3d7fb8",
+      "estado": "POR_CONFIRMAR",
       "resumen": "Herramienta de estudio para ASIR en un solo archivo.",
-      "descripcion": ["Temporizador pomodoro, búsqueda global, estadísticas, tarjetas con repetición espaciada y modo examen."],
-      "problema": "POR_CONFIRMAR", "papel": "POR_CONFIRMAR",
-      "tecnologias": ["HTML", "CSS", "JavaScript", "PWA"],
-      "enlaces": { "vivo": "POR_CONFIRMAR", "codigo": "POR_CONFIRMAR" },
-      "vista_previa": { "tipo": "captura" }, "capturas": []
+      "descripcion": [
+        "Temporizador pomodoro, búsqueda global, estadísticas, tarjetas con repetición espaciada y modo examen."
+      ],
+      "problema": "POR_CONFIRMAR",
+      "papel": "POR_CONFIRMAR",
+      "tecnologias": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "PWA"
+      ],
+      "enlaces": {
+        "vivo": "POR_CONFIRMAR",
+        "codigo": "POR_CONFIRMAR"
+      },
+      "vista_previa": {
+        "tipo": "captura"
+      },
+      "capturas": []
     },
     {
-      "slug": "pokemon-bash-simulator", "nombre": "Pokémon Bash Simulator", "publicar": false, "color_disco": "#d9b13b", "estado": "POR_CONFIRMAR",
+      "slug": "pokemon-bash-simulator",
+      "nombre": "Pokémon Bash Simulator",
+      "publicar": false,
+      "color_disco": "#d9b13b",
+      "estado": "POR_CONFIRMAR",
       "resumen": "Simulador de combates por turnos escrito en Bash, donde cada criatura es un usuario de Linux.",
-      "descripcion": ["Las estadísticas viven en ficheros, los tipos son grupos del sistema y el perdedor se elimina con userdel -r. Incluye críticos, efectividad de tipos y doble tipo."],
-      "problema": "POR_CONFIRMAR", "papel": "POR_CONFIRMAR",
-      "tecnologias": ["Bash", "Linux"],
-      "enlaces": { "vivo": "POR_CONFIRMAR", "codigo": "POR_CONFIRMAR" },
-      "vista_previa": { "tipo": "enlace" }, "capturas": []
+      "descripcion": [
+        "Las estadísticas viven en ficheros, los tipos son grupos del sistema y el perdedor se elimina con userdel -r. Incluye críticos, efectividad de tipos y doble tipo."
+      ],
+      "problema": "POR_CONFIRMAR",
+      "papel": "POR_CONFIRMAR",
+      "tecnologias": [
+        "Bash",
+        "Linux"
+      ],
+      "enlaces": {
+        "vivo": "POR_CONFIRMAR",
+        "codigo": "POR_CONFIRMAR"
+      },
+      "vista_previa": {
+        "tipo": "enlace"
+      },
+      "capturas": []
     },
-    { "slug": "orbis", "nombre": "Orbis", "publicar": false, "color_disco": "#6b7d8f", "estado": "POR_CONFIRMAR", "resumen": "Aplicación web de seguimiento de noticias geopolíticas.", "descripcion": [], "problema": "POR_CONFIRMAR", "papel": "POR_CONFIRMAR", "tecnologias": ["POR_CONFIRMAR"], "enlaces": { "vivo": "POR_CONFIRMAR", "codigo": "POR_CONFIRMAR" }, "vista_previa": { "tipo": "POR_CONFIRMAR" }, "capturas": [] },
-    { "slug": "sentinel", "nombre": "SENTINEL", "publicar": false, "color_disco": "#44515e", "estado": "POR_CONFIRMAR", "resumen": "Panel de información geopolítica con mapa 2D, globo 3D y datos sísmicos en tiempo real.", "descripcion": [], "problema": "POR_CONFIRMAR", "papel": "POR_CONFIRMAR", "tecnologias": ["Leaflet", "Three.js"], "enlaces": { "vivo": "POR_CONFIRMAR", "codigo": "POR_CONFIRMAR" }, "vista_previa": { "tipo": "POR_CONFIRMAR" }, "capturas": [] },
-    { "slug": "retroamp", "nombre": "RetroAmp", "publicar": false, "color_disco": "#5e6b2f", "estado": "POR_CONFIRMAR", "resumen": "Reproductor de música en el navegador con estética de reproductor de los 90, pieles intercambiables y Web Audio API.", "descripcion": [], "problema": "POR_CONFIRMAR", "papel": "POR_CONFIRMAR", "tecnologias": ["JavaScript", "Web Audio API", "Canvas"], "enlaces": { "vivo": "POR_CONFIRMAR", "codigo": "POR_CONFIRMAR" }, "vista_previa": { "tipo": "POR_CONFIRMAR" }, "capturas": [] },
-    { "slug": "silent-worlds", "nombre": "Silent Worlds", "publicar": false, "estado": "Pausado", "resumen": "POR_CONFIRMAR", "descripcion": [], "problema": "POR_CONFIRMAR", "papel": "POR_CONFIRMAR", "tecnologias": ["Godot 4"], "enlaces": { "vivo": "POR_CONFIRMAR", "codigo": "POR_CONFIRMAR" }, "vista_previa": { "tipo": "POR_CONFIRMAR" }, "capturas": [] },
-    { "slug": "skinware", "nombre": "SKINWARE", "publicar": false, "estado": "No se publica", "resumen": "POR_CONFIRMAR", "descripcion": [], "problema": "POR_CONFIRMAR", "papel": "POR_CONFIRMAR", "tecnologias": ["Godot 4"], "enlaces": { "vivo": "POR_CONFIRMAR", "codigo": "POR_CONFIRMAR" }, "vista_previa": { "tipo": "POR_CONFIRMAR" }, "capturas": [] },
-    { "slug": "doble-fondo", "nombre": "Doble Fondo", "publicar": false, "estado": "Descartado", "resumen": "POR_CONFIRMAR", "descripcion": [], "problema": "POR_CONFIRMAR", "papel": "POR_CONFIRMAR", "tecnologias": [], "enlaces": { "vivo": "POR_CONFIRMAR", "codigo": "POR_CONFIRMAR" }, "vista_previa": { "tipo": "POR_CONFIRMAR" }, "capturas": [] }
+    {
+      "slug": "orbis",
+      "nombre": "Orbis",
+      "publicar": false,
+      "color_disco": "#6b7d8f",
+      "estado": "POR_CONFIRMAR",
+      "resumen": "Aplicación web de seguimiento de noticias geopolíticas.",
+      "descripcion": [],
+      "problema": "POR_CONFIRMAR",
+      "papel": "POR_CONFIRMAR",
+      "tecnologias": [
+        "POR_CONFIRMAR"
+      ],
+      "enlaces": {
+        "vivo": "POR_CONFIRMAR",
+        "codigo": "POR_CONFIRMAR"
+      },
+      "vista_previa": {
+        "tipo": "POR_CONFIRMAR"
+      },
+      "capturas": []
+    },
+    {
+      "slug": "sentinel",
+      "nombre": "SENTINEL",
+      "publicar": false,
+      "color_disco": "#44515e",
+      "estado": "POR_CONFIRMAR",
+      "resumen": "Panel de información geopolítica con mapa 2D, globo 3D y datos sísmicos en tiempo real.",
+      "descripcion": [],
+      "problema": "POR_CONFIRMAR",
+      "papel": "POR_CONFIRMAR",
+      "tecnologias": [
+        "Leaflet",
+        "Three.js"
+      ],
+      "enlaces": {
+        "vivo": "POR_CONFIRMAR",
+        "codigo": "POR_CONFIRMAR"
+      },
+      "vista_previa": {
+        "tipo": "POR_CONFIRMAR"
+      },
+      "capturas": []
+    },
+    {
+      "slug": "retroamp",
+      "nombre": "RetroAmp",
+      "publicar": false,
+      "color_disco": "#5e6b2f",
+      "estado": "POR_CONFIRMAR",
+      "resumen": "Reproductor de música en el navegador con estética de reproductor de los 90, pieles intercambiables y Web Audio API.",
+      "descripcion": [],
+      "problema": "POR_CONFIRMAR",
+      "papel": "POR_CONFIRMAR",
+      "tecnologias": [
+        "JavaScript",
+        "Web Audio API",
+        "Canvas"
+      ],
+      "enlaces": {
+        "vivo": "POR_CONFIRMAR",
+        "codigo": "POR_CONFIRMAR"
+      },
+      "vista_previa": {
+        "tipo": "POR_CONFIRMAR"
+      },
+      "capturas": []
+    },
+    {
+      "slug": "silent-worlds",
+      "nombre": "Silent Worlds",
+      "publicar": false,
+      "estado": "Pausado",
+      "resumen": "POR_CONFIRMAR",
+      "descripcion": [],
+      "problema": "POR_CONFIRMAR",
+      "papel": "POR_CONFIRMAR",
+      "tecnologias": [
+        "Godot 4"
+      ],
+      "enlaces": {
+        "vivo": "POR_CONFIRMAR",
+        "codigo": "POR_CONFIRMAR"
+      },
+      "vista_previa": {
+        "tipo": "POR_CONFIRMAR"
+      },
+      "capturas": []
+    },
+    {
+      "slug": "skinware",
+      "nombre": "SKINWARE",
+      "publicar": false,
+      "estado": "No se publica",
+      "resumen": "POR_CONFIRMAR",
+      "descripcion": [],
+      "problema": "POR_CONFIRMAR",
+      "papel": "POR_CONFIRMAR",
+      "tecnologias": [
+        "Godot 4"
+      ],
+      "enlaces": {
+        "vivo": "POR_CONFIRMAR",
+        "codigo": "POR_CONFIRMAR"
+      },
+      "vista_previa": {
+        "tipo": "POR_CONFIRMAR"
+      },
+      "capturas": []
+    },
+    {
+      "slug": "doble-fondo",
+      "nombre": "Doble Fondo",
+      "publicar": false,
+      "estado": "Descartado",
+      "resumen": "POR_CONFIRMAR",
+      "descripcion": [],
+      "problema": "POR_CONFIRMAR",
+      "papel": "POR_CONFIRMAR",
+      "tecnologias": [],
+      "enlaces": {
+        "vivo": "POR_CONFIRMAR",
+        "codigo": "POR_CONFIRMAR"
+      },
+      "vista_previa": {
+        "tipo": "POR_CONFIRMAR"
+      },
+      "capturas": []
+    }
   ]
 }
