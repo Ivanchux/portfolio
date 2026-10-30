@@ -96,17 +96,19 @@
       "publicar": true,
       "color_disco": "#c08a1e",
       "estado": "En desarrollo",
-      "resumen": "Puzle de combinar tres sobre las siete maravillas, en HTML, CSS y JavaScript sin dependencias.",
+      "resumen": "Puzle de combinar tres en el navegador: cada nivel es una maravilla que se reconstruye pieza a pieza mientras su arte ASCII aparece línea a línea.",
       "descripcion": [
-        "Nació dentro de Retroterm-AI y se ha separado para desarrollarlo en su propio repositorio, publicado con GitHub Pages."
+        "Tablero de 7 × 7 con siete tipos de ficha. Cada maravilla se divide en tres eras que piden recoger fichas concretas y multiplican la puntuación.",
+        "Gemas especiales al alinear cuatro o cinco, cuatro poderes de uso limitado (bomba, rayo, revolver y aurora) y estrellas según los movimientos que sobran.",
+        "Ocho maravillas, de la Pirámide al Oráculo, con dificultad creciente. Nació dentro de Retroterm-AI y ahora se desarrolla por separado, en HTML, CSS y JavaScript sin dependencias."
       ],
       "problema": "POR_CONFIRMAR",
-      "papel": "POR_CONFIRMAR",
+      "papel": "Proyecto personal: diseño del juego, gemas en SVG, arte ASCII y desarrollo.",
       "tecnologias": [
         "HTML",
         "CSS",
         "JavaScript",
-        "GitHub Pages"
+        "SVG"
       ],
       "enlaces": {
         "vivo": "POR_CONFIRMAR",
@@ -117,10 +119,22 @@
       },
       "capturas": [
         {
-          "src": "img/capturas/retroterm-7.webp",
-          "alt": "Pantalla de Wonder IV con las maravillas del mundo antiguo como niveles.",
-          "ancho": 960,
-          "alto": 545
+          "src": "img/capturas/wonder-iv-1.webp",
+          "ancho": 1100,
+          "alto": 687,
+          "alt": "Partida de Wonder IV en La Pirámide: tablero de gemas a la izquierda y la reconstrucción de la maravilla a la derecha."
+        },
+        {
+          "src": "img/capturas/wonder-iv-2.webp",
+          "ancho": 1100,
+          "alto": 687,
+          "alt": "Menú de Wonder IV con las ocho maravillas y su dificultad."
+        },
+        {
+          "src": "img/capturas/wonder-iv-3.webp",
+          "ancho": 390,
+          "alto": 844,
+          "alt": "Wonder IV en el móvil."
         }
       ]
     },
@@ -606,7 +620,7 @@
       "nombre": "EduLab",
       "publicar": true,
       "color_disco": "#1aa39a",
-      "estado": "POR_CONFIRMAR",
+      "estado": "En desarrollo",
       "resumen": "Plataforma educativa con módulos gamificados para aprender tecnología jugando.",
       "descripcion": [
         "Sistema de experiencia y rangos que se guarda en el navegador. Módulos: SQLQuest (seis minijuegos de SQL), Signal Repair (13 misiones de CSS con Flexbox y Grid) y SysAdmin (terminal interactiva, permisos de Linux y Bash)."
@@ -628,19 +642,31 @@
       "capturas": [
         {
           "src": "img/capturas/edulab-1.webp",
-          "alt": "Panel de EduLab con la lista de asignaturas, la experiencia acumulada y el módulo SQLQuest.",
-          "ancho": 960,
-          "alto": 430
+          "ancho": 1100,
+          "alto": 687,
+          "alt": "Portada de EduLab con la lista de asignaturas, la experiencia acumulada y el acceso a SQLQuest."
+        },
+        {
+          "src": "img/capturas/edulab-2.webp",
+          "ancho": 1100,
+          "alto": 687,
+          "alt": "SQLQuest: minijuegos para aprender SQL desde SELECT hasta JOIN."
+        },
+        {
+          "src": "img/capturas/edulab-3.webp",
+          "ancho": 1100,
+          "alto": 687,
+          "alt": "Signal Repair: misiones de CSS con Flexbox, Grid y posicionamiento."
         }
       ]
     },
     {
       "slug": "as-study",
-      "nombre": "AS Study",
+      "nombre": "ASIR Study",
       "publicar": true,
       "color_disco": "#3d7fb8",
-      "estado": "POR_CONFIRMAR",
-      "resumen": "Herramienta de estudio para ASIR en un solo archivo.",
+      "estado": "En desarrollo",
+      "resumen": "Herramienta de estudio para ASIR en un solo archivo, instalable como app.",
       "descripcion": [
         "Temporizador pomodoro, búsqueda global, estadísticas, tarjetas con repetición espaciada y modo examen."
       ],
@@ -662,9 +688,15 @@
       "capturas": [
         {
           "src": "img/capturas/as-study-1.webp",
-          "alt": "Panel de AS Study con la tarjeta del día, accesos rápidos y el progreso por asignatura.",
-          "ancho": 960,
-          "alto": 431
+          "ancho": 1100,
+          "alto": 687,
+          "alt": "Panel de widgets de ASIR Study con la tarjeta del día y accesos rápidos."
+        },
+        {
+          "src": "img/capturas/as-study-2.webp",
+          "ancho": 390,
+          "alto": 844,
+          "alt": "ASIR Study en el móvil."
         }
       ]
     },
@@ -742,24 +774,29 @@
     {
       "slug": "retroamp",
       "nombre": "RetroAmp",
-      "publicar": false,
+      "publicar": true,
       "color_disco": "#5e6b2f",
-      "estado": "POR_CONFIRMAR",
-      "resumen": "Reproductor de música en el navegador con estética de reproductor de los 90, pieles intercambiables y Web Audio API.",
-      "descripcion": [],
+      "estado": "En desarrollo",
+      "resumen": "Reproductor de música retro con pieles personalizables, instalable como app en el móvil.",
+      "descripcion": [
+        "Reproductor en el navegador con estética de los 90 y pieles que se exportan e importan en JSON.",
+        "Carga archivos MP3 propios, genera en Canvas una carátula de vinilo para cada canción y reproduce con Web Audio API."
+      ],
       "problema": "POR_CONFIRMAR",
-      "papel": "POR_CONFIRMAR",
+      "papel": "Proyecto personal: diseño y desarrollo.",
       "tecnologias": [
-        "JavaScript",
+        "React",
+        "Vite",
         "Web Audio API",
-        "Canvas"
+        "Canvas",
+        "PWA"
       ],
       "enlaces": {
         "vivo": "POR_CONFIRMAR",
         "codigo": "POR_CONFIRMAR"
       },
       "vista_previa": {
-        "tipo": "POR_CONFIRMAR"
+        "tipo": "captura"
       },
       "capturas": []
     },
