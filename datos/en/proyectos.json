@@ -11,7 +11,10 @@
       ],
       "problema": "Bringing together useful tools for the IT field (networking, code and AI) in a single place, while also working as a personal website.",
       "papel": "Personal project, started in my first year of ASIR: full design and development.",
-      "datos_medidos": ["PageSpeed: 100 performance, 95 accessibility, 100 best practices and 100 SEO.", "WCAG 2.1 AA accessibility audit applied to 16 pages, with its fixes."],
+      "datos_medidos": [
+        "PageSpeed: 100 performance, 95 accessibility, 100 best practices and 100 SEO.",
+        "WCAG 2.1 AA accessibility audit applied to 16 pages, with its fixes."
+      ],
       "alts": [
         "Retroterm-AI home page with links to developer mode, ARIA, games, articles, DeFi, project network, tools, roadmap and terminal.",
         "CODE_CRT editor with three panels for HTML, CSS and JavaScript and the preview below.",
@@ -24,26 +27,51 @@
       ]
     },
     "wonder-iv": {
-      "estado": "In development",
-      "resumen": "Match-three puzzle in the browser: each level is a wonder rebuilt piece by piece while its ASCII art appears line by line.",
+      "estado": "Playable · v1.6",
+      "licencia": "PolyForm Noncommercial 1.0.0: free to use, study, modify and share for non-commercial purposes.",
+      "resumen": "A match-three puzzle where you build the seven wonders of the ancient world: you break the ground under material blocks and workers carry them to the building site.",
       "descripcion": [
-        "A 7 × 7 board with seven tile types. Each wonder is split into three eras that ask for specific tiles and multiply the score.",
-        "Special gems when you line up four or five, four limited-use powers (bomb, lightning, shuffle and aurora) and stars based on the moves you have left.",
-        "Eight wonders, from the Pyramid to the Oracle, with rising difficulty. It was born inside Retroterm-AI and is now developed on its own, in plain HTML, CSS and JavaScript."
+        "A 7 × 7 board with seven carved-stone tiles and, among them, material blocks (stone, brick, marble, wood and bronze) that do not move: they drop when you clear the ground beneath them and workers carry them to the site.",
+        "Seven wonders, from the Great Pyramid to the Lighthouse of Alexandria, each with its own backdrop and difficulty, unlocked in order. The menu is your settlement: a map where the wonders you complete appear, plus five two-level buildings that you upgrade with the materials you collect and that give you advantages at the start of each build.",
+        "Special tiles, four limited-use powers, stars based on the moves you have left and a hint that marks the move clearing the most ground. The music is generative, one track per wonder and another for the village, with about thirty effects, all synthesised in the browser.",
+        "It works with a mouse and a touch screen, with no libraries and no third-party requests, and saves the record, stars, materials and buildings in the browser."
       ],
-      "papel": "Personal project: game design, SVG gems, ASCII art and development.",
-      "alts": ["A Wonder IV game on the Pyramid: gem board on the left and the wonder being rebuilt on the right.", "Wonder IV menu with the eight wonders and their difficulty.", "Wonder IV on a phone."]
+      "papel": "Personal project: game design, mechanics, generative music and development.",
+      "datos_medidos": [
+        "An automated test in a real browser plays all seven wonders with a bot and checks the settlement, saving, bonuses, powers and that every track and effect plays."
+      ],
+      "pendiente": [
+        "Tuning the balance of costs and bonuses: the current split is a first version."
+      ],
+      "animacion_alt": "Animation of a Wonder IV game: a block comes free, falls and the workers pick it up to carry it to the site.",
+      "alts": [
+        "The Wonder IV settlement: an illustrated map with the wonders you have raised and the five village buildings.",
+        "A build in Wonder IV: the board of carved-stone tiles between two columns, with the material blocks inside it.",
+        "Panel to upgrade a settlement building with the materials you have collected.",
+        "The Wonder IV settlement on a phone.",
+        "A Wonder IV game on a phone."
+      ]
     },
     "ninja-de-escritorio": {
-      "estado": "Live",
-      "resumen": "Slice retro computer icons in a Windows 95 style game, plain HTML5, for desktop and mobile.",
+      "estado": "Playable · v2.2",
+      "licencia": "PolyForm Noncommercial 1.0.0: free to use, study, modify and share for non-commercial purposes.",
+      "resumen": "A game of slicing retro computer icons with a Windows 95 style interface, for PC and mobile, with a nine-floor roguelike mode.",
       "descripcion": [
-        "Slice folders, floppy disks and CD-ROMs, dodge viruses and blue screens and beat malware bosses.",
-        "A roguelike Descent mode: nine floors, one for each layer of the PC, with a branching map, 23 upgrades, 6 synergies, relics and a three-phase final boss.",
-        "All the art is pixel art drawn by code, in a single index.html with no libraries. It plays with a mouse or a finger and respects the reduced motion setting."
+        "Slice folders, floppy disks and CD-ROMs, dodge viruses and blue screens and beat malware bosses, in an interface inspired by Windows 95/98.",
+        "Descent mode: a nine-floor roguelike, one floor for each layer of the PC, with a wide-screen branching map, 23 upgrades and 6 synergies, 7 mutations, 8 relics, 6 wave anomalies, 12 events and a three-phase final boss. Each boss has its own mechanic, sounds and music.",
+        "A daily Descent with a fixed seed: the same map, offers, events and bosses for everyone that day, with a best result of the day and a day streak.",
+        "Each icon type has its own aura to tell at a glance what to slice and what not to. All the art is pixel art drawn by code in a single index.html with no libraries, played with a mouse or a finger, with mute (M), full screen (F) and respect for reduced motion."
       ],
       "papel": "Personal project: game design, code-generated pixel art and development.",
-      "alts": ["Ninja de Escritorio menu with Windows 95 style windows and buttons.", "A game of Ninja de Escritorio slicing folder and floppy icons.", "Branching map of Descent mode, with waves, elites, a market and bosses.", "Fight against the final boss, the Master Processor.", "Ninja de Escritorio on a phone, played with a finger."]
+      "animacion_alt": "Animation of a Descent mode game on PC.",
+      "alts": [
+        "Ninja de Escritorio menu with Windows 95 style windows and buttons.",
+        "Branching map of Descent mode, with a floor for each layer of the PC.",
+        "Summary at the end of a descent: floors, slices, bosses and upgrades.",
+        "Fight against the final boss, the Master Processor.",
+        "A game slicing folder and floppy icons.",
+        "Ninja de Escritorio on a phone."
+      ]
     },
     "kaiten": {
       "estado": "Live",
@@ -56,47 +84,111 @@
       ],
       "problema": "Keeping track of what you eat at a conveyor-belt sushi restaurant, and what it costs, without signing up for anything and without a connection.",
       "papel": "Personal project: design, SVG illustrations and development in a single file.",
-      "alts": ["Kaiten on a computer: piece counter with the current meal panel next to it.", "Kaiten counter on a phone, with the central plate to add pieces.", "Kaiten stats with the chart for the last seven days.", "A meal review in Kaiten with rating, tags and photos."]
+      "alts": [
+        "Kaiten on a computer: piece counter with the current meal panel next to it.",
+        "Kaiten counter on a phone, with the central plate to add pieces.",
+        "Kaiten stats with the chart for the last seven days.",
+        "A meal review in Kaiten with rating, tags and photos."
+      ]
     },
     "hilo-cortado": {
-      "estado": "In development",
-      "resumen": "Side-scrolling beat 'em up with wooden puppets rebelling against the puppeteer: every hit spends a string.",
+      "estado": "Playable · v1.3",
+      "licencia": "PolyForm Noncommercial 1.0.0: free to use, study, modify and share for non-commercial purposes.",
+      "resumen": "Side-scrolling beat 'em up for one or two players with wooden puppets: every hit spends a string.",
       "descripcion": [
-        "Cut the arm strings and the enemy drops its weapon; cut the head string and it collapses. The strings are both your life and your weapon.",
-        "The characters have no sprites: they are cut-out puppets whose poses are interpolated by code, hanging from a visible control bar.",
-        "Local co-op for two, with keyboard or gamepad, in a single index.html with no dependencies."
+        "Each puppet hangs from five strings. Cut the arm strings and the enemy drops its weapon; cut the head string and it collapses into a heap of planks. The strings are both life and weapon, and bosses lose attacks as they lose strings.",
+        "Ten characters articulated from illustrated parts on a single skeleton, so cut strings, dangling limbs and bodies falling apart into pieces keep working. Three acts with illustrated backdrops, three bosses, weapons you pick up and break, and different music in each act.",
+        "Local co-op for two, with keyboard, gamepad or touch screen, three difficulty levels and best scores saved per difficulty and number of players. One code file using Canvas 2D and Web Audio plus an image folder: if an image is missing, that part is drawn by code."
       ],
-      "papel": "Personal project: game design, procedural animation and development.",
-      "alts": ["First act of Hilo Cortado: puppets fighting on the theatre stage.", "A boss fight in Hilo Cortado.", "Hilo Cortado title screen."]
+      "papel": "Personal project: game design, puppet animation, generative music and development.",
+      "datos_medidos": [
+        "Automated tests with Playwright: 21 mechanics tests, 21 difficulty and saving checks, 6 full playthroughs of the three acts with bots and 40 one-minute fights with the five enemy types."
+      ],
+      "pendiente": [
+        "Testing the difficulty balance with players: so far only bots have tried it."
+      ],
+      "animacion_alt": "Animation of a two-player co-op game of Hilo Cortado.",
+      "alts": [
+        "Act I, The Painted Forest: two puppets fight in front of cardboard trees and a moon hanging from a string.",
+        "Act III, Tramoya Castle, with painted walls and banners.",
+        "Fight against the Puppeteer, the final boss.",
+        "Hilo Cortado title screen, with the red curtain and the difficulty options.",
+        "Hilo Cortado on a phone, with the stick on the left and the buttons on the right."
+      ]
     },
     "dead-heat": {
-      "estado": "In development",
-      "resumen": "A maze of embers to collect with ice walls that melt: you change the route.",
+      "estado": "Playable · v1.2",
+      "licencia": "PolyForm Noncommercial 1.0.0: free to use, study, modify and share for non-commercial purposes.",
+      "resumen": "A maze of embers where you change the route: heat melts the ice, opens shortcuts and releases water against the enemies.",
       "descripcion": [
-        "You are a flame in an ice maze. The embers you collect charge heat, and heat melts walls, opens shortcuts and releases water that spreads through the corridors.",
-        "Water slows some enemies and speeds up others, and if it freezes again it can trap them. A big ember makes enemies vulnerable for a few seconds.",
-        "Pixel art drawn by code, synthesised sound and music, in a single index.html with no dependencies."
+        "You are a small flame in an ice maze. The embers you collect charge heat, and heat melts walls, opens shortcuts and releases water that spreads through the corridors, slows enemies down and can evaporate them.",
+        "Three modes with their own levels and seeded mazes: Thaw, the original; Classic, an eat-and-dodge maze with ghosts of different personalities (chaser, ambusher, shy and wanderer); and Bombs, with ice blocks broken by heat bombs in a cross shape and in chains.",
+        "Three difficulty levels (Easy, Normal and Hard) with a record saved per mode and difficulty. Keyboard, gamepad and touch screen, full screen and reduced motion if the system asks for it.",
+        "Pixel art drawn by code, and layered sound and music synthesised with Web Audio. The game is a single index.html generated from src/, with no dependencies."
       ],
       "papel": "Personal project: game design, code-drawn graphics, sound and development.",
-      "alts": ["A Dead Heat game: the flame moves through an ice maze collecting embers.", "The flame melts an ice wall and opens a shortcut.", "Water spread through the corridors after melting the ice."]
+      "datos_medidos": [
+        "Automated tests in Node and Chromium: 4,200 generated mazes without a single isolated floor tile and 30 full games with a bot, of which it finished 22."
+      ],
+      "pendiente": [
+        "Checking real feel and difficulty with people, and how the audio sounds: bots do not play like a person."
+      ],
+      "animacion_alt": "Animation of the flame melting an ice wall.",
+      "alts": [
+        "A Thaw mode game: the flame collects embers in an ice maze.",
+        "Classic mode: a maze of walls with ghosts.",
+        "Bombs mode: ice blocks and heat bombs.",
+        "The flame melts an ice wall and opens a shortcut.",
+        "Dead Heat title screen.",
+        "Dead Heat on a phone."
+      ]
     },
     "panal-roto": {
       "estado": "In development",
-      "resumen": "Falling-piece puzzle on a hexagonal board, with lines in three directions and chain collapses.",
+      "licencia": "PolyForm Noncommercial 1.0.0: free to use, study, modify and share for non-commercial purposes.",
+      "resumen": "A falling-piece puzzle on a hexagonal board, with lines in three directions and chain collapses.",
       "descripcion": [
-        "A honeycomb of 9 columns by 16 rows and the ten possible shapes made of four hexagons. Lines close in zigzag and along both diagonals.",
-        "After each clear, whatever is left collapses, and if the fall completes another line a chain begins. It includes a colour-blind mode.",
-        "A single index.html with no dependencies, using HTML5 Canvas and sound synthesised with Web Audio, plus automated tests."
+        "A honeycomb of 9 columns by 16 rows and the ten possible shapes made of four hexagons. Lines close in a zigzag and along both diagonals, and crossing them multiplies the score.",
+        "After each clear, what is left collapses like rigid bodies: if the fall completes another line, it clears by itself and a chain begins.",
+        "Three modes: Marathon (150 lines), Time Attack (3 minutes) and Daily Game (80 lines with the same pieces for everyone that day). Hold slot, a queue of five pieces, an optional ghost piece and DAS and ARR settings.",
+        "A colour-blind mode with a different engraved pattern on each piece, reduced motion, and menus with keyboard and screen-reader announcements. Keyboard, gamepad and touch, in a single index.html using Canvas and Web Audio, with no dependencies."
       ],
       "papel": "Personal project: game design and development.",
-      "alts": ["A Panal Roto game on the hexagonal board.", "Panal Roto menu.", "Panal Roto on a phone."]
+      "datos_medidos": [
+        "Automated tests: 94 rules checks, 30 in a real browser and over 3,000 seeded bot games, checking the board invariants at every step; median frame time of 16.7 ms."
+      ],
+      "pendiente": [
+        "A thorough review of the game: it may change."
+      ],
+      "animacion_alt": "Animation of a chain of four collapses in a row, in a game with a fixed seed.",
+      "alts": [
+        "A Marathon game on the hexagonal board.",
+        "A clear: the cells of the line break and what is left collapses.",
+        "Menu with the Marathon, Time Attack and Daily Game modes.",
+        "Colour-blind mode, with a different pattern on each piece.",
+        "Panal Roto on a phone."
+      ]
     },
     "caja-de-arena": {
       "estado": "In development",
+      "licencia": "PolyForm Noncommercial 1.0.0: free to use, study, modify and share for non-commercial purposes.",
       "resumen": "Particle simulator in the browser: sand, water, fire, gunpowder, acid, plants and lava reacting to each other.",
-      "descripcion": ["Each material follows local rules: fire sets wood alight, lava boils water away and acid dissolves sand.", "A brush in three sizes, pause, sample scenes and keyboard shortcuts to pick materials."],
+      "descripcion": [
+        "A grid of 384 × 256 cells where each cell holds a material and decides what to do based on its neighbours: sand falls, water spreads, fire sets wood alight.",
+        "Ten tools (sand, water, wall, wood, fire, gunpowder, acid, plant, lava and eraser) and three materials that appear on their own: smoke, steam and stone. On opening there is already a prepared scene, with a sand mountain, a pond with plants, a ledge of lava, a glass of acid and a wooden tower with gunpowder inside.",
+        "A brush in three sizes, pause, three speeds and keyboard shortcuts. A single index.html with Canvas 2D, no libraries, no network and no saving: what you draw disappears when you close the tab. Mouse, keyboard and touch screen."
+      ],
       "papel": "Personal project: design and development.",
-      "alts": ["Caja de Arena with a sample scene of sand, water and other materials."]
+      "pendiente": [
+        "Reviewing the layout on mobile."
+      ],
+      "animacion_alt": "Animation of water, fire, lava and acid reacting to each other.",
+      "alts": [
+        "Fire setting the gunpowder wooden tower of the starting scene alight.",
+        "Lava falling onto the pond.",
+        "Acid on the sand mountain.",
+        "The Caja de Arena starting scene: sand, a pond, lava, acid and a wooden tower."
+      ]
     },
     "lorekeeper": {
       "estado": "Live",
@@ -107,7 +199,10 @@
         "Stats, a yearly summary, 24 achievements and optional levels, and six visual styles. It even works by double-clicking the file, and keeps everything on the device."
       ],
       "papel": "Personal project: design and development in plain JavaScript and CSS.",
-      "alts": ["A collage of LoreKeeper screens with 3D books, stats and the library.", "LoreKeeper's six visual styles, three dark and three light."]
+      "alts": [
+        "A collage of LoreKeeper screens with 3D books, stats and the library.",
+        "LoreKeeper's six visual styles, three dark and three light."
+      ]
     },
     "hemiciclo": {
       "estado": "In development",
@@ -118,7 +213,12 @@
         "It is built from src/ into a single index.html, with automated tests and screenshots at 1440 and 390 px that check nothing overflows. It is the base of a political strategy game in the works."
       ],
       "papel": "Personal project: design, election engine and interface.",
-      "alts": ["Hemiciclo on election night: map of provinces and Congress filling up seat by seat.", "Coalitions panel with the possible deals and the coalition builder.", "Historical mode with results from 1977 to 2023.", "Hemiciclo on a phone."]
+      "alts": [
+        "Hemiciclo on election night: map of provinces and Congress filling up seat by seat.",
+        "Coalitions panel with the possible deals and the coalition builder.",
+        "Historical mode with results from 1977 to 2023.",
+        "Hemiciclo on a phone."
+      ]
     },
     "inventario-vinilos": {
       "estado": "Live",
@@ -130,7 +230,12 @@
       ],
       "problema": "Cataloguing a large record collection without losing a single one: version 2 was rebuilt inside so that a browser glitch can never empty the collection.",
       "papel": "Personal project: design, development and sync server.",
-      "alts": ["Inventory shelves with records in a carousel.", "A record's page with cover, rating, tracks and notes.", "Collection stats by genre, decade and artist.", "Record inventory on a phone."]
+      "alts": [
+        "Inventory shelves with records in a carousel.",
+        "A record's page with cover, rating, tracks and notes.",
+        "Collection stats by genre, decade and artist.",
+        "Record inventory on a phone."
+      ]
     },
     "impronta": {
       "estado": "Finished",
@@ -142,7 +247,12 @@
         "The project was also delivered as a WordPress version, together with a process dossier and a weekly log."
       ],
       "papel": "End-of-year project of my first year of ASIR, built during my work placement (FCT) for the Markup Languages module: full design and development.",
-      "alts": ["Impronta home page: “We print what you imagine” on a midnight blue background with gold details.", "Impronta services page with digital printing and its finishes.", "Business card generator with the form and the card preview.", "Impronta home page on a phone."]
+      "alts": [
+        "Impronta home page: “We print what you imagine” on a midnight blue background with gold details.",
+        "Impronta services page with digital printing and its finishes.",
+        "Business card generator with the form and the card preview.",
+        "Impronta home page on a phone."
+      ]
     },
     "nexus": {
       "estado": "In development",
@@ -153,37 +263,67 @@
         "A MySQL database with users, tastes, posts, connections and votes; the profile is saved with fetch without reloading the page."
       ],
       "papel": "Personal project from my first year of ASIR: full design, database and development.",
-      "alts": ["NEXUS home page: community search with filters for music, gaming, metal and other genres."]
+      "alts": [
+        "NEXUS home page: community search with filters for music, gaming, metal and other genres."
+      ]
     },
     "project-dossier": {
       "resumen": "Static case archive with a D3 connections map and internal editing tools.",
-      "descripcion": ["A documentary archive of classified and declassified cases, with a D3 force map, a timeline, a sortable archive and five case files with interactive timelines.", "Each file is based on public domain or already published documents; the project does not claim that the theories it collects are true."],
-      "alts": ["Project Dossier home page with case counters and case file cards.", "A Project Dossier case file.", "D3 connections map between cases, people and organisations.", "Project Dossier board."]
+      "descripcion": [
+        "A documentary archive of classified and declassified cases, with a D3 force map, a timeline, a sortable archive and five case files with interactive timelines.",
+        "Each file is based on public domain or already published documents; the project does not claim that the theories it collects are true."
+      ],
+      "alts": [
+        "Project Dossier home page with case counters and case file cards.",
+        "A Project Dossier case file.",
+        "D3 connections map between cases, people and organisations.",
+        "Project Dossier board."
+      ]
     },
     "edulab": {
       "estado": "In development",
       "resumen": "Educational platform with gamified modules to learn technology by playing.",
-      "descripcion": ["An experience and rank system saved in the browser. Modules: SQLQuest (six SQL mini-games), Signal Repair (13 CSS missions with Flexbox and Grid) and SysAdmin (an interactive terminal, Linux permissions and Bash)."],
-      "alts": ["EduLab home page with the list of subjects, the experience earned and access to SQLQuest.", "SQLQuest: mini-games to learn SQL from SELECT to JOIN.", "Signal Repair: CSS missions with Flexbox, Grid and positioning."]
+      "descripcion": [
+        "An experience and rank system saved in the browser. Modules: SQLQuest (six SQL mini-games), Signal Repair (13 CSS missions with Flexbox and Grid) and SysAdmin (an interactive terminal, Linux permissions and Bash)."
+      ],
+      "alts": [
+        "EduLab home page with the list of subjects, the experience earned and access to SQLQuest.",
+        "SQLQuest: mini-games to learn SQL from SELECT to JOIN.",
+        "Signal Repair: CSS missions with Flexbox, Grid and positioning."
+      ]
     },
     "as-study": {
       "estado": "In development",
       "resumen": "Single-file study tool for ASIR, installable as an app.",
-      "descripcion": ["Pomodoro timer, global search, stats, flashcards with spaced repetition and an exam mode."],
-      "alts": ["ASIR Study widget panel with the card of the day and quick links.", "ASIR Study on a phone."]
+      "descripcion": [
+        "Pomodoro timer, global search, stats, flashcards with spaced repetition and an exam mode."
+      ],
+      "alts": [
+        "ASIR Study widget panel with the card of the day and quick links.",
+        "ASIR Study on a phone."
+      ]
     },
     "pokemon-bash-simulator": {
       "estado": "Finished",
       "resumen": "Turn-based battle simulator written in Bash, where every creature is a Linux user.",
-      "descripcion": ["Every creature is a real system user created with useradd, types are Linux groups and stats live in files inside their home folder. The loser is removed with userdel -r and a “centre” script restores them all.", "It grew over three versions: turn-based combat with critical hits and speed; multiple types and a special attack; and the final version."],
+      "descripcion": [
+        "Every creature is a real system user created with useradd, types are Linux groups and stats live in files inside their home folder. The loser is removed with userdel -r and a “centre” script restores them all.",
+        "It grew over three versions: turn-based combat with critical hits and speed; multiple types and a special attack; and the final version."
+      ],
       "papel": "Linux system administration project from my first year of ASIR."
     },
     "retroamp": {
       "estado": "In development",
       "resumen": "Retro music player with custom skins, installable as an app on your phone.",
-      "descripcion": ["An in-browser player with a 90s look and skins that can be exported and imported as JSON.", "It loads your own MP3 files, generates a vinyl cover for each song with Canvas and plays them with the Web Audio API."],
+      "descripcion": [
+        "An in-browser player with a 90s look and skins that can be exported and imported as JSON.",
+        "It loads your own MP3 files, generates a vinyl cover for each song with Canvas and plays them with the Web Audio API."
+      ],
       "papel": "Personal project: design and development.",
-      "alts": ["RetroAmp on a computer: player with equaliser and playlist.", "RetroAmp on a phone, with the generated vinyl cover and the controls."]
+      "alts": [
+        "RetroAmp on a computer: player with equaliser and playlist.",
+        "RetroAmp on a phone, with the generated vinyl cover and the controls."
+      ]
     }
   }
 }

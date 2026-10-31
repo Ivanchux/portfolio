@@ -57,4 +57,17 @@
     aplicar((botones.find((b) => b.getAttribute("aria-pressed") === "true") || botones[0]).dataset.filtro);
   }
 
+
+  // Animaciones: empiezan quietas; el botón las reproduce y las detiene
+  for (const fig of document.querySelectorAll("[data-animacion]")) {
+    const img = fig.querySelector("img"), boton = fig.querySelector("button");
+    if (!img || !boton) continue;
+    boton.hidden = false;
+    boton.addEventListener("click", () => {
+      const reproduce = boton.getAttribute("aria-pressed") !== "true";
+      img.src = reproduce ? fig.dataset.mov : fig.dataset.poster;
+      boton.setAttribute("aria-pressed", String(reproduce));
+      boton.textContent = reproduce ? fig.dataset.tPausa : fig.dataset.tVer;
+    });
+  }
 })();

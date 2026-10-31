@@ -35,7 +35,8 @@ if (EN) {
   for (const p of proyectos) {
     const t = tr[p.slug];
     if (!t) continue;
-    for (const k of ["estado", "resumen", "descripcion", "problema", "papel", "datos_medidos"]) if (t[k]) p[k] = t[k];
+    for (const k of ["estado", "resumen", "descripcion", "problema", "papel", "datos_medidos", "pendiente", "licencia"]) if (t[k]) p[k] = t[k];
+    if (t.animacion_alt && p.animacion) p.animacion.alt = t.animacion_alt;
     (t.alts || []).forEach((alt, i) => { if (p.capturas?.[i]) p.capturas[i].alt = alt; });
   }
 }
@@ -46,6 +47,7 @@ const TXT = {
     menu: ["Inicio", "Qué sé hacer", "Proyectos", "Laboratorio", "Sobre mí", "Contacto"],
     insertar: "Insertar el disquete de", sinDisco: "sin disco", sinProyectos: "Todavía no hay proyectos publicados.",
     insertado: "disco insertado", verVivo: "▶ Ver en vivo", ficha: "Ficha del proyecto",
+    licencia: "Licencia", siguiente: "Lo que viene", verAnim: "▶ Ver animación", pausarAnim: "⏸ Pausar animación", animDe: "Animación de",
     queEs: "Qué es", problema: "Qué problema resuelve", papel: "Mi papel", medidos: "Datos medidos", tecnologias: "Tecnologías",
     abrir: "Abrir el proyecto", nuevaPestana: " (se abre en una pestaña nueva)", codigo: "Ver el código", capturasDe: "Capturas de",
     proyecto: "proyecto", proyectos: "proyectos", queSe: "Qué sé hacer", conQue: "Ver con qué lo demuestro", todos: "Todos",
@@ -59,6 +61,7 @@ const TXT = {
     menu: ["Home", "What I do", "Projects", "Lab", "About me", "Contact"],
     insertar: "Insert the floppy disk for", sinDisco: "no disk", sinProyectos: "No projects published yet.",
     insertado: "disk inserted", verVivo: "▶ View live", ficha: "Project page",
+    licencia: "Licence", siguiente: "What's next", verAnim: "▶ Play animation", pausarAnim: "⏸ Pause animation", animDe: "Animation of",
     queEs: "What it is", problema: "What problem it solves", papel: "My role", medidos: "Measured results", tecnologias: "Technologies",
     abrir: "Open the project", nuevaPestana: " (opens in a new tab)", codigo: "View the code", capturasDe: "Screenshots of",
     proyecto: "project", proyectos: "projects", queSe: "What I do", conQue: "See the proof", todos: "All",
@@ -196,6 +199,8 @@ function fichaHTML(p, raiz) {
   if (confirmado(p.papel)) partes.push(sec(TXT.papel, `<p>${esc(p.papel)}</p>`));
   else pendientes.add(`${p.slug}: papel`);
   if (p.datos_medidos?.length) partes.push(sec(TXT.medidos, `<ul>${p.datos_medidos.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>`));
+  if (p.pendiente?.length) partes.push(sec(TXT.siguiente, `<ul>${p.pendiente.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>`));
+  if (confirmado(p.licencia)) partes.push(sec(TXT.licencia, `<p>${esc(p.licencia)}</p>`));
   if (confirmado(p.tecnologias)) partes.push(sec(TXT.tecnologias, `<ul class="etiquetas">${p.tecnologias.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>`));
   const enl = [];
   if (confirmado(p.enlaces?.vivo)) enl.push(`<a class="boton" href="${esc(p.enlaces.vivo)}" target="_blank" rel="noopener">${TXT.abrir}<span class="visualmente-oculto">${TXT.nuevaPestana}</span></a>`);
@@ -210,7 +215,15 @@ function fichaHTML(p, raiz) {
     : "";
   const estado = estadoHTML(p);
   if (!estado) pendientes.add(`${p.slug}: estado`);
-  return { secciones: partes.join("\n"), enlaces: enl.join(" "), galeria: galeriaHTML, estado };
+  // Animación: se enseña quieta y se reproduce solo si el visitante lo pide (WCAG 2.2.2)
+  const a = p.animacion;
+  const animacionHTML = a
+    ? `<figure class="animacion" data-animacion data-mov="${raiz}${EST}${a.src}" data-poster="${raiz}${EST}${a.poster}" data-t-ver="${esc(TXT.verAnim)}" data-t-pausa="${esc(TXT.pausarAnim)}">
+    <img src="${raiz}${EST}${a.poster}" width="${a.ancho}" height="${a.alto}" loading="lazy" alt="${esc(a.alt)}">
+    <button type="button" class="animacion__boton" hidden aria-pressed="false">${esc(TXT.verAnim)}</button>
+  </figure>`
+    : "";
+  return { secciones: partes.join("\n"), enlaces: enl.join(" "), galeria: galeriaHTML, animacion: animacionHTML, estado };
 }
 
 const enlacesProyectos = (slugs, raiz) =>

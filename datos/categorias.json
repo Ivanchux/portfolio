@@ -12,7 +12,7 @@
       "nombre": "Juegos",
       "corto": "JUEGO",
       "color": "#d9622b",
-      "texto": "Juegos de navegador en HTML5 Canvas, sin librerías, con arte y sonido generados por código."
+      "texto": "Juegos de navegador sin librerías ni peticiones a terceros, con el sonido y la música sintetizados en el propio navegador."
     },
     {
       "id": "aprendizaje",

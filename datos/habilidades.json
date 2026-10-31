@@ -37,7 +37,7 @@
     {
       "id": "juegos",
       "titulo": "Juegos en el navegador",
-      "texto": "HTML5 Canvas y JavaScript sin dependencias, para ordenador y móvil.",
+      "texto": "HTML5 Canvas y JavaScript sin dependencias, con música y sonido generados en el navegador, para ordenador y móvil.",
       "proyectos": [
         "wonder-iv",
         "ninja-de-escritorio",

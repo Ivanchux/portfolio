@@ -22,3 +22,13 @@
 .ficha__bloque { padding: var(--e-5); }
 .ficha__bloque:first-child { grid-column: 1 / -1; }
 .ficha__bloque ul { margin: 0; padding-left: 1.2em; }
+
+/* Animación bajo demanda */
+.animacion { position: relative; display: inline-block; margin: 0 0 var(--e-5); max-width: min(100%, 34rem); border-radius: 12px; overflow: hidden; box-shadow: var(--cristal-sombra); background: #0b1a20; }
+.animacion img { display: block; width: 100%; height: auto; }
+.animacion__boton {
+  position: absolute; left: var(--e-3); bottom: var(--e-3); cursor: pointer; padding: .45em 1em;
+  font: 700 .9rem/1.2 var(--tipo-texto); color: #fff; border: 1px solid rgba(255, 255, 255, .6); border-radius: 999px;
+  background: rgba(8, 24, 32, .78); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+}
+.animacion__boton:hover { background: rgba(8, 24, 32, .92); }

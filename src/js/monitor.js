@@ -135,6 +135,7 @@
       title: `${T.vistaDe} ${p.nombre}`,
       sandbox: "allow-scripts allow-same-origin allow-forms allow-popups",
       referrerpolicy: "no-referrer",
+      allow: "fullscreen; gamepad",
     });
     const marco = el("div", { class: `pantalla__marco pantalla__marco--${p.formato}` }, iframe);
     const v = VIRTUAL[p.formato] || VIRTUAL.escritorio;

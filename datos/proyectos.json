@@ -96,67 +96,97 @@
       "nombre": "Wonder IV",
       "publicar": true,
       "color_disco": "#c08a1e",
-      "estado": "En desarrollo",
-      "resumen": "Puzle de combinar tres en el navegador: cada nivel es una maravilla que se reconstruye pieza a pieza mientras su arte ASCII aparece línea a línea.",
+      "estado": "Jugable · v1.6",
+      "resumen": "Puzle de combinar tres donde construyes las siete maravillas del mundo antiguo: rompes el suelo bajo los bloques de material y unos obreros se los llevan a la obra.",
       "descripcion": [
-        "Tablero de 7 × 7 con siete tipos de ficha. Cada maravilla se divide en tres eras que piden recoger fichas concretas y multiplican la puntuación.",
-        "Gemas especiales al alinear cuatro o cinco, cuatro poderes de uso limitado (bomba, rayo, revolver y aurora) y estrellas según los movimientos que sobran.",
-        "Ocho maravillas, de la Pirámide al Oráculo, con dificultad creciente. Nació dentro de Retroterm-AI y ahora se desarrolla por separado, en HTML, CSS y JavaScript sin dependencias."
+        "Un tablero de 7 × 7 con siete piezas de piedra tallada y, entre ellas, bloques de material (piedra, ladrillo, mármol, madera y bronce) que no se mueven: caen cuando despejas el suelo bajo ellos y unos obreros los llevan a la obra.",
+        "Siete maravillas, de la Gran Pirámide al Faro de Alejandría, cada una con su fondo y su dificultad, que se desbloquean en orden. El menú es tu asentamiento: un mapa donde aparecen las maravillas que completas y cinco edificios de dos niveles que mejoras con los materiales recogidos y que dan ventajas al empezar cada obra.",
+        "Piezas especiales, cuatro poderes de uso limitado, estrellas según los movimientos que sobran y una pista que marca la jugada que despeja más suelo. La música es generativa, una pista por maravilla y otra para el pueblo, con unos treinta efectos, todo sintetizado en el navegador.",
+        "Funciona con ratón y con pantalla táctil, sin librerías ni peticiones a terceros, y guarda el récord, las estrellas, los materiales y los edificios en el navegador."
       ],
-      "problema": "POR_CONFIRMAR",
-      "papel": "Proyecto personal: diseño del juego, gemas en SVG, arte ASCII y desarrollo.",
+      "papel": "Proyecto personal: diseño del juego, mecánicas, música generativa y desarrollo.",
       "tecnologias": [
         "HTML",
         "CSS",
         "JavaScript",
-        "SVG"
+        "Web Audio API"
       ],
       "enlaces": {
-        "vivo": "POR_CONFIRMAR",
-        "codigo": "POR_CONFIRMAR"
+        "vivo": "https://ivanchux.github.io/wonder-iv/",
+        "codigo": "https://github.com/Ivanchux/wonder-iv"
       },
       "vista_previa": {
-        "tipo": "captura"
+        "tipo": "iframe",
+        "url": "https://ivanchux.github.io/wonder-iv/",
+        "formato": "escritorio"
       },
       "capturas": [
         {
           "src": "img/capturas/wonder-iv-1.webp",
           "ancho": 1100,
-          "alto": 687,
-          "alt": "Partida de Wonder IV en La Pirámide: tablero de gemas a la izquierda y la reconstrucción de la maravilla a la derecha."
+          "alto": 618,
+          "alt": "El asentamiento de Wonder IV: un mapa ilustrado con las maravillas que has levantado y los cinco edificios del pueblo."
         },
         {
           "src": "img/capturas/wonder-iv-2.webp",
           "ancho": 1100,
-          "alto": 687,
-          "alt": "Menú de Wonder IV con las ocho maravillas y su dificultad."
+          "alto": 618,
+          "alt": "Una obra en Wonder IV: el tablero de piezas de piedra tallada entre dos columnas, con los bloques de material dentro."
         },
         {
           "src": "img/capturas/wonder-iv-3.webp",
-          "ancho": 390,
-          "alto": 844,
-          "alt": "Wonder IV en el móvil."
+          "ancho": 1100,
+          "alto": 618,
+          "alt": "Panel para mejorar un edificio del asentamiento con los materiales recogidos."
+        },
+        {
+          "src": "img/capturas/wonder-iv-4.webp",
+          "ancho": 415,
+          "alto": 900,
+          "alt": "El asentamiento de Wonder IV en el móvil."
+        },
+        {
+          "src": "img/capturas/wonder-iv-5.webp",
+          "ancho": 415,
+          "alto": 900,
+          "alt": "Una partida de Wonder IV en el móvil."
         }
       ],
-      "categoria": "juegos"
+      "categoria": "juegos",
+      "datos_medidos": [
+        "Una prueba automática en un navegador real juega las siete maravillas con un bot y comprueba el asentamiento, el guardado, las ventajas, los poderes y que suenan todas las pistas y efectos."
+      ],
+      "pendiente": [
+        "Ajustar el equilibrio de costes y ventajas: el reparto actual es una primera versión."
+      ],
+      "animacion": {
+        "poster": "img/capturas/wonder-iv-mov-poster.webp",
+        "src": "img/capturas/wonder-iv-mov.webp",
+        "ancho": 448,
+        "alto": 252,
+        "alt": "Animación de una partida de Wonder IV: un bloque queda libre, cae y los obreros lo recogen para llevarlo a la obra."
+      },
+      "licencia": "PolyForm Noncommercial 1.0.0: se puede usar, estudiar, modificar y compartir para fines no comerciales.",
+      "problema": "POR_CONFIRMAR"
     },
     {
       "slug": "ninja-de-escritorio",
       "nombre": "Ninja de Escritorio",
       "publicar": true,
       "color_disco": "#3a6ea5",
-      "estado": "Publicado",
-      "resumen": "Juego de cortar iconos de ordenador retro con estética Windows 95, en HTML5 sin dependencias, para PC y móvil.",
+      "estado": "Jugable · v2.2",
+      "resumen": "Un juego de cortar iconos de ordenador retro con interfaz inspirada en Windows 95, para PC y móvil, con un modo roguelike de nueve pisos.",
       "descripcion": [
-        "Corta carpetas, disquetes y CD-ROM, esquiva virus y pantallazos azules y derrota jefes de malware.",
-        "Modo Descenso de tipo roguelike: nueve pisos, uno por cada capa del PC, con mapa ramificado, 23 mejoras, 6 sinergias, reliquias y un jefe final en tres fases.",
-        "Todo el arte está dibujado en píxeles por código, en un solo index.html sin librerías. Se juega con ratón o con el dedo y respeta la preferencia de reducir movimiento."
+        "Corta carpetas, disquetes y CD-ROM, esquiva virus y pantallazos azules y derrota jefes de malware, en una interfaz inspirada en Windows 95/98.",
+        "Modo Descenso: un roguelike de nueve pisos, uno por cada capa del PC, con mapa ramificado a pantalla ancha, 23 mejoras y 6 sinergias, 7 mutaciones, 8 reliquias, 6 anomalías de oleada, 12 eventos y un jefe final de tres fases. Cada jefe tiene su mecánica, sus sonidos y su música.",
+        "Descenso diario con semilla fija: el mismo mapa, las mismas ofertas, eventos y jefes para todos ese día, con mejor resultado del día y racha de días.",
+        "Cada tipo de icono tiene su propia aura para distinguir de un vistazo lo que hay que cortar y lo que no. Todo el arte está dibujado en píxeles por código en un solo index.html sin librerías, con ratón o con el dedo, silencio (M), pantalla completa (F) y respeto por reducir movimiento."
       ],
-      "problema": "POR_CONFIRMAR",
       "papel": "Proyecto personal: diseño del juego, arte en píxeles generado por código y desarrollo.",
       "tecnologias": [
         "HTML5 Canvas",
-        "JavaScript"
+        "JavaScript",
+        "Web Audio API"
       ],
       "enlaces": {
         "vivo": "https://ivanchux.github.io/ninja-de-escritorio/",
@@ -177,14 +207,14 @@
         {
           "src": "img/capturas/ninja-de-escritorio-2.webp",
           "ancho": 1100,
-          "alto": 660,
-          "alt": "Partida de Ninja de Escritorio cortando iconos de carpetas y disquetes."
+          "alto": 700,
+          "alt": "Mapa ramificado del modo Descenso, con un piso por cada capa del PC."
         },
         {
           "src": "img/capturas/ninja-de-escritorio-3.webp",
           "ancho": 1100,
           "alto": 700,
-          "alt": "Mapa ramificado del modo Descenso, con oleadas, élites, mercado y jefes."
+          "alt": "Resumen al terminar un descenso: pisos, cortes, jefes y mejoras."
         },
         {
           "src": "img/capturas/ninja-de-escritorio-4.webp",
@@ -194,12 +224,27 @@
         },
         {
           "src": "img/capturas/ninja-de-escritorio-5.webp",
+          "ancho": 1100,
+          "alto": 660,
+          "alt": "Una partida cortando iconos de carpetas y disquetes."
+        },
+        {
+          "src": "img/capturas/ninja-de-escritorio-6.webp",
           "ancho": 450,
           "alto": 900,
-          "alt": "Ninja de Escritorio en el móvil, jugando con el dedo."
+          "alt": "Ninja de Escritorio en el móvil."
         }
       ],
-      "categoria": "juegos"
+      "categoria": "juegos",
+      "animacion": {
+        "poster": "img/capturas/ninja-de-escritorio-mov-poster.webp",
+        "src": "img/capturas/ninja-de-escritorio-mov.webp",
+        "ancho": 480,
+        "alto": 305,
+        "alt": "Animación de una partida del modo Descenso en el PC."
+      },
+      "licencia": "PolyForm Noncommercial 1.0.0: se puede usar, estudiar, modificar y compartir para fines no comerciales.",
+      "problema": "POR_CONFIRMAR"
     },
     {
       "slug": "kaiten",
@@ -266,62 +311,91 @@
       "nombre": "Hilo Cortado",
       "publicar": true,
       "color_disco": "#8a2f3a",
-      "estado": "En desarrollo",
-      "resumen": "Beat 'em up de avance lateral con marionetas de madera que se rebelan contra el titiritero: cada golpe gasta un hilo.",
+      "estado": "Jugable · v1.3",
+      "resumen": "Beat 'em up de avance lateral para uno o dos jugadores con marionetas de madera: cada golpe gasta un hilo.",
       "descripcion": [
-        "Corta los hilos de los brazos y el enemigo suelta el arma; corta el de la cabeza y se desploma. Los hilos son a la vez la vida y el arma.",
-        "Los personajes no tienen sprites: son marionetas de piezas recortadas cuyas poses se interpolan por código y cuelgan de una cruceta visible.",
-        "Cooperativo local para dos, con teclado o mando, en un único index.html sin dependencias."
+        "Cada marioneta cuelga de cinco hilos. Si cortas los de los brazos, el enemigo suelta el arma; si cortas el de la cabeza, se desploma en un montón de tablas. Los hilos son a la vez la vida y el arma, y los jefes pierden ataques al perder hilos.",
+        "Diez personajes articulados con piezas ilustradas sobre un mismo esqueleto, de modo que los hilos cortados, los miembros que cuelgan y los cuerpos que se desploman en piezas siguen funcionando. Tres actos con decorados ilustrados, tres jefes, armas que se recogen y se rompen, y una música distinta en cada acto.",
+        "Cooperativo local para dos, con teclado, mando o pantalla táctil, tres dificultades y mejores marcas guardadas por dificultad y número de jugadores. Un archivo de código con Canvas 2D y Web Audio más una carpeta de imágenes: si falta una imagen, esa parte se dibuja por código."
       ],
-      "problema": "POR_CONFIRMAR",
-      "papel": "Proyecto personal: diseño del juego, animación procedural y desarrollo.",
+      "papel": "Proyecto personal: diseño del juego, animación de las marionetas, música generativa y desarrollo.",
       "tecnologias": [
         "HTML5 Canvas",
         "JavaScript",
+        "Web Audio API",
         "Gamepad API"
       ],
       "enlaces": {
-        "vivo": "POR_CONFIRMAR",
-        "codigo": "POR_CONFIRMAR"
+        "vivo": "https://ivanchux.github.io/hilo-cortado/",
+        "codigo": "https://github.com/Ivanchux/hilo-cortado"
       },
       "vista_previa": {
-        "tipo": "captura"
+        "tipo": "iframe",
+        "url": "https://ivanchux.github.io/hilo-cortado/",
+        "formato": "escritorio"
       },
       "capturas": [
         {
           "src": "img/capturas/hilo-cortado-1.webp",
           "ancho": 960,
           "alto": 540,
-          "alt": "Primer acto de Hilo Cortado: marionetas peleando en el escenario del teatro."
+          "alt": "Acto I, El Bosque Pintado: dos marionetas pelean ante árboles de cartón y una luna colgada de un hilo."
         },
         {
           "src": "img/capturas/hilo-cortado-2.webp",
           "ancho": 960,
           "alto": 540,
-          "alt": "Pelea contra un jefe en Hilo Cortado."
+          "alt": "Acto III, El Castillo de Tramoya, con muros pintados y estandartes."
         },
         {
           "src": "img/capturas/hilo-cortado-3.webp",
           "ancho": 960,
           "alto": 540,
-          "alt": "Pantalla de título de Hilo Cortado."
+          "alt": "Pelea contra el Titiritero, el jefe final."
+        },
+        {
+          "src": "img/capturas/hilo-cortado-4.webp",
+          "ancho": 960,
+          "alto": 540,
+          "alt": "Pantalla de título de Hilo Cortado, con el telón rojo y las opciones de dificultad."
+        },
+        {
+          "src": "img/capturas/hilo-cortado-5.webp",
+          "ancho": 1100,
+          "alto": 508,
+          "alt": "Hilo Cortado en el móvil, con la palanca a la izquierda y los botones a la derecha."
         }
       ],
-      "categoria": "juegos"
+      "categoria": "juegos",
+      "datos_medidos": [
+        "Pruebas automáticas con Playwright: 21 pruebas de mecánicas, 21 comprobaciones de dificultad y guardado, 6 partidas completas de los tres actos con bots y 40 combates de un minuto con los cinco tipos de enemigo."
+      ],
+      "pendiente": [
+        "Probar el equilibrio de la dificultad con jugadores: hasta ahora solo lo han probado bots."
+      ],
+      "animacion": {
+        "poster": "img/capturas/hilo-cortado-mov-poster.webp",
+        "src": "img/capturas/hilo-cortado-mov.webp",
+        "ancho": 480,
+        "alto": 270,
+        "alt": "Animación de una partida cooperativa a dos jugadores de Hilo Cortado."
+      },
+      "licencia": "PolyForm Noncommercial 1.0.0: se puede usar, estudiar, modificar y compartir para fines no comerciales.",
+      "problema": "POR_CONFIRMAR"
     },
     {
       "slug": "dead-heat",
       "nombre": "Dead Heat",
       "publicar": true,
       "color_disco": "#5aa9c9",
-      "estado": "En desarrollo",
-      "resumen": "Laberinto de recoger brasas con muros de hielo que se derriten: el recorrido lo cambias tú.",
+      "estado": "Jugable · v1.2",
+      "resumen": "Laberinto de recoger brasas donde el recorrido lo cambias tú: el calor derrite el hielo, abre atajos y suelta agua contra los enemigos.",
       "descripcion": [
-        "Eres una llama en un laberinto de hielo. Las brasas que recoges cargan calor, y el calor derrite muros, abre atajos y suelta agua que se reparte por los pasillos.",
-        "El agua frena a unos enemigos y acelera a otros, y si vuelve a congelarse puede atraparlos. Una brasa grande vuelve vulnerables a los enemigos durante unos segundos.",
-        "Píxel art dibujado por código, sonido y música sintetizados, en un único index.html sin dependencias."
+        "Eres una llama pequeña en un laberinto de hielo. Las brasas que recoges cargan calor, y el calor derrite muros, abre atajos y suelta agua que se reparte por los pasillos, frena a los enemigos y puede evaporarlos.",
+        "Tres modos con niveles propios y laberintos generados con semilla: Deshielo, el original; Clásico, un laberinto de comer y esquivar con fantasmas de personalidad distinta (perseguidor, emboscador, tímido y errante); y Bombas, con bloques de hielo que se rompen con bombas de calor en cruz y en cadena.",
+        "Tres dificultades (Fácil, Normal y Difícil) con récord guardado por modo y dificultad. Teclado, mando y pantalla táctil, pantalla completa y reducción de movimiento si el sistema lo pide.",
+        "Píxel art dibujado por código, y sonido y música por capas sintetizados con Web Audio. El juego es un único index.html generado desde src/, sin dependencias."
       ],
-      "problema": "POR_CONFIRMAR",
       "papel": "Proyecto personal: diseño del juego, gráficos por código, sonido y desarrollo.",
       "tecnologias": [
         "HTML5 Canvas",
@@ -329,53 +403,90 @@
         "Web Audio API"
       ],
       "enlaces": {
-        "vivo": "POR_CONFIRMAR",
-        "codigo": "POR_CONFIRMAR"
+        "vivo": "https://ivanchux.github.io/dead-heat/",
+        "codigo": "https://github.com/Ivanchux/dead-heat"
       },
       "vista_previa": {
-        "tipo": "captura"
+        "tipo": "iframe",
+        "url": "https://ivanchux.github.io/dead-heat/",
+        "formato": "escritorio"
       },
       "capturas": [
         {
           "src": "img/capturas/dead-heat-1.webp",
           "ancho": 672,
           "alto": 540,
-          "alt": "Partida de Dead Heat: la llama recorre un laberinto de hielo recogiendo brasas."
+          "alt": "Partida del modo Deshielo: la llama recoge brasas en un laberinto de hielo."
         },
         {
           "src": "img/capturas/dead-heat-2.webp",
           "ancho": 672,
           "alto": 540,
-          "alt": "La llama derrite un muro de hielo y abre un atajo."
+          "alt": "Modo Clásico: laberinto de muros con fantasmas."
         },
         {
           "src": "img/capturas/dead-heat-3.webp",
           "ancho": 672,
           "alto": 540,
-          "alt": "Agua repartida por los pasillos tras derretir el hielo."
+          "alt": "Modo Bombas: bloques de hielo y bombas de calor."
+        },
+        {
+          "src": "img/capturas/dead-heat-4.webp",
+          "ancho": 672,
+          "alto": 540,
+          "alt": "La llama derrite un muro de hielo y abre un atajo."
+        },
+        {
+          "src": "img/capturas/dead-heat-5.webp",
+          "ancho": 672,
+          "alto": 540,
+          "alt": "Pantalla de título de Dead Heat."
+        },
+        {
+          "src": "img/capturas/dead-heat-6.webp",
+          "ancho": 780,
+          "alto": 660,
+          "alt": "Dead Heat en el móvil."
         }
       ],
-      "categoria": "juegos"
+      "categoria": "juegos",
+      "datos_medidos": [
+        "Pruebas automáticas en Node y Chromium: 4 200 laberintos generados sin una sola casilla de suelo aislada y 30 partidas completas con un bot, de las que terminó 22."
+      ],
+      "pendiente": [
+        "Comprobar con personas el tacto y la dificultad reales, y cómo suena el audio: los bots no juegan como una persona."
+      ],
+      "animacion": {
+        "poster": "img/capturas/dead-heat-mov-poster.webp",
+        "src": "img/capturas/dead-heat-mov.webp",
+        "ancho": 480,
+        "alto": 385,
+        "alt": "Animación de la llama derritiendo un muro de hielo."
+      },
+      "licencia": "PolyForm Noncommercial 1.0.0: se puede usar, estudiar, modificar y compartir para fines no comerciales.",
+      "problema": "POR_CONFIRMAR"
     },
     {
       "publicar": true,
       "estado": "En desarrollo",
-      "problema": "POR_CONFIRMAR",
       "enlaces": {
-        "vivo": "POR_CONFIRMAR",
-        "codigo": "POR_CONFIRMAR"
+        "vivo": "https://ivanchux.github.io/panal-roto/",
+        "codigo": "https://github.com/Ivanchux/panal-roto"
       },
       "vista_previa": {
-        "tipo": "captura"
+        "tipo": "iframe",
+        "url": "https://ivanchux.github.io/panal-roto/",
+        "formato": "escritorio"
       },
       "slug": "panal-roto",
       "nombre": "Panal Roto",
       "color_disco": "#d99a1e",
       "resumen": "Puzle de piezas que caen sobre un tablero hexagonal, con líneas en tres direcciones y derrumbes en cadena.",
       "descripcion": [
-        "Un panal de 9 columnas por 16 filas y las diez formas posibles de cuatro hexágonos. Las líneas se cierran en zigzag y en las dos diagonales.",
-        "Tras cada limpieza lo que queda se derrumba, y si al caer completa otra línea empieza una cadena. Incluye modo para daltonismo.",
-        "Un único index.html sin dependencias, con HTML5 Canvas y sonido sintetizado con Web Audio, y pruebas automáticas."
+        "Un panal de 9 columnas por 16 filas y las diez formas posibles de cuatro hexágonos. Las líneas se cierran en zigzag y en las dos diagonales, y cruzarlas multiplica la puntuación.",
+        "Tras cada limpieza lo que queda se derrumba como cuerpos rígidos: si al caer completa otra línea, se limpia sola y empieza una cadena.",
+        "Tres modos: Maratón (150 líneas), Contrarreloj (3 minutos) y Partida diaria (80 líneas con las mismas piezas para todos ese día). Reserva, cola de cinco piezas, pieza fantasma opcional y ajustes de DAS y ARR.",
+        "Modo para daltónicos con un dibujo grabado distinto en cada pieza, reducción de movimiento y menús con teclado y avisos para lector de pantalla. Teclado, mando y táctil, en un único index.html con Canvas y Web Audio, sin dependencias."
       ],
       "papel": "Proyecto personal: diseño del juego y desarrollo.",
       "tecnologias": [
@@ -388,41 +499,70 @@
           "src": "img/capturas/panal-roto-1.webp",
           "ancho": 1100,
           "alto": 687,
-          "alt": "Partida de Panal Roto en el tablero hexagonal."
+          "alt": "Una partida de Maratón en el tablero hexagonal."
         },
         {
           "src": "img/capturas/panal-roto-2.webp",
           "ancho": 1100,
           "alto": 687,
-          "alt": "Menú de Panal Roto."
+          "alt": "Una limpieza: las celdas de la línea se rompen y lo que queda se derrumba."
         },
         {
           "src": "img/capturas/panal-roto-3.webp",
+          "ancho": 1100,
+          "alto": 687,
+          "alt": "Menú con los modos Maratón, Contrarreloj y Partida diaria."
+        },
+        {
+          "src": "img/capturas/panal-roto-4.webp",
+          "ancho": 1100,
+          "alto": 687,
+          "alt": "Modo para daltónicos, con un dibujo distinto en cada pieza."
+        },
+        {
+          "src": "img/capturas/panal-roto-5.webp",
           "ancho": 450,
           "alto": 900,
           "alt": "Panal Roto en el móvil."
         }
       ],
-      "categoria": "juegos"
+      "categoria": "juegos",
+      "datos_medidos": [
+        "Pruebas automáticas: 94 comprobaciones de reglas, 30 en un navegador real y más de 3 000 partidas con bots con semilla fija, comprobando en cada paso las invariantes del tablero; fotograma mediano de 16,7 ms."
+      ],
+      "pendiente": [
+        "Revisar el juego a fondo: puede haber cambios."
+      ],
+      "animacion": {
+        "poster": "img/capturas/panal-roto-mov-poster.webp",
+        "src": "img/capturas/panal-roto-mov.webp",
+        "ancho": 380,
+        "alto": 403,
+        "alt": "Animación de una cadena de cuatro derrumbes seguidos, en una partida con semilla fija."
+      },
+      "licencia": "PolyForm Noncommercial 1.0.0: se puede usar, estudiar, modificar y compartir para fines no comerciales.",
+      "problema": "POR_CONFIRMAR"
     },
     {
       "publicar": true,
       "estado": "En desarrollo",
-      "problema": "POR_CONFIRMAR",
       "enlaces": {
-        "vivo": "POR_CONFIRMAR",
-        "codigo": "POR_CONFIRMAR"
+        "vivo": "https://ivanchux.github.io/caja-de-arena/",
+        "codigo": "https://github.com/Ivanchux/caja-de-arena"
       },
       "vista_previa": {
-        "tipo": "captura"
+        "tipo": "iframe",
+        "url": "https://ivanchux.github.io/caja-de-arena/",
+        "formato": "escritorio"
       },
       "slug": "caja-de-arena",
       "nombre": "Caja de Arena",
       "color_disco": "#c2a36b",
       "resumen": "Simulador de partículas en el navegador: arena, agua, fuego, pólvora, ácido, plantas y lava que reaccionan entre sí.",
       "descripcion": [
-        "Cada material sigue reglas locales: el fuego prende la madera, la lava evapora el agua y el ácido disuelve la arena.",
-        "Pincel de tres grosores, pausa, escenas de ejemplo y atajos de teclado para elegir material."
+        "Una cuadrícula de 384 × 256 celdas en la que cada celda contiene un material y decide qué hace según sus vecinos: la arena cae, el agua se reparte, el fuego prende la madera.",
+        "Diez herramientas (arena, agua, muro, madera, fuego, pólvora, ácido, planta, lava y borrador) y tres materiales que aparecen solos: humo, vapor y piedra. Al abrirlo ya hay una escena preparada, con una montaña de arena, un estanque con plantas, una repisa de lava, un vaso de ácido y una torre de madera con pólvora dentro.",
+        "Pincel en tres grosores, pausa, tres velocidades y atajos de teclado. Un solo index.html con Canvas 2D, sin librerías, sin red y sin guardado: lo que dibujas desaparece al cerrar la pestaña. Ratón, teclado y pantalla táctil."
       ],
       "papel": "Proyecto personal: diseño y desarrollo.",
       "tecnologias": [
@@ -434,10 +574,40 @@
           "src": "img/capturas/caja-de-arena-1.webp",
           "ancho": 1100,
           "alto": 687,
-          "alt": "Caja de Arena con una escena de ejemplo de arena, agua y otros materiales."
+          "alt": "Fuego prendiendo la torre de madera con pólvora de la escena inicial."
+        },
+        {
+          "src": "img/capturas/caja-de-arena-2.webp",
+          "ancho": 1100,
+          "alto": 687,
+          "alt": "Lava cayendo sobre el estanque."
+        },
+        {
+          "src": "img/capturas/caja-de-arena-3.webp",
+          "ancho": 1100,
+          "alto": 687,
+          "alt": "Ácido sobre la montaña de arena."
+        },
+        {
+          "src": "img/capturas/caja-de-arena-4.webp",
+          "ancho": 1100,
+          "alto": 687,
+          "alt": "La escena inicial de Caja de Arena: arena, estanque, lava, ácido y una torre de madera."
         }
       ],
-      "categoria": "juegos"
+      "categoria": "juegos",
+      "pendiente": [
+        "Revisar el diseño en el móvil."
+      ],
+      "animacion": {
+        "poster": "img/capturas/caja-de-arena-mov-poster.webp",
+        "src": "img/capturas/caja-de-arena-mov.webp",
+        "ancho": 480,
+        "alto": 300,
+        "alt": "Animación de agua, fuego, lava y ácido reaccionando entre sí."
+      },
+      "licencia": "PolyForm Noncommercial 1.0.0: se puede usar, estudiar, modificar y compartir para fines no comerciales.",
+      "problema": "POR_CONFIRMAR"
     },
     {
       "slug": "aerium",

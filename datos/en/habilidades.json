@@ -36,7 +36,7 @@
     {
       "id": "juegos",
       "titulo": "Browser games",
-      "texto": "HTML5 Canvas and JavaScript with no dependencies, for desktop and mobile.",
+      "texto": "HTML5 Canvas and JavaScript with no dependencies, with music and sound generated in the browser, for desktop and mobile.",
       "proyectos": [
         "wonder-iv",
         "ninja-de-escritorio",
