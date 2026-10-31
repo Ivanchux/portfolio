@@ -1,0 +1,47 @@
+# Compila la web y la publica en GitHub Pages.
+# Solo se ejecuta cuando tú lo pides: Actions → «Publicar la web» → Run workflow.
+# Para que se publique sola con cada cambio, añade debajo de «workflow_dispatch:» estas dos líneas:
+#   push:
+#     branches: [main]
+
+name: Publicar la web
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.despliegue.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # Compila y pasa las comprobaciones (sin pendientes, sin precios, sin recursos de terceros).
+      # Si alguna falla, no se publica nada.
+      - name: Compilar y comprobar
+        run: npm test
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+      - name: Publicar
+        id: despliegue
+        uses: actions/deploy-pages@v4

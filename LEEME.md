@@ -67,6 +67,10 @@ Escríbelo en `site.config.json` (por ejemplo `"dominio": "ivanchux.dev"`). Al c
 
 ## Publicar en GitHub Pages
 
+**Forma recomendada (GitHub Actions).** En *Settings → Pages → Source* elige **GitHub Actions**. Después, en la pestaña *Actions*, abre **«Publicar la web»** y pulsa **Run workflow**. GitHub compila la web con Node 22, pasa `npm test` y la publica. Si una comprobación falla, no se publica nada. El archivo es `.github/workflows/publicar.yml`; para que se publique solo con cada cambio, hay instrucciones dentro.
+
+**Forma manual (rama `gh-pages`).** Alternativa si prefieres compilar tú:
+
 La web es estática: basta con publicar la carpeta `dist/`. Una forma sencilla, sin herramientas extra:
 
 1. Compila con `npm run build`.

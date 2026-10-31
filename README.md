@@ -67,6 +67,10 @@ Write it in `site.config.json` (for example `"dominio": "ivanchux.dev"`). The bu
 
 ## Publishing on GitHub Pages
 
+**Recommended way (GitHub Actions).** In *Settings → Pages → Source* choose **GitHub Actions**. Then, in the *Actions* tab, open **"Publicar la web"** and press **Run workflow**. GitHub builds the site with Node 22, runs `npm test` and publishes it. If a check fails, nothing is published. The file is `.github/workflows/publicar.yml`; instructions inside explain how to publish automatically on every change.
+
+**Manual way (`gh-pages` branch).** An alternative if you prefer to build yourself:
+
 The site is static: publishing the `dist/` folder is enough. A simple way, with no extra tools:
 
 1. Build with `npm run build`.
