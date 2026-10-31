@@ -2,9 +2,16 @@
   "_nota": "Frases visibles de IVANDEV OS. {nombre}, {alias}, {usuario}, {n} y {total} se sustituyen al mostrarlas.",
   "version": "IVANDEV OS 0.4",
   "nodo": "ivandev.local",
-  "bios": ["BIOS ivandev v0.2 ............ OK", "Memoria: 640K ................. OK", "Detectando discos: sda ........ OK"],
+  "bios": [
+    "BIOS ivandev v0.2 ............ OK",
+    "Memoria: 640K ................. OK",
+    "Detectando discos: sda ........ OK"
+  ],
   "grub_titulo": "GNU GRUB  versión 2.12",
-  "grub_entradas": ["ivandev OS (invitado)", "ivandev OS (modo recuperación)"],
+  "grub_entradas": [
+    "ivandev OS (invitado)",
+    "ivandev OS (modo recuperación)"
+  ],
   "grub_ayuda": "Usa ↑ ↓ para elegir. Pulsa e para editar los comandos, Intro para arrancar.",
   "grub_editar": "e · editar",
   "grub_editando": "Editando entrada. Intro para arrancar, Esc para cancelar.",
@@ -54,5 +61,26 @@
   "apagado": "Guardando estado ...\nSistema detenido.",
   "encender": "encender",
   "mover_ventana": "Con el foco en el título: flechas para mover, Mayús + flechas para cambiar el tamaño.",
-  "salir": "salir del sistema"
+  "salir": "salir del sistema",
+  "ui": {
+    "inicio": "☰ inicio",
+    "cv": "cv rápido",
+    "tema": "tema",
+    "tema_aria": "Cambiar el modo de color",
+    "crt": "crt",
+    "crt_aria": "Activar o quitar el efecto CRT",
+    "hallazgos": "hallazgos",
+    "salir_corto": "salir",
+    "app_explorador": "Explorador",
+    "app_terminal": "Terminal",
+    "app_procesos": "Procesos",
+    "app_mapper": "Mapper",
+    "app_ajustes": "Ajustes",
+    "app_cv": "CV rápido",
+    "app_papelera": "Papelera",
+    "reiniciar": "Reiniciar",
+    "apagar": "Apagar",
+    "mapa_aria": "Mapa del sistema",
+    "menu_aria": "Menú de inicio"
+  }
 }

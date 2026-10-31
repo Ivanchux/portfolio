@@ -152,3 +152,32 @@
 @media (prefers-reduced-motion: reduce) {
   .ios *, .ios *::before, .ios *::after { animation: none !important; }
 }
+
+/* Rejilla de nodos cuando hay demasiados para ponerlos en círculo */
+.ios__rejilla {
+  position: absolute; z-index: 2; inset: 58px 12px 54px 12px; overflow: auto; overscroll-behavior: contain;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(8.6rem, 1fr)); gap: 8px; align-content: start; padding: 4px;
+}
+.ios__nodo { max-width: 44%; overflow-wrap: anywhere; }
+.ios__rejilla .ios__nodo { position: static; transform: none; width: 100%; min-width: 0; max-width: none; overflow-wrap: anywhere; text-align: center; }
+.ios__escritorio--rejilla .ios__mapa, .ios__escritorio--rejilla .ios__hud { display: none; }
+@container (min-width: 700px) { .ios__rejilla { left: 110px; } }
+.ios__nodo.hub:not(.core) small { white-space: nowrap; }
+
+/* Barra de tareas: una sola fila, con textos cortos en espacios pequeños */
+.ios__barra { flex-wrap: nowrap; }
+.ios__barra > button { flex: none; white-space: nowrap; }
+.ios__corto { display: none; }
+.ios__tareas { min-width: 0; }
+@container (max-width: 640px) {
+  .ios__reloj, .ios__largo { display: none; }
+  .ios__corto { display: inline; }
+  .ios__barra { gap: 4px; padding: 4px 6px; }
+  .ios__barra > button { padding: 3px 7px; }
+  .ios__menu { bottom: 40px; }
+}
+@container (max-width: 520px) { .ios__barra [data-a="cv"] { display: none; } }
+/* En la rejilla, el título de la capa es una sola línea compacta */
+.ios__escritorio--rejilla .ios__nodo.hub { flex-direction: row; align-items: center; gap: 8px; min-width: 0; max-width: 90%; padding: 3px 12px !important; white-space: nowrap; }
+.ios__escritorio--rejilla .ios__nodo.hub b { font-size: 14px; }
+.ios__escritorio--rejilla .ios__rejilla { inset-block-start: 44px; }

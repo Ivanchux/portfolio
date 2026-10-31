@@ -1060,26 +1060,47 @@
       },
       "vista_previa": {
         "tipo": "bash",
-        "luchadores": [
-          "FUEGO",
-          "AGUA"
-        ],
-        "codigo": [
-          "# Factor aleatorio entre 75 y 125",
-          "factor=$(( 75 + (RANDOM % 51) ))",
-          "ataque_efectivo=$(( ataque_usado * factor / 100 * bonus / 100 ))",
-          "",
-          "# Crítico 5%",
-          "if [ $(( RANDOM % 100 )) -lt 5 ]; then",
-          "    critico=1",
-          "    ataque_efectivo=$(( ataque_efectivo * 2 ))",
-          "fi",
-          "",
-          "dano=$(( ataque_efectivo - defensa2 ))",
-          "[ \"$dano\" -lt 0 ] && dano=0",
-          "",
-          "# El perdedor deja de existir en el sistema",
-          "userdel -r \"$PERDEDOR\""
+        "prompt": "guest@ubuntu:~$",
+        "comando": "sudo ./Simulador_3_0.sh",
+        "pokemon": {
+          "Charizard": {
+            "tipos": [
+              "Fuego"
+            ],
+            "vida": 200,
+            "ataque": 90,
+            "defensa": 50,
+            "velocidad": 100
+          },
+          "Lapras": {
+            "tipos": [
+              "Agua"
+            ],
+            "vida": 200,
+            "ataque": 80,
+            "defensa": 50,
+            "velocidad": 60
+          },
+          "Ivysaur": {
+            "tipos": [
+              "Planta",
+              "Veneno"
+            ],
+            "vida": 200,
+            "ataque": 80,
+            "defensa": 50,
+            "velocidad": 60
+          }
+        },
+        "combates": [
+          [
+            "Charizard",
+            "Lapras"
+          ],
+          [
+            "Charizard",
+            "Ivysaur"
+          ]
         ]
       },
       "capturas": [],

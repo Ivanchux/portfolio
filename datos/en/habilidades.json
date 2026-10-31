@@ -48,6 +48,19 @@
       "icono": "mando"
     },
     {
+      "id": "pwa",
+      "titulo": "Apps and PWAs",
+      "texto": "Web apps you can install on your phone or computer, that work offline and keep your data on your device.",
+      "proyectos": [
+        "kaiten",
+        "lorekeeper",
+        "inventario-vinilos",
+        "as-study",
+        "retroamp"
+      ],
+      "icono": "telefono"
+    },
+    {
       "id": "backend",
       "titulo": "PHP and MySQL",
       "texto": "Apps with users, a database and the MVC pattern.",

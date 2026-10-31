@@ -166,7 +166,7 @@ function datosMonitor(raiz) {
       captura: p.capturas?.[0] ? { src: raiz + EST + p.capturas[0].src, alt: p.capturas[0].alt, ancho: p.capturas[0].ancho, alto: p.capturas[0].alto } : null,
       vivo: vp.tipo === "iframe" && confirmado(vp.url) ? vp.url : null,
       formato: vp.formato === "movil" ? "movil" : "escritorio",
-      bash: vp.tipo === "bash" ? { luchadores: vp.luchadores, codigo: vp.codigo } : null,
+      bash: vp.tipo === "bash" ? { prompt: vp.prompt, comando: vp.comando, pokemon: vp.pokemon, combates: vp.combates } : null,
     };
   }
   d._t = TXT_MONITOR;
@@ -266,7 +266,7 @@ function listaHabilidades(raiz) {
 }
 
 function blocInicio(raiz) {
-  return `<h2>${TXT.queSe}</h2><ul>${habilidades.slice(0, 4).map((h) => `<li>${esc(h.titulo)}</li>`).join("")}</ul><span class="bloc__mas">${TXT.conQue}</span>`;
+  return `<h2>${TXT.queSe}</h2><ul>${habilidades.slice(0, 5).map((h) => `<li>${esc(h.titulo)}</li>`).join("")}</ul><span class="bloc__mas">${TXT.conQue}</span>`;
 }
 
 // Texto oscuro sobre colores claros y blanco sobre oscuros

@@ -336,7 +336,7 @@ a.disquete[aria-current="true"] { transform: translateY(-6px); box-shadow: inset
 }
 
 /* ---------- Simulador de Bash: Game Boy arriba, código abajo ---------- */
-.pantalla__vista--bash { display: grid; grid-template-rows: minmax(0, 1.45fr) minmax(0, 1fr); gap: 6px; padding-bottom: 2px; }
+.pantalla__vista--bash { display: grid; grid-template-rows: minmax(0, 1fr) minmax(0, 1.3fr); gap: 6px; padding-bottom: 2px; }
 .pantalla:has(.pantalla__vista--bash) .pantalla__barra strong { font-size: .9em; }
 .gb {
   --gb0: #0f380f; --gb1: #306230; --gb2: #8bac0f; --gb3: #9bbc0f;
@@ -364,13 +364,8 @@ a.disquete[aria-current="true"] { transform: translateY(-6px); box-shadow: inset
 @keyframes gb-ataca-propio { 50% { translate: 14px -8px; } }
 @keyframes gb-golpe { 25%, 75% { opacity: 0; } }
 @keyframes gb-borra { to { opacity: 0; translate: 0 18px; } }
-.bash { margin: 0; overflow: auto; padding: 6px 8px; border-radius: 6px; font-size: 0.68em; line-height: 1.45; background: rgba(0, 0, 0, .35); border: 1px solid color-mix(in srgb, var(--pantalla-acento) 30%, transparent); }
-.bash code { display: grid; font: inherit; }
-.bash__l { white-space: pre; padding: 0 4px; border-radius: 2px; transition: background .25s, color .25s; }
-.bash__l::before { content: attr(data-n); display: inline-block; width: 2.2em; color: var(--pantalla-tenue); }
-.bash__c { color: var(--pantalla-tenue); }
-.bash__l.on { background: var(--pantalla-acento); color: var(--pantalla-fondo); }
-.bash__l.on::before { color: var(--pantalla-fondo); }
+.bash { margin: 0; overflow: hidden auto; padding: 6px 8px; border-radius: 6px; font-size: 0.66em; line-height: 1.4; white-space: pre; color: var(--pantalla-texto); background: rgba(0, 0, 0, .4); border: 1px solid color-mix(in srgb, var(--pantalla-acento) 30%, transparent); }
+.bash:focus-visible { outline: 2px solid var(--pantalla-texto); outline-offset: -2px; }
 
 /* ---------- Vuelo del disquete hasta la disquetera ---------- */
 .disquete--volando { position: fixed !important; z-index: 1000; margin: 0; pointer-events: none; transform-origin: 50% 0; }

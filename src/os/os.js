@@ -38,20 +38,20 @@ export function montar(raiz, datos, opciones = {}) {
     <div class="ios__arranque" data-r="boot" tabindex="-1"></div>
     <div class="ios__escritorio" data-r="desk" hidden>
       <svg class="ios__mapa" data-r="map" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"></svg>
-      <div class="ios__nodos" data-r="nodes" role="group" aria-label="Mapa del sistema"></div>
+      <div class="ios__nodos" data-r="nodes" role="group" aria-label="${esc(X.ui.mapa_aria)}"></div>
       <div class="ios__hud" data-r="hud" aria-hidden="true"></div>
       <div class="ios__iconos" data-r="icons"></div>
-      <div class="ios__menu" data-r="sm" hidden role="menu" aria-label="Menú de inicio"></div>
+      <div class="ios__menu" data-r="sm" hidden role="menu" aria-label="${esc(X.ui.menu_aria)}"></div>
       <div class="ios__avisos" data-r="ts" role="status" aria-live="polite"></div>
       <div class="ios__barra" data-r="bar">
-        <button type="button" data-r="st" aria-expanded="false" aria-haspopup="menu">☰ inicio</button>
-        <button type="button" data-a="cv">cv rápido</button>
+        <button type="button" data-r="st" aria-expanded="false" aria-haspopup="menu">${esc(X.ui.inicio)}</button>
+        <button type="button" data-a="cv">${esc(X.ui.cv)}</button>
         <div class="ios__tareas" data-r="tasks"></div>
-        <button type="button" data-a="tema" aria-label="Cambiar el modo de color">tema</button>
-        <button type="button" data-a="crt" aria-label="Activar o quitar el efecto CRT">crt</button>
-        <span class="ios__tenue">hallazgos <b class="ios__ok" data-r="cnt"></b></span>
+        <button type="button" data-a="tema" aria-label="${esc(X.ui.tema_aria)}">${esc(X.ui.tema)}</button>
+        <button type="button" data-a="crt" aria-label="${esc(X.ui.crt_aria)}">${esc(X.ui.crt)}</button>
+        <span class="ios__tenue"><span class="ios__largo">${esc(X.ui.hallazgos)} </span><b class="ios__ok" data-r="cnt" aria-label="${esc(X.ui.hallazgos)}"></b></span>
         <span class="ios__tenue ios__reloj" data-r="clk"></span>
-        ${opciones.alSalir ? `<button type="button" data-a="salir">${esc(X.salir)}</button>` : ""}
+        ${opciones.alSalir ? `<button type="button" data-a="salir" aria-label="${esc(X.salir)}"><span class="ios__largo">${esc(X.salir)}</span><span class="ios__corto">${esc(X.ui.salir_corto)}</span></button>` : ""}
       </div>
     </div>`;
   const $ = (r) => raiz.querySelector(`[data-r="${r}"]`);
@@ -141,6 +141,20 @@ export function montar(raiz, datos, opciones = {}) {
     else $("nodes").querySelector(".ios__nodo")?.focus();
   }
 
+  // Mantiene una ventana dentro del escritorio: se llama al crearla y cuando el contenedor cambia de tamaño
+  function ajustarVentana(d) {
+    const area = $("desk");
+    if (!area || d.classList.contains("max")) return;
+    const aw = area.clientWidth, ah = area.clientHeight - 46; // 46 px: barra de tareas
+    d.style.maxWidth = Math.max(160, aw - 8) + "px";
+    d.style.maxHeight = Math.max(120, ah - 8) + "px";
+    if (d.offsetWidth > aw - 8) d.style.width = Math.max(160, aw - 8) + "px";
+    d.style.left = Math.max(4, Math.min(d.offsetLeft, aw - d.offsetWidth - 4)) + "px";
+    d.style.top = Math.max(4, Math.min(d.offsetTop, ah - d.offsetHeight - 4)) + "px";
+  }
+  const observador = new ResizeObserver(() => { Object.values(W).forEach(ajustarVentana); });
+  observador.observe(raiz);
+
   function ventana(id, titulo, html, o = {}) {
     if (W[id]) { enfocar(id, true); return W[id]; }
     const area = $("desk");
@@ -159,6 +173,8 @@ export function montar(raiz, datos, opciones = {}) {
     d._origen = raiz.contains(document.activeElement) ? document.activeElement : null;
     area.appendChild(d);
     W[id] = d;
+    ajustarVentana(d);
+    observador.observe(d); // también cuando la propia ventana crece al rellenarse
 
     const tb = d.firstChild, h2 = tb.firstChild;
     const maxim = () => d.classList.toggle("max");
@@ -234,8 +250,9 @@ export function montar(raiz, datos, opciones = {}) {
       b.type = "button";
       b.className = "ios__nodo" + clase;
       b.id = `ios-n-${n.id}`;
-      b.style.left = n.x + "%";
-      b.style.top = n.y + "%";
+      // Siempre dentro del contenedor, sea cual sea su tamaño (cqw y cqh: el propio sistema es el contenedor)
+      b.style.left = `clamp(22cqw, ${n.x}%, 78cqw)`;
+      b.style.top = `clamp(38px, ${n.y}%, calc(100cqh - 82px))`;
       b.style.animationDelay = i * 70 + "ms";
       b.innerHTML = n.hub
         ? `<b aria-hidden="true">◉</b>${esc(n.t)}<small>${esc(S ? X.nucleo_subir : X.nucleo_entrar)}</small>`
@@ -249,24 +266,29 @@ export function montar(raiz, datos, opciones = {}) {
       nd.appendChild(b);
       return b;
     };
-    // En contenedores estrechos y con muchos nodos: dos columnas y el núcleo arriba
-    const columnas = L.length > 5 && raiz.clientWidth < 600;
-    const cy = columnas ? 9 : 46;
+    // Con muchos nodos no caben en círculo sin tapar unos a otros: pasan a una rejilla con desplazamiento
+    const rejilla = L.length > 7;
+    $("desk").classList.toggle("ios__escritorio--rejilla", rejilla);
+    const cy = 44;
+    let contenedor = nd;
+    if (rejilla) {
+      contenedor = document.createElement("div");
+      contenedor.className = "ios__rejilla";
+      nd.appendChild(contenedor);
+    }
     L.forEach((n, i) => {
-      if (columnas) {
-        const filas = Math.ceil(L.length / 2);
-        n.x = i % 2 ? 73 : 27;
-        n.y = 24 + (Math.floor(i / 2) * 60) / Math.max(1, filas - 1);
-      } else {
+      if (rejilla) { n.x = 50; n.y = 50; }
+      else {
         const a = -Math.PI / 2 + (i * 2 * Math.PI) / L.length;
-        const r = anillos && i % 2 ? 0.62 : 1;
-        n.x = 50 + 38 * r * Math.cos(a);
-        n.y = 46 + 34 * r * Math.sin(a);
+        n.x = 50 + 38 * Math.cos(a);
+        n.y = 44 + 30 * Math.sin(a);
+        m.insertAdjacentHTML("beforeend", `<line class="${n.rt ? "rt" : ""}" x1="50" y1="${cy}" x2="${n.x}" y2="${n.y}"/>`);
       }
-      m.insertAdjacentHTML("beforeend", `<line class="${n.rt ? "rt" : ""}" x1="50" y1="${cy}" x2="${n.x}" y2="${n.y}"/>`);
-      crear(n, n.rt ? " rt" : "", i + 1);
+      const b = crear(n, n.rt ? " rt" : "", i + 1);
+      if (rejilla) { b.style.cssText = `animation-delay:${i * 30}ms`; contenedor.appendChild(b); }
     });
     const hub = crear({ hub: 1, t: S ? S.t : X.nucleo, x: 50, y: cy, id: "hub" }, S ? " hub" : " hub core", 0);
+    if (rejilla) hub.style.cssText = "left:50%;top:6px;transform:translateX(-50%)";
     // El foco no se pierde al cambiar de capa
     const destino = enfocarId ? nd.querySelector(`#ios-n-${enfocarId}`) : nd.querySelector(".ios__nodo:not(.hub)") || hub;
     if (raiz.contains(document.activeElement) || document.activeElement === document.body) destino?.focus();
@@ -467,8 +489,8 @@ export function montar(raiz, datos, opciones = {}) {
     d.querySelectorAll("[data-t]").forEach((b) => (b.onclick = () => cambiarModo(b.dataset.t)));
     d.querySelector("[data-crt]").onclick = () => raiz.classList.toggle("ios--sin-crt");
   }
-  const APPS = [["▤", "Explorador", () => explorador()], [">_", "Terminal", terminal], ["≣", "Procesos", procesos], ["⌘", "Mapper", mapper], ["⚙", "Ajustes", ajustes], ["◉", "CV rápido", () => ventana("cv", "cv", CV())]];
-  [APPS[0], APPS[1], APPS[2], APPS[3], ["▢", "Papelera", () => explorador(["Papelera"])]].forEach(([i, t, f]) => {
+  const APPS = [["▤", X.ui.app_explorador, () => explorador()], [">_", X.ui.app_terminal, terminal], ["≣", X.ui.app_procesos, procesos], ["⌘", X.ui.app_mapper, mapper], ["⚙", X.ui.app_ajustes, ajustes], ["◉", X.ui.app_cv, () => ventana("cv", "cv", CV())]];
+  [APPS[0], APPS[1], APPS[2], APPS[3], ["▢", X.ui.app_papelera, () => explorador(["Papelera"])]].forEach(([i, t, f]) => {
     const b = document.createElement("button");
     b.type = "button";
     b.className = "ios__icono";
@@ -496,7 +518,7 @@ export function montar(raiz, datos, opciones = {}) {
     };
     APPS.forEach(add);
     m.insertAdjacentHTML("beforeend", "<hr>");
-    [["↻", "Reiniciar", () => energia(true)], ["⏻", "Apagar", () => energia(false)]].forEach(add);
+    [["↻", X.ui.reiniciar, () => energia(true)], ["⏻", X.ui.apagar, () => energia(false)]].forEach(add);
     m.hidden = false;
     botonInicio.setAttribute("aria-expanded", "true");
     m.querySelector("button").focus();
@@ -616,6 +638,7 @@ export function montar(raiz, datos, opciones = {}) {
   }
 
   return function desmontar() {
+    observador.disconnect();
     tiempos.forEach(clearTimeout);
     intervalos.forEach(clearInterval);
     escuchasDoc.forEach(([t, f, o]) => document.removeEventListener(t, f, o));

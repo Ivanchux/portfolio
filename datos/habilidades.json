@@ -49,6 +49,19 @@
       "icono": "mando"
     },
     {
+      "id": "pwa",
+      "titulo": "Apps y PWAs instalables",
+      "texto": "Aplicaciones web que se instalan en el móvil o en el ordenador, funcionan sin conexión y guardan los datos en tu dispositivo.",
+      "proyectos": [
+        "kaiten",
+        "lorekeeper",
+        "inventario-vinilos",
+        "as-study",
+        "retroamp"
+      ],
+      "icono": "telefono"
+    },
+    {
       "id": "backend",
       "titulo": "PHP y MySQL",
       "texto": "Aplicaciones con usuarios, base de datos y patrón MVC.",

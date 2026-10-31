@@ -249,6 +249,6 @@ body.os-activo .cabecera, body.os-activo .pie, body.os-activo #os-sin-js, body.o
   .oficio--par .oficio__texto { order: 0; }
 }
 .oficio--web { --cat: #1f8fb3; } .oficio--sistemas { --cat: #7a58c4; } .oficio--ia { --cat: #c2408f; }
-.oficio--juegos { --cat: #d9622b; } .oficio--backend { --cat: #2f7d6e; } .oficio--datos { --cat: #3c6fd1; }
+.oficio--juegos { --cat: #d9622b; } .oficio--pwa { --cat: #c98a12; } .oficio--backend { --cat: #2f7d6e; } .oficio--datos { --cat: #3c6fd1; }
 :root[data-tema="oscuro"] .oficio { background: radial-gradient(120% 90% at 0% 0%, color-mix(in srgb, var(--cat) 30%, transparent), transparent 60%), var(--cristal); }
 :root[data-tema="oscuro"] .abanico__foto { border-color: #1b3a46; }

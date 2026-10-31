@@ -147,3 +147,48 @@ test("la frase del arranque secreto no aparece en ningún archivo publicado", as
     assert.ok(!fichas.some((t) => huella(t) === LLAVE), f);
   }
 });
+
+test("ningún nodo ni ventana sobresale del sistema, en monitor, móvil y pantalla completa", async () => {
+  for (const [ancho, alto] of [[460, 345], [390, 700], [1024, 600], [1440, 900]]) {
+    const p = await navegador.newPage({ viewport: { width: ancho, height: alto }, reducedMotion: "reduce" });
+    await p.goto(URL_OS + "?sin-arranque=1");
+    await p.locator(".ios__nodo").first().waitFor();
+    const fuera = () => p.evaluate(() => {
+      const so = document.querySelector(".ios").getBoundingClientRect();
+      const malos = [];
+      for (const e of document.querySelectorAll(".ios__nodo, .ios__ventana:not(.min), .ios__barra, .ios__menu:not([hidden]), .ios__rejilla")) {
+        const r = e.getBoundingClientRect();
+        if (!r.width) continue;
+        // Las rejillas se desplazan por dentro: lo que importa es que el contenedor quepa
+        if (e.closest(".ios__rejilla") && !e.classList.contains("ios__rejilla")) continue;
+        if (r.left < so.left - 1 || r.right > so.right + 1 || r.top < so.top - 1 || r.bottom > so.bottom + 1)
+          malos.push(`${e.className.split(" ")[0]} «${(e.textContent || "").trim().slice(0, 18)}» ${Math.round(r.left)},${Math.round(r.top)}→${Math.round(r.right)},${Math.round(r.bottom)}`);
+      }
+      return malos;
+    });
+    const hacer = (sel) => p.evaluate((s) => document.querySelector(s)?.click(), sel);
+    // Cierra la ventana de bienvenida y recorre todas las capas
+    await p.evaluate(() => document.querySelector('.ios__ventana [data-b="c"]')?.click());
+    assert.deepEqual(await fuera(), [], `${ancho}×${alto}: núcleo`);
+    for (const capa of ["proyectos", "sobre", "sistema"]) {
+      await hacer(".ios__nodo.hub");
+      await p.waitForTimeout(50);
+      await hacer(`#ios-n-${capa}`);
+      await p.waitForTimeout(50);
+      assert.deepEqual(await fuera(), [], `${ancho}×${alto}: capa ${capa}`);
+    }
+    // Abre todas las aplicaciones a la vez
+    await p.evaluate(() => document.querySelector(".ios__barra [data-r=st]").click());
+    const apps = await p.locator(".ios__menu button").count();
+    for (let i = 0; i < apps - 2; i++) {
+      await p.evaluate((k) => { const m = document.querySelector(".ios__menu"); if (m.hidden) document.querySelector(".ios__barra [data-r=st]").click(); m.querySelectorAll("button")[k].click(); }, i);
+      await p.waitForTimeout(40);
+    }
+    assert.deepEqual(await fuera(), [], `${ancho}×${alto}: ventanas abiertas`);
+    // El contenedor cambia de tamaño con todo abierto
+    await p.setViewportSize({ width: Math.max(320, Math.round(ancho * 0.7)), height: Math.max(300, Math.round(alto * 0.7)) });
+    await p.waitForTimeout(150);
+    assert.deepEqual(await fuera(), [], `${ancho}×${alto}: tras reducir`);
+    await p.close();
+  }
+});

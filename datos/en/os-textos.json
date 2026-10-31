@@ -60,5 +60,26 @@
   "apagado": "Saving state ...\nSystem halted.",
   "encender": "power on",
   "mover_ventana": "With focus on the title: arrows to move, Shift + arrows to resize.",
-  "salir": "exit the system"
+  "salir": "exit the system",
+  "ui": {
+    "inicio": "☰ start",
+    "cv": "quick cv",
+    "tema": "theme",
+    "tema_aria": "Change the colour mode",
+    "crt": "crt",
+    "crt_aria": "Turn the CRT effect on or off",
+    "hallazgos": "discoveries",
+    "salir_corto": "exit",
+    "app_explorador": "Explorer",
+    "app_terminal": "Terminal",
+    "app_procesos": "Processes",
+    "app_mapper": "Mapper",
+    "app_ajustes": "Settings",
+    "app_cv": "Quick CV",
+    "app_papelera": "Trash",
+    "reiniciar": "Reboot",
+    "apagar": "Shut down",
+    "mapa_aria": "System map",
+    "menu_aria": "Start menu"
+  }
 }
