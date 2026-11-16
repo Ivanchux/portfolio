@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Editor del portfolio</title>
+<link rel="stylesheet" href="editor.css">
+</head>
+<body>
+<header class="barra">
+  <div class="marca"><i class="orbe"></i><strong>Editor del portfolio</strong><small>solo en tu ordenador</small></div>
+  <div class="acciones">
+    <span id="estado" class="estado">Todo guardado</span>
+    <div class="idioma" role="group" aria-label="Idioma que editas">
+      <button data-lang="es" aria-pressed="true">ES</button><button data-lang="en" aria-pressed="false">EN</button>
+    </div>
+    <button id="b-guardar" class="btn">Guardar</button>
+    <button id="b-compilar" class="btn primario">Guardar y ver la web</button>
+  </div>
+</header>
+
+<div class="cuerpo">
+  <nav class="pestanas" id="pestanas" aria-label="Secciones"></nav>
+  <main id="panel" class="panel"></main>
+  <aside class="previa" id="previa">
+    <div class="previa__barra">
+      <button data-url="/sitio/">3D</button><button data-url="/sitio/clasica/">Clásica</button><button data-url="/sitio/proyectos/">Simple</button><button data-url="/sitio/en/">EN</button>
+      <button id="b-recargar" title="Recargar">⟳</button><button id="b-ocultar" title="Ocultar vista previa">⇥</button>
+    </div>
+    <iframe id="marco" title="Vista previa de la web"></iframe>
+  </aside>
+</div>
+
+<dialog id="registro"><h2 id="reg-t">Compilando…</h2><div id="reg-p"></div><pre id="reg-l"></pre><form method="dialog"><button class="btn">Cerrar</button></form></dialog>
+<dialog id="copias"><h2>Versiones anteriores</h2><p>Cada vez que guardas se conserva la versión previa. Elige una para volver a ella.</p><div id="copias-l"></div><form method="dialog"><button class="btn">Cerrar</button></form></dialog>
+<div id="aviso" class="aviso" role="status"></div>
+<script src="editor.js"></script>
+</body>
+</html>

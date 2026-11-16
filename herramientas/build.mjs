@@ -114,7 +114,7 @@ async function render(texto, ctx) {
 
 // ---------- Piezas generadas ----------
 const MENU = [
-  { id: "inicio", ruta: "" },
+  { id: "inicio", ruta: "clasica/" },
   { id: "que-se-hacer", ruta: "que-se-hacer/" },
   { id: "proyectos", ruta: "proyectos/" },
   { id: "laboratorio", ruta: "laboratorio/" },
@@ -471,12 +471,12 @@ if (process.env.ARCHIVO && !EN) {
 
 const generadas = [];
 generadas.push(
-  await pagina("index.html", "paginas/index.html", {
-    bloc: blocInicio(""),
-    ...(() => { const a = archivadorHTML(""); return { discos: a.discos, pestanas: a.pestanas }; })(),
-    pantalla_inicial: pantallaInicial(""),
-    datos_monitor: datosMonitor(""),
-    datos_os: datosOS(""),
+  await pagina("clasica/index.html", "paginas/index.html", {
+    bloc: blocInicio("../"),
+    ...(() => { const a = archivadorHTML("../"); return { discos: a.discos, pestanas: a.pestanas }; })(),
+    pantalla_inicial: pantallaInicial("../"),
+    datos_monitor: datosMonitor("../"),
+    datos_os: datosOS("../"),
   })
 );
 generadas.push(await pagina("proyectos/index.html", "paginas/proyectos.html", listadoProyectos("../")));

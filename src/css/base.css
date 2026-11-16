@@ -241,3 +241,9 @@ p { margin: 0 0 var(--e-4); }
 }
 .idioma:hover { transform: translateY(-2px) scale(1.05); }
 :root[data-tema="oscuro"] .idioma { background: rgba(255, 255, 255, .08); }
+
+/* Selector de versión: 3D · clásica · simple */
+.versiones{display:flex;gap:2px;padding:2px;border-radius:999px;background:var(--cristal);border:1px solid var(--cristal-borde)}
+.versiones a{padding:.2rem .65rem;border-radius:999px;font:600 .78rem/1.4 var(--tipo-titulo);text-decoration:none;color:var(--tinta)}
+.versiones a:hover,.versiones a:focus-visible{background:var(--boton-1);color:var(--boton-texto)}
+@media (max-width:52rem){.versiones a{padding:.15rem .45rem;font-size:.7rem}}

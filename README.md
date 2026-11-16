@@ -2,9 +2,46 @@
 
 *[Versión en español: LEEME.md](LEEME.md)*
 
-Personal portfolio website. The home page is a 90s desk with a CRT monitor where projects are loaded, and inside it lives IVANDEV OS, a fake operating system for the curious.
+Personal portfolio website with **three versions of the same content**, switchable from the header: an immersive **3D journey**, the original **retro desk** with a CRT monitor, and a **simple** fast list. Everything is generated from the same data files, in Spanish and English.
 
-Plain HTML, CSS and JavaScript, no frameworks and no dependencies. A small Node tool generates the pages from data files.
+<p align="center"><img src="docs/capturas/3d-portada.jpg" alt="3D version: ASCII portrait that reacts to the mouse, with the IVANCHUX title and the version switcher in the header" width="860"></p>
+
+Plain HTML, CSS and JavaScript, no frameworks. The 3D version uses three.js (bundled locally, no CDN). A small Node tool generates the pages from data files, and a local visual editor lets you change content without touching JSON.
+
+## The three versions
+
+| Address | Version |
+|---|---|
+| `/` and `/en/` | **3D**: a scroll journey through layers (boot → project districts → machine room → descent → contact) |
+| `/clasica/` | **Classic**: the original 90s desk with a CRT monitor where projects load, and IVANDEV OS inside |
+| `/proyectos/` | **Simple**: a fast, accessible project list |
+
+### 3D journey
+
+| | |
+|---|---|
+| <img src="docs/capturas/3d-distrito-web.jpg" alt="Web district: glass windows with real screenshots of each project" width="420"> | <img src="docs/capturas/3d-distrito-juegos.jpg" alt="Games district: arcade sunset, neon pylons and project panels" width="420"> |
+| **Districts.** Projects are grouped by category and walked through continuously (Web, Games, Study, Systems). Each district tints the sky and floor with its category colour. | **Real screenshots.** Every panel shows the project's own capture, with its disk colour. Hover tilts the panels toward the cursor. |
+| <img src="docs/capturas/3d-detalle-proyecto.jpg" alt="Project detail with screenshot gallery, role, measured results and links" width="420"> | <img src="docs/capturas/3d-sala-de-maquinas.jpg" alt="Machine room: robotic arms that open as you pass" width="420"> |
+| **Project detail.** Camera dolly to the panel, gallery, role, measured results and links. Shareable by URL (`#proyecto-…`). | **Machine room.** Robotic arms open as you pass, follow the cursor and close again if you scroll back. |
+| <img src="docs/capturas/3d-descenso.jpg" alt="Descent through a blue crystal shaft with floating glass layers" width="420"> | <img src="docs/capturas/3d-contacto.jpg" alt="Final red alley with the contact window" width="420"> |
+| **Descent.** One layer per skill, plus stack, education, lab and a classified file. Skill layers are clickable and take you back to their project. | **Contact.** The red alley, with email, GitHub and (once confirmed) LinkedIn. |
+
+More: a hidden console (key `` ` ``: `help`, `goto`, `open`, `stack`, `lab`, `os`…), an optional soft ambient sound that shifts slightly with position and depth, keyboard navigation and `prefers-reduced-motion` support. Without WebGL it offers the classic version.
+
+### Classic version
+
+<p align="center"><img src="docs/capturas/clasica.jpg" alt="Classic version: hero, notepad and the CRT monitor desk" width="760"></p>
+
+## Visual editor
+
+```bash
+npm run editor      # or double-click Editor.bat on Windows
+```
+
+Opens `http://localhost:8090/` (only on your computer). Create and edit projects, categories, skills, "About me", site data and the 3D texts, in Spanish and English. Drag screenshots in (converted to WebP automatically), then **Save and view the site**: it saves, builds and refreshes a live preview of all three versions, listing what is still pending. Each save keeps the previous version in `datos/.copias/`.
+
+<p align="center"><img src="docs/capturas/editor.jpg" alt="Visual editor with the project list, form and live preview" width="860"></p>
 
 ## Requirements
 
@@ -15,9 +52,11 @@ Plain HTML, CSS and JavaScript, no frameworks and no dependencies. A small Node 
 
 | Command | What it does |
 |---|---|
-| `npm run build` | Generates the site in `dist/` |
+| `npm run build` | Generates the site in `dist/` (classic + 3D, Spanish and English) |
+| `npm run editor` | Opens the visual editor at `http://localhost:8090` |
+| `npm run subir` | Copies the changes to your clone of the GitHub repo, shows them and, if you confirm, commits and pushes (also `Subir-a-GitHub.bat`) |
 | `npm start` | Builds and serves it at `http://localhost:8080` |
-| `npm test` | Builds and checks that nothing pending, no prices, no third-party resources and no hidden cursor get published |
+| `npm test` | Builds and checks that nothing pending, no prices, no third-party resources and no hidden cursor get published; also tests the 3D data and the editor's security |
 | `npm run test:os` | Tests IVANDEV OS in a real browser |
 
 On Windows, if port 8080 is blocked, use another one: `set PUERTO=5500`, then `npm start`.
@@ -92,7 +131,9 @@ All paths in the site are relative, so it works both at `ivanchux.github.io/port
 
 ```
 datos/            content (projects, categories, texts)
-herramientas/     build.mjs (build), servir.mjs (local server), iconos.mjs
+herramientas/     build.mjs (classic site), inmersivo.mjs (3D site), editor.mjs + editor/ (visual editor), servir.mjs, iconos.mjs
+src/inmersivo/    3D version: template, CSS and JS by scene (three.js in vendor/)
+docs/capturas/    screenshots used in this README
 src/paginas/      pages
 src/plantillas/   header, footer, base layout and project page
 src/css/          tokens, base, desk, pages and project pages

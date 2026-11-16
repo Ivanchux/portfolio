@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="{{htmlLang}}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{{title}}</title>
+<meta name="description" content="{{desc}}">
+<meta name="theme-color" content="#03070b">
+<link rel="alternate" hreflang="{{otherLang}}" href="{{otherHref}}">
+<link rel="icon" href="{{root}}img/favicon.png">
+<link rel="stylesheet" href="{{assets}}css/style.css">
+</head>
+<body class="booting">
+
+<noscript><p class="nojs">{{noscript}} <a href="{{classicHref}}">{{classicLink}}</a></p></noscript>
+
+<!-- ============ ARRANQUE (BIOS + barra Aero) ============ -->
+<div id="boot" role="status" aria-live="polite">
+  <div class="boot-win glass">
+    <div class="titlebar"><i class="orb"></i><span>{{bootTitle}}</span><span class="wbtns"><i></i><i></i><i class="x"></i></span></div>
+    <pre id="boot-log" aria-hidden="true"></pre>
+    <div class="pill"><i id="boot-bar"></i></div>
+    <div class="boot-row">
+      <span id="boot-pct">0 %</span>
+      <span class="boot-btns">
+        <button id="boot-go" class="aero" disabled>{{enter}}</button>
+        <button id="boot-snd" class="aero ghost" disabled>{{enterSnd}}</button>
+      </span>
+    </div>
+    <p class="boot-note">{{bootNote}} · <a href="{{classicHref}}">{{classicLink}}</a></p>
+  </div>
+</div>
+
+<!-- ============ HUD ============ -->
+<header class="hud top">
+  <a class="brand" href="#" id="brand"><i class="orb"></i><span>IVANCHUX</span><small>{{brandSub}}</small></a>
+  <nav class="topnav" aria-label="{{menuAria}}">
+    <button id="b-talk">{{talk}}</button>
+    <button id="b-menu" aria-expanded="false" aria-controls="mn">{{menu}}</button>
+    <button id="b-snd" aria-pressed="false" title="{{sound}}">♪ off</button>
+    <button id="b-con" aria-expanded="false" aria-controls="con" title="{{console}} ( ` )">&gt;_</button>
+    <nav class="versiones" aria-label="{{versionAria}}"><a href="{{topHref}}" aria-current="page">3D</a><a href="{{classicHref}}">{{classicName}}</a><a href="{{simpleHref}}">{{simpleName}}</a></nav>
+    <a class="navlink" href="{{otherHref}}" hreflang="{{otherLang}}" lang="{{otherLang}}">{{otherLang}}</a>
+  </nav>
+</header>
+
+<aside class="hud rail" id="rail" aria-label="{{chaptersAria}}"></aside>
+
+<section class="hud hero-ui" id="hero-ui">
+  <div class="hero-name"><h1>IVANCHUX</h1><p>{{heroSub}}</p></div>
+  <p class="hero-tag" id="hero-tag"></p>
+</section>
+
+<aside class="hud txt" id="txt" aria-live="polite"><b id="tt"></b><p id="tp"></p></aside>
+
+<aside class="hud meter" id="meter" aria-hidden="true">
+  <div class="mrow"><span>{{depth}}</span><b id="m-depth">0000</b><span>m</span></div>
+  <div class="track"><i id="m-bar"></i></div>
+  <div class="mrow small"><span id="m-ch">01</span><span id="m-fps">-- fps</span></div>
+</aside>
+
+<div class="hud hint" id="hint">{{hint}}</div>
+
+<nav class="hud sectors" id="sectors" aria-label="{{sectorsAria}}" hidden></nav>
+
+<!-- ============ DETALLE DE PROYECTO ============ -->
+<section class="ov glass" id="dv" role="dialog" aria-labelledby="dt" aria-modal="false">
+  <div class="titlebar"><i class="orb sm"></i><span id="dn"></span><button id="dc" aria-label="{{close}}">{{close}}</button></div>
+  <div class="dv-body">
+    <h2 id="dt"></h2>
+    <p class="role" id="dr"></p>
+    <div id="dd"></div>
+    <div id="dx"></div>
+    <ul class="tags" id="ds"></ul>
+    <div class="shots" id="dg" role="group" aria-label="{{lblShots}}"></div>
+    <p class="links" id="dl"></p>
+    <nav id="dm" aria-label="{{projectsAria}}"></nav>
+    <p class="keys">{{keys}}</p>
+  </div>
+</section>
+
+<!-- ============ MENÚ ============ -->
+<nav class="ov glass" id="mn" aria-label="{{menuAria}}">
+  <div class="titlebar"><i class="orb sm"></i><span>{{menuTitle}}</span></div>
+  <div class="mn-body" id="mn-body"></div>
+</nav>
+
+<!-- ============ CONTACTO ============ -->
+<section class="ov glass contact" id="contact" aria-labelledby="ct-t">
+  <div class="titlebar"><i class="orb sm"></i><span>contacto.exe</span><span class="wbtns"><i></i><i></i><i class="x"></i></span></div>
+  <div class="ct-body">
+    <h2 id="ct-t">{{contactTitle}}</h2>
+    <p id="ct-p"></p>
+    <div class="ct-links" id="ct-links"></div>
+    <p class="ct-foot">© {{name}} · <a href="{{legalHref}}">{{legal}}</a></p>
+  </div>
+</section>
+
+<!-- ============ CONSOLA (retro dev) ============ -->
+<section class="glass console" id="con" aria-label="{{console}}" hidden>
+  <div class="titlebar"><i class="orb sm"></i><span>ivanchux@portfolio:~$</span><button id="con-x" aria-label="{{close}}">✕</button></div>
+  <pre id="con-out"></pre>
+  <label class="con-in"><span>&gt;</span><input id="con-i" type="text" autocomplete="off" spellcheck="false" aria-label="{{console}}"></label>
+</section>
+
+<!-- Lista de proyectos para buscadores y lectores de pantalla (la escena 3D no se puede leer) -->
+<nav class="sr" aria-label="{{allProjects}}"><h2>{{allProjects}}</h2>{{proyectosLista}}</nav>
+
+<div id="cur" class="cursor" aria-hidden="true"></div>
+
+<script src="{{assets}}vendor/three.min.js"></script>
+<script src="{{assets}}js/config.js"></script>
+<script src="{{datos}}"></script>
+<script src="{{assets}}capturas.js"></script>
+<script src="{{assets}}js/core.js"></script>
+<script src="{{assets}}js/post.js"></script>
+<script src="{{assets}}js/scenes/hero.js"></script>
+<script src="{{assets}}js/scenes/backdrop.js"></script>
+<script src="{{assets}}js/scenes/districts.js"></script>
+<script src="{{assets}}js/scenes/art.js"></script>
+<script src="{{assets}}js/scenes/roster.js"></script>
+<script src="{{assets}}js/scenes/hardware.js"></script>
+<script src="{{assets}}js/scenes/descent.js"></script>
+<script src="{{assets}}js/scenes/contact.js"></script>
+<script src="{{assets}}js/ui.js"></script>
+<script src="{{assets}}js/main.js"></script>
+</body>
+</html>
