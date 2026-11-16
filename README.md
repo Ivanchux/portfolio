@@ -2,7 +2,7 @@
 
 *[Versión en español: LEEME.md](LEEME.md)*
 
-Personal portfolio website with **three versions of the same content**, switchable from the header: an immersive **3D journey**, the original **retro desk** with a CRT monitor, and a **simple** fast list. Everything is generated from the same data files, in Spanish and English.
+Personal portfolio website with **three versions of the same content**, switchable from the header: an immersive **3D journey**, the original **retro desk** with a CRT monitor, and a **simple** single page. Everything is generated from the same data files, in Spanish and English.
 
 <p align="center"><img src="docs/capturas/3d-portada.jpg" alt="3D version: ASCII portrait that reacts to the mouse, with the IVANCHUX title and the version switcher in the header" width="860"></p>
 
@@ -14,24 +14,36 @@ Plain HTML, CSS and JavaScript, no frameworks. The 3D version uses three.js (bun
 |---|---|
 | `/` and `/en/` | **3D**: a scroll journey through layers (boot → project districts → machine room → descent → contact) |
 | `/clasica/` | **Classic**: the original 90s desk with a CRT monitor where projects load, and IVANDEV OS inside |
-| `/proyectos/` | **Simple**: a fast, accessible project list |
+| `/simple/` | **Simple**: one light page with everything, no JavaScript or animations |
 
 ### 3D journey
 
+The journey is a single continuous camera path: **islands** (one per category) joined by **bridges** that turn, climb and drop, ending in a machine room whose robotic arms lead down into a chip.
+
 | | |
 |---|---|
-| <img src="docs/capturas/3d-distrito-web.jpg" alt="Web district: glass windows with real screenshots of each project" width="420"> | <img src="docs/capturas/3d-distrito-juegos.jpg" alt="Games district: arcade sunset, neon pylons and project panels" width="420"> |
-| **Districts.** Projects are grouped by category and walked through continuously (Web, Games, Study, Systems). Each district tints the sky and floor with its category colour. | **Real screenshots.** Every panel shows the project's own capture, with its disk colour. Hover tilts the panels toward the cursor. |
-| <img src="docs/capturas/3d-detalle-proyecto.jpg" alt="Project detail with screenshot gallery, role, measured results and links" width="420"> | <img src="docs/capturas/3d-sala-de-maquinas.jpg" alt="Machine room: robotic arms that open as you pass" width="420"> |
-| **Project detail.** Camera dolly to the panel, gallery, role, measured results and links. Shareable by URL (`#proyecto-…`). | **Machine room.** Robotic arms open as you pass, follow the cursor and close again if you scroll back. |
-| <img src="docs/capturas/3d-descenso.jpg" alt="Descent through a blue crystal shaft with floating glass layers" width="420"> | <img src="docs/capturas/3d-contacto.jpg" alt="Final red alley with the contact window" width="420"> |
-| **Descent.** One layer per skill, plus stack, education, lab and a classified file. Skill layers are clickable and take you back to their project. | **Contact.** The red alley, with email, GitHub and (once confirmed) LinkedIn. |
+| <img src="docs/capturas/3d-isla-web.jpg" alt="Web island: glass panels with each project's real screenshot and a bridge curving away" width="420"> | <img src="docs/capturas/3d-puente-juegos.jpg" alt="Bridge rising towards the Games island, with its ring gate and arcade sunset" width="420"> |
+| **Islands.** Each category is a place of its own, tinted with the category colour. Panels show every project's real capture. | **Bridges.** Narrow glowing paths turn, climb and drop between islands, passing through a gate with the category name. |
+| <img src="docs/capturas/3d-isla-juegos.jpg" alt="Games island: elevated arcade track with neon pylons and floating blocks" width="420"> | <img src="docs/capturas/3d-isla-estudio.jpg" alt="Study island: green valley with hills and glass project panels" width="420"> |
+| **Games.** An elevated track over the void, with neon pylons, floating blocks and an arcade sun. | **Study.** A green valley with hills, trees, floating books and green bubbles. |
+| <img src="docs/capturas/3d-isla-sistemas.jpg" alt="Systems island: violet server hall with LED towers" width="420"> | <img src="docs/capturas/3d-detalle-proyecto.jpg" alt="Project detail with screenshot gallery, role, measured results and links" width="420"> |
+| **Systems.** A server hall with LED towers, cable arches and falling data. | **Project detail.** Camera dolly to the panel, gallery, role, measured results and links. Shareable by URL (`#proyecto-…`). |
+| <img src="docs/capturas/3d-sala-de-maquinas.jpg" alt="Machine room: robotic arms, server racks and the open hatch" width="420"> | <img src="docs/capturas/3d-chip.jpg" alt="Looking down through the hatch at the chip with the IVANCHUX die and circuit traces" width="420"> |
+| **Machine room.** Robotic arms open as you pass, follow the cursor and lean towards the hatch. | **Into the chip.** The hatch opens onto a microprocessor; the camera dives into it with a digital flash. |
+| <img src="docs/capturas/3d-tunel.jpg" alt="Blue cable tunnel with coloured fibres and a floating layer called Tech stack" width="420"> | <img src="docs/capturas/3d-contacto.jpg" alt="Final red alley with the contact window" width="420"> |
+| **Blue tunnel.** Only visible once inside the chip: a ribbed glass conduit with coloured fibres and light pulses. One layer per skill floats inside (clickable). | **Contact.** The red alley, with email, GitHub and (once confirmed) LinkedIn. |
 
 More: a hidden console (key `` ` ``: `help`, `goto`, `open`, `stack`, `lab`, `os`…), an optional soft ambient sound that shifts slightly with position and depth, keyboard navigation and `prefers-reduced-motion` support. Without WebGL it offers the classic version.
 
 ### Classic version
 
 <p align="center"><img src="docs/capturas/clasica.jpg" alt="Classic version: hero, notepad and the CRT monitor desk" width="760"></p>
+
+### Simple version
+
+A single light page, with no JavaScript or animations: every project by category with its screenshot, skills, about me and contact. Ideal for slow connections, printing or assistive technologies.
+
+<p align="center"><img src="docs/capturas/simple.jpg" alt="Simple version: single page with the project list by category" width="760"></p>
 
 ## Visual editor
 

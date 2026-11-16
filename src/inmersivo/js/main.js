@@ -90,7 +90,7 @@
 
     /* transiciones entre capítulos y entre escena↔detalle */
     const P = IV.P; let tr = 0;
-    [P.roster, P.hardware, P.d1, P.contact].forEach(b => { tr = Math.max(tr, Math.exp(-Math.pow((S.ps - b) / .010, 2))); });
+    [P.roster, P.hardware, IV.CHIP_P || P.d1, P.d1, P.contact].forEach(b => { tr = Math.max(tr, Math.exp(-Math.pow((S.ps - b) / .010, 2))); });
     tr = Math.max(tr * .85, 4 * S.dz * (1 - S.dz) * .55);
     if (S.intro > 0) { tr = Math.max(tr, S.intro); S.intro = Math.max(0, S.intro - dt * .9); }
     S.tr = tr;

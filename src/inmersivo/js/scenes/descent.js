@@ -27,7 +27,7 @@
           vec3 p=vW;
           float rock=fbm(p*.16);
           float depth=clamp(-p.y/115.,0.,1.);
-          vec3 top=vec3(.06,.28,.40),mid=vec3(.02,.07,.26),bot=vec3(.24,.03,.05);
+          vec3 top=vec3(.05,.30,.62),mid=vec3(.02,.12,.44),bot=vec3(.24,.03,.05);
           vec3 base=mix(mix(top,mid,smoothstep(0.,.5,depth)),bot,smoothstep(.82,1.,depth));
           float vein=pow(abs(sin(fbm(p*.22+vec3(0.,uT*.03,0.))*14.)),9.);
           vec3 col=base*(.35+rock*1.5)+vec3(.2,.9,1.)*vein*.5*(1.-depth*.7);
@@ -70,18 +70,18 @@
 
     /* --- anillos-checkpoint con profundidad --- */
     const rings = [], nR = IV.LOW ? 10 : 16;
-    const rm = new T.MeshBasicMaterial({ color: 0x7fe9ff, transparent: true, opacity: .5, blending: T.AdditiveBlending, depthWrite: false });
+    const rm = new T.MeshBasicMaterial({ color: 0x7fe9ff, transparent: true, opacity: .24, blending: T.AdditiveBlending, depthWrite: false });
     const tmpP = new T.Vector3(), tmpT = new T.Vector3();
     for (let i = 0; i < nR; i++) {
       const p = IV.mix(P.d1 + .01, P.contact - .02, i / (nR - 1));
       IV.path.getPointAt(p, tmpP); IV.path.getPointAt(Math.min(p + .004, 1), tmpT);
       const r = new T.Group(); r.position.set(tmpP.x, tmpP.y, tmpP.z - IV.OFF); r.lookAt(tmpT);
-      const a = new T.Mesh(new T.TorusGeometry(2.6, .05, 8, 72), rm), b = new T.Mesh(new T.TorusGeometry(2.9, .018, 6, 72), rm);
+      const a = new T.Mesh(new T.TorusGeometry(4.95, .08, 8, 72), rm), b = new T.Mesh(new T.TorusGeometry(5.25, .025, 6, 72), rm);
       r.add(a, b);
       if (i % 3 === 1) {                                   // etiqueta de profundidad
         const m = Math.round(-tmpP.y), tex = IV.canvasTex(256, 64, (g, w, h) => { g.fillStyle = '#eaffff'; g.font = '400 34px ' + IV.F.mono; g.textAlign = 'center'; g.shadowColor = '#35d4ff'; g.shadowBlur = 12; g.fillText('−' + String(m).padStart(3, '0') + ' m', w / 2, 44); });
         const s = new T.Sprite(new T.SpriteMaterial({ map: tex, transparent: true, depthWrite: false, blending: T.AdditiveBlending }));
-        s.scale.set(2.8, .7, 1); s.position.set(0, 3.5, 0); r.add(s);
+        s.scale.set(2.8, .7, 1); s.position.set(0, 3.2, 0); r.add(s);
       }
       group.add(r); rings.push({ r, a, b, i, y: tmpP.y });
     }
@@ -117,11 +117,55 @@
         }
         const gl = g.createLinearGradient(0, 0, W, H * .5); gl.addColorStop(0, 'rgba(255,255,255,.3)'); gl.addColorStop(.6, 'rgba(255,255,255,0)'); g.fillStyle = gl; IV.rr(g, 4, 4, W - 8, H * .5, 30); g.fill();
       });
-      const m = new T.Mesh(new T.PlaneGeometry(7.2, 4.5), new T.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false, side: T.DoubleSide }));
+      const m = new T.Mesh(new T.PlaneGeometry(6, 3.75), new T.MeshBasicMaterial({ map: tex, transparent: true, depthWrite: false, side: T.DoubleSide }));
       IV.path.getPointAt(IV.slabP(i, nS), tmpP);
-      m.rotation.x = -Math.PI / 2; m.position.set(tmpP.x + (i % 2 ? 1 : -1) * 4.4, tmpP.y - 3.2, tmpP.z + 1.2 - IV.OFF); m.userData.y0 = m.position.y;
+      m.rotation.x = -Math.PI / 2; m.position.set(tmpP.x + (i % 2 ? 1 : -1) * 2.4, tmpP.y - 2.7, tmpP.z + 1.2 - IV.OFF); m.userData.y0 = m.position.y;
       group.add(m); sl.mesh = m; sl.hv = 0;
     });
+
+    /* --- el TÚNEL de cable azul: conducto de cristal costillado + fibras de luz que se enrollan y pulsan ---
+       Sigue exactamente el camino de la cámara, así que se viaja por dentro de él. */
+    const fibras = []; let tubo = null;
+    const tunel = (() => {
+      const uA = P.hatch - .004, uB = P.contact + .006, NS = Math.round((uB - uA) * IV.PATH_LEN * 1.5), pts = [];
+      for (let i = 0; i <= 90; i++) { const q = IV.path.getPointAt(IV.mix(uA, uB, i / 90)); pts.push(new T.Vector3(q.x, q.y, q.z - IV.OFF)); }
+      const curve = new T.CatmullRomCurve3(pts), R = IV.LOW ? 4.4 : 4.8, L = curve.getLength();
+      const geo = new T.TubeGeometry(curve, NS, R, IV.LOW ? 18 : 32, false);
+      const tm = new T.ShaderMaterial({
+        side: T.BackSide, transparent: true, depthWrite: false, blending: T.AdditiveBlending, fog: false,
+        uniforms: { uT: { value: 0 }, uL: { value: L }, uShow: { value: 0 } },
+        vertexShader: 'varying vec2 vUv;varying vec3 vN,vV;void main(){vUv=uv;vec4 mv=modelViewMatrix*vec4(position,1.);vN=normalize(normalMatrix*normal);vV=normalize(-mv.xyz);gl_Position=projectionMatrix*mv;}',
+        fragmentShader: `varying vec2 vUv;varying vec3 vN,vV;uniform float uT,uL,uShow;
+          void main(){
+            float s=vUv.x*uL;
+            float rib=smoothstep(.14,.0,abs(fract(s/1.7)-.5)-.36);                 /* costillas */
+            float big=smoothstep(.05,.0,abs(fract(s/8.)-.5)-.46);                   /* aros gruesos cada 8 m */
+            float seam=smoothstep(.03,.0,abs(fract(vUv.y*16.)-.5)-.47);             /* juntas longitudinales */
+            float pulse=pow(max(0.,sin(s*.33-uT*2.4)),24.);                         /* pulsos de luz que bajan */
+            float f=pow(1.-clamp(abs(dot(normalize(vN),normalize(vV))),0.,1.),1.6);
+            vec3 col=vec3(.06,.26,.7)*(.12+f*.5)+vec3(.3,.7,1.)*rib*.2+vec3(.6,.9,1.)*big*.38+vec3(.2,.5,1.)*seam*.14+vec3(.4,.8,1.)*pulse*(.14+rib*.4);
+            gl_FragColor=vec4(col*uShow,(.14+f*.25+rib*.18+big*.28+pulse*.2)*uShow);}`
+      });
+      const tube = new T.Mesh(geo, tm); tube.renderOrder = 3; tube.frustumCulled = false; group.add(tube); tubo = tube;
+      /* fibras: hilos de colores que se enrollan por la pared con pulsos que bajan */
+      const nF = IV.LOW ? 8 : 18, cols = [0x35d4ff, 0x4f8bff, 0x9a7bff, 0xffffff, 0x7fffd4, 0xff6a5a, 0xffb347, 0x2f7bff, 0xff4aa8];
+      for (let k = 0; k < nF; k++) {
+        const a0 = k / nF * Math.PI * 2, turns = 2 + (k * 7 % 5) * .45, rr = R * (.8 + .08 * Math.sin(k * 2.1)), dir = k % 2 ? 1 : -1, sp = [];
+        for (let i = 0; i <= NS; i += 2) {
+          const j = Math.min(i, geo.normals.length - 1), c = curve.getPointAt(i / NS), a = a0 + (i / NS) * turns * Math.PI * 2 * dir;
+          sp.push(new T.Vector3().copy(c).addScaledVector(geo.normals[j], Math.cos(a) * rr).addScaledVector(geo.binormals[j], Math.sin(a) * rr));
+        }
+        const g = new T.TubeGeometry(new T.CatmullRomCurve3(sp), sp.length * 2, .05 + .035 * (k % 3), 5, false);
+        const m = new T.ShaderMaterial({
+          transparent: true, depthWrite: false, blending: T.AdditiveBlending, fog: false,
+          uniforms: { uT: { value: 0 }, uShow: { value: 0 }, uC: { value: new T.Color(cols[k % cols.length]) }, uL: { value: L }, uPh: { value: k * 1.7 } },
+          vertexShader: 'varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',
+          fragmentShader: 'varying vec2 vUv;uniform float uT,uL,uPh,uShow;uniform vec3 uC;void main(){float s=vUv.x*uL;float p=pow(max(0.,sin(s*.22-uT*(1.6+uPh*.05)+uPh)),12.);gl_FragColor=vec4(uC*(.28+p*1.1)*uShow,(.5+p*.35)*uShow);}'
+        });
+        const mesh = new T.Mesh(g, m); mesh.renderOrder = 4; mesh.frustumCulled = false; group.add(mesh); fibras.push(m);
+      }
+      return tm;
+    })();
 
     /* --- burbujas y plancton --- */
     const bub = IV.makeBubbles(IV.LOW ? 50 : 150, { x: CX, y: -58, z: CZ + IV.OFF, w: 30, h: 116, d: 30 }, .34, 0x7ff0ff); group.add(bub.mesh);
@@ -141,7 +185,12 @@
       update() {
         const t = S.t, camY = IV.cam.position.y;
         wall.material.uniforms.uT.value = t;
+        /* el túnel solo existe tras entrar en el chip: antes está oculto del todo */
+        const show = IV.ss(IV.CHIP_P + .001, IV.CHIP_P + .02, S.ps);
+        tunel.uniforms.uT.value = t; tunel.uniforms.uShow.value = show; tubo.visible = show > .002;
+        fibras.forEach(m => { m.uniforms.uT.value = t; m.uniforms.uShow.value = show; }); rm.opacity = .24 * show;
         rings.forEach(o => {
+          o.r.visible = show > .002;
           const near = Math.exp(-Math.pow((camY - o.y) / 6, 2));
           o.a.rotation.z = t * .4 + o.i; o.b.rotation.z = -t * .3 + o.i;
           const s = 1 + near * .18 + Math.sin(t * 2 + o.i) * .02; o.r.scale.set(s, s, s);

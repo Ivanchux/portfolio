@@ -113,6 +113,46 @@
     group.add(strip);
     for (let k = 0; k < 12; k++) { const b = new T.Mesh(new T.BoxGeometry(20, .25, .5), dark); b.position.set(0, 7, -54 - k * 5); group.add(b); }
 
+    /* --- el CHIP bajo la trampilla: al abrirse se ve un microprocesador; la cámara "entra en el chip" y solo entonces aparece el túnel --- */
+    const CHIP_Y = -4.4, CHIP_Z = -104;
+    const chipTex = IV.canvasTex(1024, 1024, (g, W, H) => {
+      g.fillStyle = '#04101b'; g.fillRect(0, 0, W, H);
+      g.strokeStyle = 'rgba(53,212,255,.07)'; g.lineWidth = 1; for (let i = 0; i <= 32; i++) { g.beginPath(); g.moveTo(i * W / 32, 0); g.lineTo(i * W / 32, H); g.stroke(); g.beginPath(); g.moveTo(0, i * H / 32); g.lineTo(W, i * H / 32); g.stroke(); }
+      g.lineCap = 'round'; g.lineJoin = 'round';
+      for (let i = 0; i < 110; i++) {                                     // pistas que salen del núcleo hacia los bordes, con quiebros a 45°
+        const side = i % 4, dx = [0, 1, 0, -1][side], dy = [-1, 0, 1, 0][side], gold = i % 6 === 0;
+        let x = W / 2 + (IV.rnd() - .5) * 300, y = H / 2 + (IV.rnd() - .5) * 300;
+        g.strokeStyle = gold ? 'rgba(255,205,100,.75)' : 'rgba(53,212,255,.6)'; g.lineWidth = gold ? 4 : 2 + IV.rnd() * 2.5; g.beginPath(); g.moveTo(x, y);
+        x += dx * (140 + IV.rnd() * 160); y += dy * (140 + IV.rnd() * 160); g.lineTo(x, y);
+        const j = IV.rnd() < .5 ? -1 : 1, q = 50 + IV.rnd() * 90; x += (dx ? dx : j) * q; y += (dy ? dy : j) * q; g.lineTo(x, y);
+        x = dx ? (dx > 0 ? W - 46 : 46) : x; y = dy ? (dy > 0 ? H - 46 : 46) : y; g.lineTo(x, y); g.stroke();
+        g.fillStyle = g.strokeStyle; g.beginPath(); g.arc(x, y, 7, 0, 7); g.fill();
+      }
+      g.fillStyle = 'rgba(255,205,100,.8)';                               // patillas del encapsulado
+      for (let i = 0; i < 40; i++) { const p = 30 + i * (W - 60) / 39; g.fillRect(p - 5, 8, 10, 26); g.fillRect(p - 5, H - 34, 10, 26); g.fillRect(8, p - 5, 26, 10); g.fillRect(W - 34, p - 5, 26, 10); }
+      const d = g.createLinearGradient(W / 2 - 200, H / 2 - 200, W / 2 + 200, H / 2 + 200); d.addColorStop(0, '#1d4f8a'); d.addColorStop(.5, '#0a2142'); d.addColorStop(1, '#2a6ac0');
+      g.shadowColor = '#35d4ff'; g.shadowBlur = 50; g.fillStyle = d; IV.rr(g, W / 2 - 200, H / 2 - 200, 400, 400, 26); g.fill(); g.shadowBlur = 0;
+      g.strokeStyle = 'rgba(190,245,255,.9)'; g.lineWidth = 4; IV.rr(g, W / 2 - 200, H / 2 - 200, 400, 400, 26); g.stroke();
+      g.strokeStyle = 'rgba(127,233,255,.25)'; g.lineWidth = 1.5; for (let i = 1; i < 10; i++) { g.beginPath(); g.moveTo(W / 2 - 180, H / 2 - 200 + i * 40); g.lineTo(W / 2 + 180, H / 2 - 200 + i * 40); g.stroke(); g.beginPath(); g.moveTo(W / 2 - 200 + i * 40, H / 2 - 180); g.lineTo(W / 2 - 200 + i * 40, H / 2 + 180); g.stroke(); }
+      g.fillStyle = '#eaffff'; g.font = '600 64px ' + IV.F.ui; g.textAlign = 'center'; g.shadowColor = '#35d4ff'; g.shadowBlur = 22; g.fillText('IVANCHUX', W / 2, H / 2 + 12);
+      g.shadowBlur = 0; g.font = '400 26px ' + IV.F.mono; g.fillStyle = '#7fffd4'; g.fillText('SYS-ASIR · rev.2', W / 2, H / 2 + 60);
+    });
+    const darkM = new T.MeshStandardMaterial({ color: 0x0a1624, roughness: .5, metalness: .6 }), chipTop = new T.MeshBasicMaterial({ map: chipTex });
+    const chip = new T.Mesh(new T.BoxGeometry(9.6, .5, 9.6), [darkM, darkM, chipTop, darkM, darkM, darkM]);
+    chip.position.set(0, CHIP_Y, CHIP_Z); group.add(chip);
+    /* progreso en el que la cámara cruza la superficie del chip: ahí se hace el destello y empieza a verse el túnel */
+    IV.CHIP_P = (() => { let u = P.hatch; while (u < P.d1 && IV.path.getPointAt(u).y > CHIP_Y - .3) u += .0002; return u; })();
+
+    /* --- cables gruesos del rail que se hunden por la trampilla y siguen como fibras del túnel azul --- */
+    const bajada = [];
+    [0xff3b2f, 0x2f7bff, 0xff9a1f, 0x35d4ff, 0x8dff4e, 0xffffff].forEach((c, k) => {
+      const x = (k - 2.5) * .16, pts = [[x, FLOOR + .5, -84], [x, FLOOR + .25, -96], [x * 1.2, FLOOR + .1, -103], [x * 1.4, FLOOR - 1.6, -104.4], [x * 1.2, -4.1, -104.5]].map(p => new T.Vector3(...p));
+      const m = new T.ShaderMaterial({ transparent: true, depthWrite: false, blending: T.AdditiveBlending, uniforms: { uT: { value: 0 }, uC: { value: new T.Color(c) } },
+        vertexShader: 'varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',
+        fragmentShader: 'varying vec2 vUv;uniform float uT;uniform vec3 uC;void main(){float p=pow(max(0.,sin(vUv.x*60.-uT*3.)),10.);gl_FragColor=vec4(uC*(.5+p*1.8),1.);}' });
+      group.add(new T.Mesh(new T.TubeGeometry(new T.CatmullRomCurve3(pts), 60, .1, 6, false), m)); bajada.push(m);
+    });
+
     /* --- trampilla: dos placas que se separan + haz de luz hacia abajo --- */
     const hatchL = new T.Mesh(new T.BoxGeometry(3, .22, 6), white), hatchR = hatchL.clone();
     hatchL.position.set(-1.5, FLOOR + .05, -104); hatchR.position.set(1.5, FLOOR + .05, -104); group.add(hatchL, hatchR);
@@ -136,6 +176,8 @@
           a.eP.rotation.z = IV.mix(EL[0], EL[1], e) - sw * 1.4;
           a.wP.rotation.z = IV.mix(WR[0], WR[1], e) + sw;
           /* los brazos siguen el cursor: se inclinan y giran hacia él */
+          const fin = IV.ss(N - 6, N - 1, a.i) * .55;                 /* los últimos brazos se inclinan hacia la trampilla */
+          a.sP.rotation.z -= fin * o; a.eP.rotation.z -= fin * .8 * o;
           a.sP.rotation.y = Math.sin(t * .5 + a.i) * .05 * o + (S.sx - .5) * .5 * o * a.side;
           a.sP.rotation.z += (S.sy - .5) * .3 * o;
         });
@@ -144,10 +186,10 @@
           k.c.position.z = z;
           k.led.material.color.setHSL((i % 3) * .17 + .05 + Math.sin(t * 3 + i) * .02, 1, .55 + .15 * Math.sin(t * 4 + i));
         });
-        rackFront.uniforms.uT.value = t;
+        rackFront.uniforms.uT.value = t; bajada.forEach(m => { m.uniforms.uT.value = t; }); chipTop.color.setScalar(.8 + .2 * Math.sin(t * 2.2));
         const open = IV.ss(P.hardwareEnd - .012, P.hatch + .004, S.ps);
         hatchL.position.x = -1.5 - open * 3.3; hatchR.position.x = 1.5 + open * 3.3;
-        beam.material.opacity = open * .22 * (.85 + .15 * Math.sin(t * 2));
+        beam.material.opacity = open * .08 * (.85 + .15 * Math.sin(t * 2));
         bub.update(t);
       }
     };

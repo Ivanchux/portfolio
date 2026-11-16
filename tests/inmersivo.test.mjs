@@ -39,7 +39,7 @@ for (const [ruta, idioma] of [["inmersivo/datos-es.js", "es"], ["inmersivo/datos
 }
 
 test("inmersivo: las páginas y los recursos existen y son locales", async () => {
-  for (const f of ["index.html", "en/index.html", "clasica/index.html", "en/clasica/index.html", "inmersivo/vendor/three.min.js", "inmersivo/js/main.js", "inmersivo/css/style.css"]) assert.ok(existsSync(path.join(DIST, f)), f);
+  for (const f of ["index.html", "en/index.html", "clasica/index.html", "en/clasica/index.html", "simple/index.html", "en/simple/index.html", "inmersivo/vendor/three.min.js", "inmersivo/js/main.js", "inmersivo/css/style.css"]) assert.ok(existsSync(path.join(DIST, f)), f);
   for (const f of ["index.html", "en/index.html"]) {
     const html = await leer(f);
     assert.ok(!/<(script|link)[^>]+(src|href)="https?:\/\//i.test(html), f);

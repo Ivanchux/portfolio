@@ -61,7 +61,7 @@ function compilar() {
   const correr = (script) => new Promise((ok) => execFile(process.execPath, [path.join(RAIZ, "herramientas", script)], { cwd: RAIZ, maxBuffer: 8e6 }, (err, out, errout) => ok({ code: err ? err.code || 1 : 0, out: String(out) + String(errout) })));
   compilando = (async () => {
     const a = await correr("build.mjs"); if (a.code) return { ok: false, log: a.out };
-    const b = await correr("inmersivo.mjs");
+    const b0 = await correr("inmersivo.mjs"), s0 = await correr("simple.mjs"), b = { code: b0.code || s0.code, out: b0.out + s0.out };
     const log = a.out + b.out;
     const pendientes = log.split("\n").filter((l) => /^ {2}\S/.test(l) && /: /.test(l)).map((l) => l.trim());
     return { ok: b.code === 0, log, pendientes };

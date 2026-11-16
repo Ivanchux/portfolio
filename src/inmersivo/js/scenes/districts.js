@@ -1,68 +1,80 @@
 /* =========================================================
-   scenes/districts.js — el mundo continuo del roster.
-   Un suelo cuyo color cambia suavemente con el recorrido, una puerta
-   (anillo + rótulo) por distrito, pedestales bajo cada proyecto y
-   decorado propio de cada tipo:
-     web → ventanas de cristal y burbujas · juegos → bloques y neones
-     estudio → libros, colinas y burbujas verdes · sistemas → racks con LEDs
-   Nada aparece "de golpe": todo emerge de la niebla al acercarte.
+   scenes/districts.js — el mundo del roster, hecho de ISLAS y PUENTES.
+   Cada categoría es una isla en un sitio distinto (a un lado, más alta o más baja):
+     web → terraza de cristal con ventanas y burbujas
+     juegos → pista elevada sobre el vacío, con neones, bloques y rejilla abajo
+     estudio → valle con colinas, árboles, libros flotando y burbujas verdes
+     sistemas → nave de servidores con arcos de cables y torres con LEDs
+   Entre islas hay puentes estrechos que giran, suben o bajan, y el último
+   entra en la sala de máquinas. Todo emerge de la niebla: nada aparece de golpe.
    ========================================================= */
 (function () {
   'use strict';
   const IV = window.IV, T = THREE;
+  const UP = new T.Vector3(0, 1, 0);
 
-  IV.build.push(['Distritos · web, juegos, estudio, sistemas', () => {
-    const DIS = IV.DISTRICTS, S = IV.S, env = IV.env;
+  IV.build.push(['Islas · web, juegos, estudio, sistemas', () => {
+    const DIS = IV.DISTRICTS, S = IV.S, P = IV.P, env = IV.env;
     if (!DIS.length) return;
     const group = new T.Group(); IV.scene.add(group);
-    const zTop = DIS[0].gate + 14, zBot = IV.ZEND - 8, zc = (zTop + zBot) / 2, len = zTop - zBot;
-    const Y = -2.4, col = h => new T.Color(h), rnd = IV.rnd;
+    const col = h => new T.Color(h), rnd = IV.rnd, F = IV.F;
+    const u0 = P.roster - .02, u1 = P.rosterEnd + .012, len = (u1 - u0) * IV.PATH_LEN;
+    const zTop = IV.path.getPointAt(u0).z, zBot = IV.path.getPointAt(u1).z;
+    const _p = new T.Vector3(), _t = new T.Vector3(), _r = new T.Vector3(), dm = new T.Object3D(), cc = new T.Color();
 
-    /* --- suelo continuo: la paleta se muestrea por z (de un distrito al siguiente sin cortes) --- */
-    const pw = 256, pd = new Uint8Array(pw * 4);
-    const cs = DIS.map(d => ({ z: d.center, c: col(d.cat.color) })), tmp = new T.Color();
+    /* ancho del suelo en cada punto: ancho en las islas, estrecho (puente) entre ellas */
+    const island = z => { let w = 0; DIS.forEach(d => { w = Math.max(w, IV.ss(d.gate + 10, d.gate - 4, z) * (1 - IV.ss(d.end + 4, d.end - 8, z))); }); return w; };
+
+    /* --- suelo continuo: sigue el camino (curvas incluidas); la paleta se muestrea por z --- */
+    const pw = 256, pd = new Uint8Array(pw * 4), cs = DIS.map(d => ({ z: d.center, c: col(d.cat.color) })), tmp = new T.Color();
     for (let i = 0; i < pw; i++) {
       const z = IV.mix(zTop, zBot, i / (pw - 1));
       let k = 0; while (k < cs.length - 1 && z < (cs[k].z + cs[k + 1].z) / 2) k++;
-      const a = cs[Math.max(0, k)], b = cs[Math.min(cs.length - 1, k + 1)];
-      const t = a === b ? 0 : IV.ss(a.z, b.z, z);
-      tmp.copy(a.c).lerp(b.c, t);
-      pd[i * 4] = tmp.r * 255; pd[i * 4 + 1] = tmp.g * 255; pd[i * 4 + 2] = tmp.b * 255; pd[i * 4 + 3] = 255;
+      const a = cs[k], b = cs[Math.min(cs.length - 1, k + 1)], t = a === b ? 0 : IV.ss(a.z, b.z, z);
+      tmp.copy(a.c).lerp(b.c, t); pd[i * 4] = tmp.r * 255; pd[i * 4 + 1] = tmp.g * 255; pd[i * 4 + 2] = tmp.b * 255; pd[i * 4 + 3] = 255;
     }
     const palTex = new T.DataTexture(pd, pw, 1, T.RGBAFormat); palTex.minFilter = palTex.magFilter = T.LinearFilter; palTex.needsUpdate = true;
+    const nS = Math.ceil(len / 1.4), pos = new Float32Array(nS * 2 * 3), lat = new Float32Array(nS * 2), wid = new Float32Array(nS * 2), idxs = [];
+    for (let i = 0; i < nS; i++) {
+      const u = IV.mix(u0, u1, i / (nS - 1)); IV.path.getPointAt(u, _p); _t.copy(IV.path.getTangentAt(u)); _r.crossVectors(_t, UP).normalize();
+      const w = IV.mix(5.2, 21, island(_p.z)), y = _p.y + IV.mix(-2.4, -1, IV.ss(zBot + 30, zBot + 4, _p.z));
+      for (const s of [0, 1]) { const sg = s ? 1 : -1, o = (i * 2 + s) * 3; pos[o] = _p.x + _r.x * sg * w; pos[o + 1] = y; pos[o + 2] = _p.z + _r.z * sg * w; lat[i * 2 + s] = sg * w; wid[i * 2 + s] = w; }
+      if (i) { const a = (i - 1) * 2; idxs.push(a, a + 1, a + 2, a + 1, a + 3, a + 2); }
+    }
+    const fg = new T.BufferGeometry(); fg.setAttribute('position', new T.BufferAttribute(pos, 3)); fg.setAttribute('aLat', new T.BufferAttribute(lat, 1)); fg.setAttribute('aW', new T.BufferAttribute(wid, 1)); fg.setIndex(idxs);
     const floorMat = new T.ShaderMaterial({
+      side: T.DoubleSide,
       uniforms: { uPal: { value: palTex }, uZ0: { value: zTop }, uZ1: { value: zBot }, uFog: { value: new T.Color() }, uDen: { value: .02 }, uT: { value: 0 } },
-      vertexShader: 'varying vec3 vW;void main(){vec4 w=modelMatrix*vec4(position,1.);vW=w.xyz;gl_Position=projectionMatrix*viewMatrix*w;}',
-      fragmentShader: `varying vec3 vW;uniform sampler2D uPal;uniform float uZ0,uZ1,uDen,uT;uniform vec3 uFog;
+      vertexShader: 'attribute float aLat,aW;varying vec3 vW;varying float vL,vWd;void main(){vW=position;vL=aLat;vWd=aW;gl_Position=projectionMatrix*viewMatrix*vec4(position,1.);}',
+      fragmentShader: `varying vec3 vW;varying float vL,vWd;uniform sampler2D uPal;uniform float uZ0,uZ1,uDen,uT;uniform vec3 uFog;
         void main(){
           float t=clamp((vW.z-uZ0)/(uZ1-uZ0),0.,1.);
           vec3 pc=texture2D(uPal,vec2(t,.5)).rgb;
           vec2 q=vW.xz/2.;vec2 d=abs(fract(q+.5)-.5);
           float l=smoothstep(.04,.0,min(d.x,d.y));
           vec2 d5=abs(fract(q/5.+.5)-.5)*5.;float L=smoothstep(.07,.0,min(d5.x,d5.y));
-          float ax=abs(vW.x);
-          float lane=smoothstep(2.6,2.2,ax)*(.5+.5*sin(vW.z*.5-uT*2.));   /* carril central con pulso que avanza */
-          float edge=smoothstep(19.,6.,ax);
+          float ax=abs(vL);
+          float lane=smoothstep(2.6,2.2,ax)*(.5+.5*sin(vW.z*.5+vW.x*.3-uT*2.));
+          float edge=smoothstep(vWd,vWd-5.,ax);
+          float rim=smoothstep(.7,.0,vWd-ax)*.9;
           vec3 base=pc*.10+vec3(.01,.03,.05);
-          vec3 c=base+pc*(l*.28+L*.55)*edge+pc*lane*.22+pc*smoothstep(.3,.0,abs(ax-2.5))*.35;
+          vec3 c=base+pc*(l*.28+L*.55)*edge+pc*lane*.22+pc*smoothstep(.3,.0,abs(ax-2.5))*.35+pc*rim;
           float dist=length(vW-cameraPosition);
           c=mix(c,uFog,1.-exp(-pow(dist*uDen,2.)));
           gl_FragColor=vec4(c,1.);
         }`
     });
-    const floor = new T.Mesh(new T.PlaneGeometry(46, len), floorMat);
-    floor.rotation.x = -Math.PI / 2; floor.position.set(0, Y, zc); group.add(floor);
+    group.add(new T.Mesh(fg, floorMat));
 
-    /* --- puertas: anillo de cristal + rótulo con nombre, cantidad y descripción --- */
+    /* --- puertas: anillo de cristal orientado según el camino + rótulo --- */
     const gates = [];
     DIS.forEach((d, di) => {
-      const c = d.cat, g = new T.Group(); g.position.set(0, 0, d.gate);
+      const c = d.cat, g = new T.Group(); IV.path.getPointAt(d.p, _p); _t.copy(IV.path.getTangentAt(d.p)); g.position.copy(_p); g.lookAt(_p.clone().add(_t));
       const m = new T.MeshBasicMaterial({ color: col(c.color), transparent: true, opacity: .85, blending: T.AdditiveBlending, depthWrite: false });
       const r1 = new T.Mesh(new T.TorusGeometry(7.2, .11, 10, 96), m), r2 = new T.Mesh(new T.TorusGeometry(7.7, .035, 8, 96), m);
       r1.position.y = r2.position.y = 1.2; g.add(r1, r2);
-      for (const s of [-1, 1]) { const p = new T.Mesh(new T.BoxGeometry(.18, 9, .18), m); p.position.set(s * 7.2, 1.2 - 2.4 + 2.1, 0); g.add(p); }
-      const n = d.idx.length, F = IV.F;
-      const tex = IV.canvasTex(1024, 300, (x, W, H) => {
+      for (const s of [-1, 1]) { const p = new T.Mesh(new T.BoxGeometry(.18, 9, .18), m); p.position.set(s * 7.2, -.3, 0); g.add(p); }
+      const n = d.idx.length, tex = IV.canvasTex(1024, 300, (x, W) => {
         x.textAlign = 'center'; x.textBaseline = 'alphabetic';
         x.shadowColor = c.color; x.shadowBlur = 28; x.fillStyle = '#fff'; x.font = '600 110px ' + F.ui; x.fillText((c.name || c.label).toUpperCase(), W / 2, 130);
         x.shadowBlur = 10; x.fillStyle = '#bff6ff'; x.font = '400 34px ' + F.mono;
@@ -79,15 +91,25 @@
     const N = IV.PROJECTS.length;
     const ped = new T.InstancedMesh(new T.CylinderGeometry(1.5, 1.8, .06, 40), new T.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: .28, blending: T.AdditiveBlending, depthWrite: false }), N);
     const beam = new T.InstancedMesh(new T.CylinderGeometry(1.5, 1.6, 5.5, 28, 1, true), new T.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: .06, blending: T.AdditiveBlending, depthWrite: false, side: T.DoubleSide }), N);
-    const dm = new T.Object3D(), cc = new T.Color();
     IV.PROJECTS.forEach((p, i) => {
-      const s = IV.SLOT[i]; cc.set(p.color);
-      dm.position.set(s.x, Y + .04, s.z); dm.updateMatrix(); ped.setMatrixAt(i, dm.matrix); ped.setColorAt(i, cc);
-      dm.position.set(s.x, Y + 2.8, s.z); dm.updateMatrix(); beam.setMatrixAt(i, dm.matrix); beam.setColorAt(i, cc);
+      const s = IV.SLOT[i]; cc.set(p.color); const gy = s.gy;
+      dm.rotation.set(0, 0, 0); dm.scale.setScalar(1);
+      dm.position.set(s.x, gy + .04, s.z); dm.updateMatrix(); ped.setMatrixAt(i, dm.matrix); ped.setColorAt(i, cc);
+      dm.position.set(s.x, gy + 2.8, s.z); dm.updateMatrix(); beam.setMatrixAt(i, dm.matrix); beam.setColorAt(i, cc);
     });
     group.add(ped, beam);
 
-    /* --- decorado por tipo --- */
+    /* --- puentes: luces en los bordes --- */
+    const lightsN = Math.ceil(len / 4), edge = new T.InstancedMesh(new T.BoxGeometry(.18, .5, .5), new T.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: .9, blending: T.AdditiveBlending, depthWrite: false }), lightsN * 2); let ek = 0;
+    for (let i = 0; i < lightsN; i++) {
+      const u = IV.mix(u0, u1, i / (lightsN - 1)); IV.path.getPointAt(u, _p); _t.copy(IV.path.getTangentAt(u)); _r.crossVectors(_t, UP).normalize();
+      const iw = island(_p.z); if (iw > .6) continue;
+      const k = DIS.findIndex(d => _p.z > d.end - d.bridge - 1 && _p.z <= d.end + 1), dd = DIS[Math.max(0, k)], c = dd ? dd.cat.color : '#35d4ff', w = IV.mix(5.2, 21, iw);
+      for (const s of [-1, 1]) { dm.position.set(_p.x + _r.x * s * (w - .2), _p.y - 2.1, _p.z + _r.z * s * (w - .2)); dm.lookAt(dm.position.clone().add(_t)); dm.scale.setScalar(1); dm.updateMatrix(); edge.setMatrixAt(ek, dm.matrix); cc.set(c); edge.setColorAt(ek, cc); ek++; }
+    }
+    edge.count = ek; group.add(edge);
+
+    /* --- decorado por tipo de isla --- */
     const props = [];
     const winTex = IV.canvasTex(256, 176, (g, w, h) => {
       g.fillStyle = 'rgba(150,230,255,.22)'; IV.rr(g, 4, 4, w - 8, h - 8, 10); g.fill();
@@ -113,50 +135,56 @@
           c+=vec3(.1,.1,.2)*step(fy,.08);
           gl_FragColor=vec4(c,1.);}`
     });
+    const along = (d, step, fn) => { for (let z = d.gate - 4; z > d.end + 2; z -= step) { const u = IV.pAtZ(z); IV.path.getPointAt(u, _p); _t.copy(IV.path.getTangentAt(u)); _r.crossVectors(_t, UP).normalize(); fn(_p, _t, _r, z); } };
 
-    DIS.forEach((d, di) => {
-      const z0 = d.gate - 3, z1 = d.end + 3, L = z0 - z1, rz = () => z0 - rnd() * L, side = () => (rnd() < .5 ? -1 : 1), accent = col(d.cat.color);
+    DIS.forEach(d => {
+      const z0 = d.gate - 3, z1 = d.end + 3, L = z0 - z1, rz = () => z0 - rnd() * L, side = () => (rnd() < .5 ? -1 : 1), accent = col(d.cat.color), gy = d.ay - 2.4;
       const nProp = Math.max(10, Math.round(L * (IV.LOW ? .45 : .9)));
-      if (d.style === 0) {                                   // WEB · ventanas de cristal que flotan
+      if (d.style === 0) {                                   // WEB · terraza de cristal: ventanas flotantes
         const mesh = new T.InstancedMesh(new T.PlaneGeometry(3.2, 2.2), winMat, nProp), base = [];
-        for (let i = 0; i < nProp; i++) base.push({ x: side() * (9 + rnd() * 16), y: Y + 1.5 + rnd() * 9, z: rz(), r: (rnd() - .5) * 1.6, s: .7 + rnd() * 1.6, p: rnd() * 6 });
+        for (let i = 0; i < nProp; i++) base.push({ x: d.ax + side() * (9 + rnd() * 16), y: gy + 1.5 + rnd() * 9, z: rz(), r: (rnd() - .5) * 1.6, s: .7 + rnd() * 1.6, p: rnd() * 6 });
         group.add(mesh);
-        const bub = IV.makeBubbles(IV.LOW ? 14 : 40, { x: 0, y: 4, z: d.center, w: 36, h: 14, d: L }, .3, accent.getHex()); group.add(bub.mesh);
+        const bub = IV.makeBubbles(IV.LOW ? 14 : 40, { x: d.ax, y: gy + 5, z: d.center, w: 36, h: 14, d: L }, .3, accent.getHex()); group.add(bub.mesh);
         props.push({ z: d.center, L, up(t) { base.forEach((b, i) => { dm.position.set(b.x, b.y + Math.sin(t * .6 + b.p) * .4, b.z); dm.rotation.set(0, b.r + Math.sin(t * .25 + b.p) * .15, 0); dm.scale.setScalar(b.s); dm.updateMatrix(); mesh.setMatrixAt(i, dm.matrix); }); mesh.instanceMatrix.needsUpdate = true; bub.update(t); } });
-      } else if (d.style === 1) {                            // JUEGOS · bloques-píxel y pilonos de neón
+      } else if (d.style === 1) {                            // JUEGOS · pista elevada: pilares al vacío, rejilla abajo, bloques y neones
         const mesh = new T.InstancedMesh(new T.BoxGeometry(1, 1, 1), new T.MeshStandardMaterial({ color: 0xffffff, emissive: 0x552211, emissiveIntensity: .8, roughness: .35, metalness: .2, envMap: env, envMapIntensity: .6 }), nProp), base = [];
         const pal = [0xff4aa8, 0xffb347, 0xffe45a, 0x35d4ff, 0xff6a3a];
-        for (let i = 0; i < nProp; i++) { base.push({ x: side() * (8 + rnd() * 17), y: Y + .5 + rnd() * 8, z: rz(), s: .6 + rnd() * 1.6, p: rnd() * 6, v: .2 + rnd() * .6 }); cc.setHex(pal[i % pal.length]); mesh.setColorAt(i, cc); }
+        for (let i = 0; i < nProp; i++) { base.push({ x: d.ax + side() * (8 + rnd() * 17), y: gy + .5 + rnd() * 8, z: rz(), s: .6 + rnd() * 1.6, p: rnd() * 6, v: .2 + rnd() * .6 }); cc.setHex(pal[i % pal.length]); mesh.setColorAt(i, cc); }
         group.add(mesh);
-        const pyl = new T.InstancedMesh(new T.BoxGeometry(.22, 12, .22), new T.MeshBasicMaterial({ color: accent }), Math.round(L / 6) * 2 + 2); let k = 0;
-        for (let z = z0 - 2; z > z1; z -= 6) for (const s of [-1, 1]) { dm.position.set(s * 9, Y + 6, z); dm.rotation.set(0, 0, 0); dm.scale.setScalar(1); dm.updateMatrix(); pyl.setMatrixAt(k++, dm.matrix); }
-        pyl.count = k; group.add(pyl);
+        const abyss = new T.Mesh(new T.PlaneGeometry(130, L + 90), IV.gridMat(accent.getHex(), 3, .018)); abyss.rotation.x = -Math.PI / 2; abyss.position.set(d.ax, gy - 34, d.center); group.add(abyss);
+        const pil = new T.InstancedMesh(new T.CylinderGeometry(.9, 1.4, 34, 12), new T.MeshStandardMaterial({ color: 0x241018, roughness: .5, metalness: .6, emissive: accent.clone().multiplyScalar(.12), envMap: env, envMapIntensity: .4 }), Math.ceil(L / 10) + 2); let pk = 0;
+        along(d, 10, p => { dm.position.set(p.x, p.y - 2.4 - 17, p.z); dm.rotation.set(0, 0, 0); dm.scale.setScalar(1); dm.updateMatrix(); pil.setMatrixAt(pk++, dm.matrix); }); pil.count = pk; group.add(pil);
+        const pyl = new T.InstancedMesh(new T.BoxGeometry(.22, 12, .22), new T.MeshBasicMaterial({ color: accent }), Math.ceil(L / 6) * 2 + 4); let k = 0;
+        along(d, 6, (p, t, r) => { for (const s of [-1, 1]) { dm.position.set(p.x + r.x * s * 9, p.y - 2.4 + 6, p.z + r.z * s * 9); dm.rotation.set(0, 0, 0); dm.scale.setScalar(1); dm.updateMatrix(); pyl.setMatrixAt(k++, dm.matrix); } }); pyl.count = k; group.add(pyl);
         props.push({ z: d.center, L, up(t) { base.forEach((b, i) => { dm.position.set(b.x, b.y + Math.sin(t * b.v + b.p) * .6, b.z); dm.rotation.set(t * b.v * .5 + b.p, t * b.v + b.p, 0); dm.scale.setScalar(b.s); dm.updateMatrix(); mesh.setMatrixAt(i, dm.matrix); }); mesh.instanceMatrix.needsUpdate = true; } });
-      } else if (d.style === 2) {                            // ESTUDIO · libros flotando, colinas y burbujas verdes
+      } else if (d.style === 2) {                            // ESTUDIO · valle: colinas, árboles, libros y burbujas verdes
         const mesh = new T.InstancedMesh(new T.BoxGeometry(1.3, .2, .95), new T.MeshStandardMaterial({ color: 0xffffff, roughness: .5, metalness: .05 }), nProp), base = [];
-        for (let i = 0; i < nProp; i++) { base.push({ x: side() * (8 + rnd() * 14), y: Y + 1 + rnd() * 7, z: rz(), s: .8 + rnd() * .9, p: rnd() * 6 }); cc.setHex(bookCols[i % bookCols.length]); mesh.setColorAt(i, cc); }
+        for (let i = 0; i < nProp; i++) { base.push({ x: d.ax + side() * (8 + rnd() * 14), y: gy + 1 + rnd() * 7, z: rz(), s: .8 + rnd() * .9, p: rnd() * 6 }); cc.setHex(bookCols[i % bookCols.length]); mesh.setColorAt(i, cc); }
         group.add(mesh);
-        const hills = new T.MeshStandardMaterial({ color: 0x2f7d3e, roughness: .95, flatShading: false });
-        for (let k = 0; k < Math.max(3, Math.round(L / 9)); k++) { const h = new T.Mesh(new T.SphereGeometry(1, 20, 12, 0, 6.283, 0, 1.571), hills); h.scale.set(9 + rnd() * 8, 2 + rnd() * 3, 9 + rnd() * 8); h.position.set(side() * (19 + rnd() * 10), Y, rz()); group.add(h); }
-        const bub = IV.makeBubbles(IV.LOW ? 14 : 36, { x: 0, y: 4, z: d.center, w: 34, h: 14, d: L }, .38, 0x9dffb0); group.add(bub.mesh);
+        const hills = new T.MeshStandardMaterial({ color: 0x2f7d3e, roughness: .95 });
+        for (let k = 0; k < Math.max(4, Math.round(L / 7)); k++) { const h = new T.Mesh(new T.SphereGeometry(1, 20, 12, 0, 6.283, 0, 1.571), hills); h.scale.set(9 + rnd() * 9, 2.5 + rnd() * 4, 9 + rnd() * 9); h.position.set(d.ax + side() * (20 + rnd() * 12), gy, rz()); group.add(h); }
+        const nT = Math.round(L * (IV.LOW ? .5 : 1.1)), trunk = new T.InstancedMesh(new T.CylinderGeometry(.22, .3, 3, 6), new T.MeshStandardMaterial({ color: 0x6b4a2a, roughness: 1 }), nT), crown = new T.InstancedMesh(new T.SphereGeometry(1.7, 12, 10), new T.MeshStandardMaterial({ color: 0xffffff, roughness: .7, emissive: 0x0a3a14 }), nT);
+        for (let i = 0; i < nT; i++) { const x = d.ax + side() * (8 + rnd() * 16), z = rz(), s = .8 + rnd() * .9; dm.rotation.set(0, 0, 0); dm.scale.setScalar(s); dm.position.set(x, gy + 1.5 * s, z); dm.updateMatrix(); trunk.setMatrixAt(i, dm.matrix); dm.position.set(x, gy + 3.6 * s, z); dm.updateMatrix(); crown.setMatrixAt(i, dm.matrix); cc.setHex(0x3cbf5c).offsetHSL((rnd() - .5) * .08, 0, (rnd() - .5) * .1); crown.setColorAt(i, cc); }
+        group.add(trunk, crown);
+        const bub = IV.makeBubbles(IV.LOW ? 14 : 36, { x: d.ax, y: gy + 5, z: d.center, w: 34, h: 14, d: L }, .38, 0x9dffb0); group.add(bub.mesh);
         props.push({ z: d.center, L, up(t) { base.forEach((b, i) => { dm.position.set(b.x, b.y + Math.sin(t * .5 + b.p) * .5, b.z); dm.rotation.set(Math.sin(t * .3 + b.p) * .3, t * .15 + b.p, Math.sin(t * .4 + b.p) * .2); dm.scale.setScalar(b.s); dm.updateMatrix(); mesh.setMatrixAt(i, dm.matrix); }); mesh.instanceMatrix.needsUpdate = true; bub.update(t); } });
-      } else {                                               // SISTEMAS · torres de servidores con LEDs
+      } else {                                               // SISTEMAS · nave de servidores con arcos de cables
         const n = Math.max(6, Math.round(L / 3.2)) * 2, mesh = new T.InstancedMesh(new T.BoxGeometry(1.4, 1, 1.5), ledMat, n); let k = 0;
-        for (let z = z0 - 1; z > z1 && k < n - 1; z -= 3.2) for (const s of [-1, 1]) {
-          const h = 5 + rnd() * 9; dm.position.set(s * (9 + rnd() * 3), Y + h / 2, z); dm.rotation.set(0, 0, 0); dm.scale.set(1, h, 1); dm.updateMatrix(); mesh.setMatrixAt(k++, dm.matrix);
-        }
+        along(d, 3.2, (p, t, r) => { for (const s of [-1, 1]) { if (k >= n) return; const h = 5 + rnd() * 9, o = 9 + rnd() * 3; dm.position.set(p.x + r.x * s * o, p.y - 2.4 + h / 2, p.z + r.z * s * o); dm.rotation.set(0, 0, 0); dm.scale.set(1, h, 1); dm.updateMatrix(); mesh.setMatrixAt(k++, dm.matrix); } });
         mesh.count = k; group.add(mesh);
+        const arcs = new T.InstancedMesh(new T.TorusGeometry(8.6, .13, 6, 40, Math.PI), new T.MeshBasicMaterial({ color: accent, transparent: true, opacity: .8, blending: T.AdditiveBlending, depthWrite: false }), Math.ceil(L / 8) + 2); let a = 0;
+        along(d, 8, (p, t) => { dm.position.set(p.x, p.y - 2.4, p.z); dm.lookAt(p.clone().add(t)); dm.scale.setScalar(1); dm.updateMatrix(); arcs.setMatrixAt(a++, dm.matrix); }); arcs.count = a; group.add(arcs);
         props.push({ z: d.center, L, up(t) { ledMat.uniforms.uT.value = t; } });
       }
     });
 
     IV.scenes.districts = {
-      group, range: [IV.P.roster - .06, IV.P.hardware + .01],
+      group, range: [P.roster - .06, P.hardware + .01],
       update() {
-        const t = S.t, p = IV.PAL, camZ = IV.cam.position.z;
+        const t = S.t, p = IV.PAL, cam = IV.cam;
         floorMat.uniforms.uFog.value.copy(p.fog); floorMat.uniforms.uDen.value = p.den; floorMat.uniforms.uT.value = t;
-        gates.forEach(o => { o.r1.rotation.z = t * .2 + o.di; o.r2.rotation.z = -t * .15; const near = Math.exp(-Math.pow((camZ - o.g.position.z) / 9, 2)); o.r1.scale.setScalar(1 + near * .06); o.sp.material.opacity = IV.ss(52, 20, Math.abs(camZ - o.g.position.z)); });
-        props.forEach(o => { if (Math.abs(camZ - o.z) < o.L / 2 + 95) o.up(t); });   // solo anima lo cercano
+        gates.forEach(o => { o.r1.rotation.z = t * .2 + o.di; o.r2.rotation.z = -t * .15; const dist = o.g.position.distanceTo(cam.position); o.r1.scale.setScalar(1 + Math.exp(-Math.pow(dist / 9, 2)) * .06); o.sp.material.opacity = IV.ss(52, 20, dist); });
+        props.forEach(o => { if (Math.abs(cam.position.z - o.z) < o.L / 2 + 95) o.up(t); });   // solo anima lo cercano
       }
     };
     IV.sceneList.push(IV.scenes.districts);

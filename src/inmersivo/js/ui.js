@@ -259,7 +259,7 @@
   IV.ui = {
     init() {
       buildSteps();
-      document.body.style.height = C.scrollVh + 'vh';
+      document.body.style.height = Math.max(C.scrollVh, Math.round(IV.PATH_LEN * 4.3)) + 'vh';   // el viaje se alarga con el camino
       $('#hero-tag').textContent = C.tagline;
 
       /* raíl lateral */

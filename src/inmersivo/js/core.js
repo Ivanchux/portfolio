@@ -42,20 +42,24 @@
     tr: 0                 // intensidad de transición entre escenas
   };
 
-  /* ---------- distritos del roster ----------
-     Se calculan desde los datos (categorías × proyectos): al añadir proyectos el mundo se alarga solo.
-     Cada distrito = una puerta (gate), filas de 2 paneles y un final. */
+  /* ---------- islas del roster ----------
+     Cada categoría es una ISLA en un sitio distinto (a un lado, más alta o más baja) y entre islas hay
+     un PUENTE que se desvía. Todo se calcula desde los datos: al añadir proyectos el mundo se alarga solo.
+     La última isla se une, por otro puente, con la sala de máquinas (los brazos) y de ahí se baja al túnel azul. */
   const ROW = 7.6, PER_ROW = 2, STYLE = { web: 0, juegos: 1, aprendizaje: 2, sistemas: 3 };
+  const AX = [0, 26, -26, 20, -20], AY = [0, 7, -3.5, 1.5, 4];      // posición lateral y altura de cada isla
   const DIS = IV.DISTRICTS = [];
   (function () {
+    const act = (IV.CATS || []).map((c, ci) => ({ c, ci, idx: IV.PROJECTS.map((p, i) => p.cat === c.id ? i : -1).filter(i => i >= 0) })).filter(a => a.idx.length);
     let z = -14;
-    (IV.CATS || []).forEach((c, ci) => {
-      const idx = IV.PROJECTS.map((p, i) => p.cat === c.id ? i : -1).filter(i => i >= 0);
-      if (!idx.length) return;
-      const rows = Math.ceil(idx.length / PER_ROW), d = { id: c.id, cat: c, idx, rows, gate: z, rowsZ: [], style: STYLE[c.id] != null ? STYLE[c.id] : ci % 4 };
+    act.forEach((a, k) => {
+      const rows = Math.ceil(a.idx.length / PER_ROW);
+      const d = { id: a.c.id, cat: a.c, idx: a.idx, rows, gate: z, rowsZ: [], style: STYLE[a.c.id] != null ? STYLE[a.c.id] : a.ci % 4, ax: AX[k % AX.length], ay: AY[k % AY.length] };
       for (let r = 0; r < rows; r++) d.rowsZ.push(z - 6 - r * ROW);
       d.end = d.rowsZ[rows - 1] - 7; d.center = (d.gate + d.end) / 2;
-      DIS.push(d); z = d.end - 7;
+      const nx = k + 1 < act.length ? AX[(k + 1) % AX.length] : 0, ny = k + 1 < act.length ? AY[(k + 1) % AY.length] : 0;
+      d.bridge = 18 + Math.abs(nx - d.ax) * .62 + Math.abs(ny - d.ay) * 1.1;           // el puente es más largo cuanto más se desvía
+      d.nx = nx; d.ny = ny; DIS.push(d); z = d.end - d.bridge;
     });
     IV.ZEND = DIS.length ? z : -44;
   })();
@@ -64,28 +68,48 @@
 
   /* ---------- camino de la cámara: UN recorrido continuo ----------
      Cada waypoint tiene nombre; los capítulos se anclan a esos nombres. */
-  const O = IV.OFF;
+  const O = IV.OFF, sm = (a, b, x) => { const t = clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
   const WP = IV.WAYPOINTS = [['start', 0, 0, 12], ['hero', 0, 0, -2]];
-  if (DIS.length) DIS.forEach((d, i) => WP.push([i ? 'dist:' + d.id : 'roster', 0, 0, d.gate])); else WP.push(['roster', 0, 0, -14]);
+  if (DIS.length) {
+    /* x,y a lo largo del roster: dentro de cada isla se queda en su sitio (con un leve vaivén); en el puente se desplaza */
+    const at = z => {
+      let k = DIS.findIndex(d => z > d.end - d.bridge - .001); if (k < 0) k = DIS.length - 1;
+      const d = DIS[k], b0 = d.end;
+      if (z >= b0) return { x: d.ax + 2.2 * Math.sin(z * .07 + k * 1.3), y: d.ay + .5 * Math.sin(z * .05 + k) };
+      const t = sm(b0, b0 - d.bridge, z);
+      return { x: IV.mix(d.ax, d.nx, t), y: IV.mix(d.ay, d.ny, t) };
+    };
+    const zs = new Set(); for (let z = -14; z > IV.ZEND + 3; z -= 6) zs.add(z); DIS.forEach(d => zs.add(d.gate));
+    [...zs].sort((p, q) => q - p).filter(z => z > IV.ZEND + 3).forEach(z => {
+      const gi = DIS.findIndex(d => d.gate === z), p = at(z);
+      WP.push([gi === 0 ? 'roster' : gi > 0 ? 'dist:' + DIS[gi].id : 'p' + Math.round(-z), p.x, p.y, z]);
+    });
+  } else WP.push(['roster', 0, 0, -14]);
+  WP.push(['rosterEnd', 0, 0, IV.ZEND]);
   WP.push(
-    ['rosterEnd',   0,    0, IV.ZEND],
     ['hardware',    0,  2.3, -56 + O],
     ['hardwareEnd', 0,  2.3, -97 + O],
-    ['hatch',       0,  1.2, -104 + O],
-    ['d1',          0,  -14, -106 + O],
-    ['d2',          4,  -42, -103 + O],
-    ['d3',         -4,  -76, -101 + O],
-    ['d4',          0, -108, -100 + O],
+    ['hatch',       0,  1.2, -104 + O]
+  );
+  /* descenso: una hélice por el túnel azul (se cierra hacia los extremos para entrar y salir centrado) */
+  for (let k = 0; k <= 12; k++) {
+    const t = k / 12, th = t * 3 * Math.PI, R = 8 * Math.sin(Math.PI * t);
+    WP.push([{ 0: 'd1', 4: 'd2', 8: 'd3', 11: 'd4' }[k] || 'h' + k, R * Math.sin(th), -14 - t * 94, -106 + O + R * (1 - Math.cos(th)) * .6]);
+  }
+  WP.push(
     ['contact',     0, -121, -100 + O],
     ['end',         0, -123, -129 + O]
   );
+  /* los nombres deben ser únicos para P: quita los puntos repetidos de puerta */
+  for (let i = WP.length - 1; i > 0; i--) if (WP.findIndex(w => w[0] === WP[i][0]) !== i) WP.splice(i, 1);
   IV.path = new T.CatmullRomCurve3(WP.map(w => new T.Vector3(w[1], w[2], w[3])), false, 'catmullrom', .5);
-  IV.path.arcLengthDivisions = 1400;
+  IV.path.arcLengthDivisions = 3000;
+  IV.PATH_LEN = IV.path.getLength();
 
   /* IV.P.nombre = progreso de scroll (0→1) donde la cámara pasa por ese waypoint */
   IV.P = {};
   (function () {
-    const N = 2400, pts = []; for (let i = 0; i <= N; i++) pts.push(IV.path.getPointAt(i / N));
+    const N = 4000, pts = []; for (let i = 0; i <= N; i++) pts.push(IV.path.getPointAt(i / N));
     let from = 0;
     WP.forEach(w => {
       const v = new T.Vector3(w[1], w[2], w[3]); let best = 1e9, bi = from;
@@ -94,13 +118,27 @@
     });
     IV.P.end = 1;
   })();
-  /* progreso para una z dentro del roster (tramo recto: el avance es lineal en z) */
-  IV.pAtZ = z => IV.mix(IV.P.roster, IV.P.rosterEnd, IV.clamp((z - WP[2][3]) / ((IV.ZEND - WP[2][3]) || -1), 0, 1));
-  DIS.forEach((d, i) => { d.p = IV.P[i ? 'dist:' + d.id : 'roster']; d.pc = IV.pAtZ(d.center); });
-  /* hueco de cada proyecto en el mundo: lo usan el roster y los pedestales */
+  /* progreso para una z dentro del roster (z siempre decrece a lo largo del camino) */
+  const RS = [];
+  (function () { const a = IV.P.roster - .03, b = IV.P.rosterEnd + .01; for (let i = 0; i <= 900; i++) { const u = a + (b - a) * i / 900; RS.push([u, IV.path.getPointAt(u).z]); } })();
+  IV.pAtZ = z => {
+    let lo = 0, hi = RS.length - 1; if (z >= RS[0][1]) return RS[0][0]; if (z <= RS[hi][1]) return RS[hi][0];
+    while (hi - lo > 1) { const m = (lo + hi) >> 1; if (RS[m][1] > z) lo = m; else hi = m; }
+    return RS[lo][0] + (RS[hi][0] - RS[lo][0]) * ((RS[lo][1] - z) / ((RS[lo][1] - RS[hi][1]) || 1));
+  };
+  DIS.forEach(d => { d.p = IV.pAtZ(d.gate); d.pc = IV.pAtZ(d.center); });
+  /* hueco de cada proyecto: sigue el camino (curvas incluidas) y cambia de composición según el tipo de isla */
+  const _t = new T.Vector3(), _r = new T.Vector3(), _n = new T.Vector3(), UP = new T.Vector3(0, 1, 0);
   IV.SLOT = IV.PROJECTS.map(() => ({ x: 0, y: 0, z: -20, ry: 0 }));
-  DIS.forEach(d => d.idx.forEach((pi, k) => { const side = k % 2 ? 1 : -1, row = k >> 1; IV.SLOT[pi] = { x: side * (4.5 + .4 * (row % 2)), y: .15 + Math.sin(row * 1.7) * .3, z: d.rowsZ[row], ry: -side * .38 }; }));
-  /* distrito en el que está la cámara (índice) y mezcla con el siguiente */
+  DIS.forEach(d => d.idx.forEach((pi, k) => {
+    const side = k % 2 ? 1 : -1, row = k >> 1, u = IV.pAtZ(d.rowsZ[row]), p = IV.path.getPointAt(u);
+    _t.copy(IV.path.getTangentAt(u)); _r.crossVectors(_t, UP).normalize();
+    const off = [4.5 + .4 * (row % 2), 4.9 + side * .3, 3.9 + .5 * (row % 2), 5.3][d.style];
+    const dy = [.15 + Math.sin(row * 1.7) * .3, side * .8 + .3, -.2 + Math.sin(row * 1.3) * .5, .4][d.style];
+    _n.copy(_t).negate().addScaledVector(_r, -side * [.4, .55, .7, .3][d.style]).normalize();
+    IV.SLOT[pi] = { x: p.x + _r.x * side * off, y: p.y + dy, z: p.z + _r.z * side * off, ry: Math.atan2(_n.x, _n.z), u, gy: p.y - 2.4 };
+  }));
+  /* distrito en el que está la cámara (índice) */
   IV.districtAt = ps => { let k = 0; DIS.forEach((d, i) => { if (ps >= d.p - .004) k = i; }); return k; };
   /* posición (progreso) de la capa i de n durante el descenso */
   IV.slabP = (i, n) => IV.mix(IV.P.d1 + .035, IV.P.d4 + .005, n > 1 ? i / (n - 1) : .5);
@@ -108,6 +146,7 @@
   IV.stepP = s => s.at ? IV.P[s.at] : IV.mix(IV.P[s.from], IV.P[s.to], s.f);
   /* fuentes de la web: se cargan antes de dibujar en canvas */
   IV.loadFonts = () => Promise.all(['400 20px "Departure Mono"', '600 20px "Chakra Petch"', '400 20px "Atkinson Next"', '700 20px "Atkinson Next"'].map(f => document.fonts && document.fonts.load(f).catch(() => {}))).catch(() => {});
+
 
   /* ---------- paleta del cielo/niebla: cambia de forma CONTINUA con el progreso ----------
      Los distritos derivan su paleta del color de su categoría (se edita en categorias.json). */
@@ -124,8 +163,8 @@
     });
     add(P.hardware - .01, '#0a2a40', '#1d5c7c', '#061520', '#0a2233', '#7fe9ff', [0, 0, 0, 0], 0, .016);
     add(P.hatch, '#0a2a40', '#1d5c7c', '#061520', '#0a2233', '#7fe9ff', [0, 0, 0, 0], 0, .016);
-    add(P.d1, '#031326', '#052a55', '#010510', '#052a55', '#35d4ff', [0, 0, 0, 0], 0, .03);
-    add(P.d3, '#020a1c', '#03163c', '#010510', '#03163c', '#4f8bff', [0, 0, 0, 0], 0, .03);
+    add(P.d1, '#031a3a', '#0a4a9a', '#010818', '#0a4a9a', '#35d4ff', [0, 0, 0, 0], 0, .026);
+    add(P.d3, '#030f2e', '#07307a', '#010818', '#07307a', '#4f8bff', [0, 0, 0, 0], 0, .026);
     add(P.d4, '#0a0418', '#160a2e', '#010510', '#160a2e', '#9a7bff', [0, 0, 0, 0], 0, .03);
     add(P.contact - .005, '#120201', '#240403', '#0a0101', '#240403', '#ff4a2a', [0, 0, 0, 0], 0, .028);
     add(1, '#120201', '#240403', '#0a0101', '#240403', '#ff4a2a', [0, 0, 0, 0], 0, .028);

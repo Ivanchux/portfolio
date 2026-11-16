@@ -97,7 +97,7 @@ async function escribe(idioma) {
     tagline: EN ? "Second-year ASIR student in Madrid and self-taught web developer." : "Estudiante de 2.º de ASIR en Madrid y desarrollador web autodidacta.",
     busco: sobre.busco || ""
   };
-  const links = { classic: nombreIdx("clasica/"), simple: nombreIdx("proyectos/"), legal: nombreIdx("legal/"), os: nombreIdx("laboratorio/os/"), other: (EN ? "../" : "en/") + (ARCHIVO ? "index.html" : ""), otherLang: EN ? "ES" : "EN", root: raiz, lang: idioma };
+  const links = { classic: nombreIdx("clasica/"), simple: nombreIdx("simple/"), legal: nombreIdx("legal/"), os: nombreIdx("laboratorio/os/"), other: (EN ? "../" : "en/") + (ARCHIVO ? "index.html" : ""), otherLang: EN ? "ES" : "EN", root: raiz, lang: idioma };
 
   const js = `/* Generado por herramientas/inmersivo.mjs — no editar a mano (edita datos/ y vuelve a compilar) */
 window.IV=window.IV||{};
