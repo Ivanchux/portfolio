@@ -158,8 +158,8 @@
     add(0, '#02060c', '#06222f', '#02080e', '#03090f', '#35d4ff', [0, 0, 0, 0], 1, .02);
     DIS.forEach(d => {
       const c = C(d.cat.color), k = bf[d.style], st = [0, 0, 0, 0]; st[d.style] = 1;
-      const mid = c.clone().lerp(W, .12).multiplyScalar(k), top = c.clone().multiplyScalar(.28 * (d.style === 0 ? 1.7 : 1)), bot = c.clone().multiplyScalar(.14);
-      KF.push({ p: d.pc, top, mid, bot, fog: mid.clone().multiplyScalar(.38), acc: c.clone().lerp(W, .25), st: new T.Vector4(...st), night: [.15, .9, .2, .7][d.style], den: .017 });
+      const mid = c.clone().lerp(W, .34).multiplyScalar(k + .2), top = c.clone().lerp(W, .08).multiplyScalar([.62, .5, .55, .34][d.style]), bot = c.clone().multiplyScalar(.2);
+      KF.push({ p: d.pc, top, mid, bot, fog: mid.clone().multiplyScalar(.55), acc: c.clone().lerp(W, .3), st: new T.Vector4(...st), night: [0, .15, 0, .25][d.style], den: .014 });
     });
     add(P.hardware - .01, '#0a2a40', '#1d5c7c', '#061520', '#0a2233', '#7fe9ff', [0, 0, 0, 0], 0, .016);
     add(P.hatch, '#0a2a40', '#1d5c7c', '#061520', '#0a2233', '#7fe9ff', [0, 0, 0, 0], 0, .016);
@@ -227,7 +227,7 @@
 
   /* ---------- cámara: sigue el camino + dolly al panel + dron ---------- */
   const _pos = new T.Vector3(), _look = new T.Vector3(), _dir = new T.Vector3();
-  const _up0 = new T.Vector3(0, 1, 0), _up1 = new T.Vector3(0, 0, -1);
+  const _up0 = new T.Vector3(0, 1, 0), _up1 = new T.Vector3(0, 0, -1), _upv = new T.Vector3(), _m4 = new T.Matrix4(), _qd = new T.Quaternion(), _sq = new T.Quaternion(), _sp = new T.Vector3(); let _ini = false;
   IV.updateCamera = function () {
     const cam = IV.cam, P = IV.P;
     const a = clamp(S.ps * .985, 0, .985);
@@ -237,11 +237,20 @@
     const e = S.dz * S.dz * (3 - 2 * S.dz);
     if (e > .001 && IV.scenes.roster) { const f = IV.scenes.roster.focus(S.last); _pos.lerp(f.pos, e); _look.lerp(f.look, e); }
 
-    /* mirando casi en vertical, `up` = -Z para que lookAt no se retuerza */
+    /* mirando casi en vertical,  = -Z para que la orientación no se retuerza */
     _dir.copy(_look).sub(_pos).normalize();
     const u = IV.ss(.5, .88, Math.abs(_dir.y)) * (1 - e);
-    cam.up.copy(_up0).lerp(_up1, u).normalize();
-    cam.position.copy(_pos); cam.lookAt(_look);
+    _upv.copy(_up0).lerp(_up1, u).normalize();
+    _m4.lookAt(_pos, _look, _upv); _qd.setFromRotationMatrix(_m4);
+
+    /* SUAVIZADO: la cámara no salta nunca. Posición y orientación persiguen al objetivo con amortiguación,
+       así los quiebros del camino, el giro al mirar abajo o el cambio de capítulo se funden en un movimiento continuo. */
+    const dt = Math.min(S.dt || .016, .05);
+    if (!_ini) { _sp.copy(_pos); _sq.copy(_qd); _ini = true; }
+    _sp.lerp(_pos, 1 - Math.exp(-dt * 9));
+    if (_sq.dot(_qd) < 0) { _qd.x *= -1; _qd.y *= -1; _qd.z *= -1; _qd.w *= -1; }
+    _sq.slerp(_qd, 1 - Math.exp(-dt * (e > .01 ? 7 : 4.2)));
+    cam.position.copy(_sp); cam.quaternion.copy(_sq);
 
     /* alabeo tipo dron durante el descenso; parallax con el ratón */
     const k = IV.ss(P.d1 - .02, P.d1 + .05, S.ps) * (1 - IV.ss(P.contact - .07, P.contact, S.ps));

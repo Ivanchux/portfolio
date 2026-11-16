@@ -50,15 +50,19 @@
         void main(){
           float t=clamp((vW.z-uZ0)/(uZ1-uZ0),0.,1.);
           vec3 pc=texture2D(uPal,vec2(t,.5)).rgb;
-          vec2 q=vW.xz/2.;vec2 d=abs(fract(q+.5)-.5);
-          float l=smoothstep(.04,.0,min(d.x,d.y));
-          vec2 d5=abs(fract(q/5.+.5)-.5)*5.;float L=smoothstep(.07,.0,min(d5.x,d5.y));
+          /* cristal con cáusticas de agua (sin rejilla): brillo en el centro, luz que baila y destellos */
+          vec2 q=vW.xz*.32;
+          float c1=sin(q.x*3.+uT*.6+sin(q.y*2.7+uT*.4)*1.6),c2=sin(q.y*3.4-uT*.5+sin(q.x*2.3-uT*.3)*1.4),c3=sin((q.x+q.y)*2.1+uT*.35);
+          float caus=pow(max(0.,(c1+c2+c3)*.2+.5),3.);
           float ax=abs(vL);
-          float lane=smoothstep(2.6,2.2,ax)*(.5+.5*sin(vW.z*.5+vW.x*.3-uT*2.));
+          float rel=ax/max(vWd,1.);
+          float lane=smoothstep(2.8,2.0,ax)*(.55+.45*sin(vW.z*.35+vW.x*.2-uT*1.6));
           float edge=smoothstep(vWd,vWd-5.,ax);
-          float rim=smoothstep(.7,.0,vWd-ax)*.9;
-          vec3 base=pc*.10+vec3(.01,.03,.05);
-          vec3 c=base+pc*(l*.28+L*.55)*edge+pc*lane*.22+pc*smoothstep(.3,.0,abs(ax-2.5))*.35+pc*rim;
+          float rim=smoothstep(.8,.0,vWd-ax);
+          float sheen=pow(1.-rel,2.2);
+          float spark=step(.9965,fract(sin(dot(floor(vW.xz*5.),vec2(12.9898,78.233)))*43758.5453))*(.5+.5*sin(uT*3.+vW.x));
+          vec3 base=pc*.36+vec3(.03,.07,.11);
+          vec3 c=base+pc*caus*.5*edge+pc*sheen*.22+vec3(.75,.95,1.)*sheen*.10+pc*lane*.30+pc*rim*1.1+vec3(1.)*spark*.7*edge;
           float dist=length(vW-cameraPosition);
           c=mix(c,uFog,1.-exp(-pow(dist*uDen,2.)));
           gl_FragColor=vec4(c,1.);
@@ -147,16 +151,13 @@
         const bub = IV.makeBubbles(IV.LOW ? 14 : 40, { x: d.ax, y: gy + 5, z: d.center, w: 36, h: 14, d: L }, .3, accent.getHex()); group.add(bub.mesh);
         props.push({ z: d.center, L, up(t) { base.forEach((b, i) => { dm.position.set(b.x, b.y + Math.sin(t * .6 + b.p) * .4, b.z); dm.rotation.set(0, b.r + Math.sin(t * .25 + b.p) * .15, 0); dm.scale.setScalar(b.s); dm.updateMatrix(); mesh.setMatrixAt(i, dm.matrix); }); mesh.instanceMatrix.needsUpdate = true; bub.update(t); } });
       } else if (d.style === 1) {                            // JUEGOS · pista elevada: pilares al vacío, rejilla abajo, bloques y neones
-        const mesh = new T.InstancedMesh(new T.BoxGeometry(1, 1, 1), new T.MeshStandardMaterial({ color: 0xffffff, emissive: 0x552211, emissiveIntensity: .8, roughness: .35, metalness: .2, envMap: env, envMapIntensity: .6 }), nProp), base = [];
-        const pal = [0xff4aa8, 0xffb347, 0xffe45a, 0x35d4ff, 0xff6a3a];
+        const mesh = new T.InstancedMesh(new T.SphereGeometry(.62, 28, 20), new T.MeshStandardMaterial({ color: 0xffffff, roughness: .1, metalness: 0, envMap: env, envMapIntensity: 1.7 }), nProp), base = [];
+        const pal = [0xff7ab8, 0xffc15a, 0xfff08a, 0x6fd8ff, 0xff9a6a, 0xa98bff];
         for (let i = 0; i < nProp; i++) { base.push({ x: d.ax + side() * (8 + rnd() * 17), y: gy + .5 + rnd() * 8, z: rz(), s: .6 + rnd() * 1.6, p: rnd() * 6, v: .2 + rnd() * .6 }); cc.setHex(pal[i % pal.length]); mesh.setColorAt(i, cc); }
         group.add(mesh);
-        const abyss = new T.Mesh(new T.PlaneGeometry(130, L + 90), IV.gridMat(accent.getHex(), 3, .018)); abyss.rotation.x = -Math.PI / 2; abyss.position.set(d.ax, gy - 34, d.center); group.add(abyss);
-        const pil = new T.InstancedMesh(new T.CylinderGeometry(.9, 1.4, 34, 12), new T.MeshStandardMaterial({ color: 0x241018, roughness: .5, metalness: .6, emissive: accent.clone().multiplyScalar(.12), envMap: env, envMapIntensity: .4 }), Math.ceil(L / 10) + 2); let pk = 0;
+        const pil = new T.InstancedMesh(new T.CylinderGeometry(.9, 1.4, 34, 12), new T.MeshStandardMaterial({ color: 0xf4fbff, roughness: .18, metalness: .1, envMap: env, envMapIntensity: 1.2 }), Math.ceil(L / 10) + 2); let pk = 0;
         along(d, 10, p => { dm.position.set(p.x, p.y - 2.4 - 17, p.z); dm.rotation.set(0, 0, 0); dm.scale.setScalar(1); dm.updateMatrix(); pil.setMatrixAt(pk++, dm.matrix); }); pil.count = pk; group.add(pil);
-        const pyl = new T.InstancedMesh(new T.BoxGeometry(.22, 12, .22), new T.MeshBasicMaterial({ color: accent }), Math.ceil(L / 6) * 2 + 4); let k = 0;
-        along(d, 6, (p, t, r) => { for (const s of [-1, 1]) { dm.position.set(p.x + r.x * s * 9, p.y - 2.4 + 6, p.z + r.z * s * 9); dm.rotation.set(0, 0, 0); dm.scale.setScalar(1); dm.updateMatrix(); pyl.setMatrixAt(k++, dm.matrix); } }); pyl.count = k; group.add(pyl);
-        props.push({ z: d.center, L, up(t) { base.forEach((b, i) => { dm.position.set(b.x, b.y + Math.sin(t * b.v + b.p) * .6, b.z); dm.rotation.set(t * b.v * .5 + b.p, t * b.v + b.p, 0); dm.scale.setScalar(b.s); dm.updateMatrix(); mesh.setMatrixAt(i, dm.matrix); }); mesh.instanceMatrix.needsUpdate = true; } });
+        props.push({ z: d.center, L, up(t) { base.forEach((b, i) => { dm.position.set(b.x, b.y + Math.abs(Math.sin(t * b.v * 1.6 + b.p)) * 1.4, b.z); dm.rotation.set(0, 0, 0); dm.scale.setScalar(b.s); dm.updateMatrix(); mesh.setMatrixAt(i, dm.matrix); }); mesh.instanceMatrix.needsUpdate = true; } });
       } else if (d.style === 2) {                            // ESTUDIO · valle: colinas, árboles, libros y burbujas verdes
         const mesh = new T.InstancedMesh(new T.BoxGeometry(1.3, .2, .95), new T.MeshStandardMaterial({ color: 0xffffff, roughness: .5, metalness: .05 }), nProp), base = [];
         for (let i = 0; i < nProp; i++) { base.push({ x: d.ax + side() * (8 + rnd() * 14), y: gy + 1 + rnd() * 7, z: rz(), s: .8 + rnd() * .9, p: rnd() * 6 }); cc.setHex(bookCols[i % bookCols.length]); mesh.setColorAt(i, cc); }

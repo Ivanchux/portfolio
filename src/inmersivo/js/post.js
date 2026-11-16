@@ -1,8 +1,8 @@
 /* =========================================================
-   post.js — post-proceso de UNA pasada:
-   lente/barril, píxel por velocidad, ondas del ratón,
-   aberración cromática, bloom barato, scanlines, grano,
-   transiciones (glitch por franjas) y mezcla CRT↔Aero.
+   post.js — post-proceso de UNA pasada, pensado para dar NITIDEZ y brillo "Aero":
+   enfoque (unsharp) en lugar de lente/píxel/scanlines, bloom suave solo en las
+   luces fuertes, tono limpio y saturado, viñeta suave y un velo de luz en las
+   transiciones. Nada deforma ni pixela la imagen.
    ========================================================= */
 (function () {
   'use strict';
@@ -19,42 +19,30 @@
       vertexShader: 'varying vec2 u;void main(){u=uv;gl_Position=vec4(position.xy,0.,1.);}',
       fragmentShader: `
         uniform sampler2D t;uniform float time,v,tr,aero;uniform vec2 m,res;varying vec2 u;
-        float h1(float n){return fract(sin(n*91.345)*43758.5453);}
         float h2(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
         void main(){
-          vec2 uv=u;
-          /* lente: barril suave que crece con la velocidad (cámara "estirándose") */
-          vec2 c=uv-.5;float r2=dot(c,c);
-          float ed=smoothstep(.12,.72,length(c)*1.5);          /* 0 en el centro, 1 en los bordes: los efectos se quedan fuera del centro */
-          uv=.5+c*(1.-.04+(.06+v*.05*ed)*r2*2.);
-          /* transición: franjas horizontales desplazadas */
-          float row=floor(uv.y*38.);
-          float on=step(.6,h1(row*1.7+floor(time*9.)));
-          uv.x+=(h1(row+floor(time*13.))-.5)*tr*.03*on*ed;
-          /* píxel por velocidad + transición */
-          float k=clamp((v*.45+tr*.25)*ed,0.,1.);k*=k;
-          vec2 g=mix(res,res/3.5,k);uv=floor(uv*g)/g;
-          /* ondas alrededor del ratón */
-          vec2 d=uv-m;d.x*=res.x/res.y;float r=length(d);
-          uv+=normalize(d+1e-4)*.005*smoothstep(.28,0.,r)*(.5+v*.4);
-          /* aberración cromática */
-          float a=.0006+(v*.004+tr*.005)*ed;
-          vec3 col=vec3(texture2D(t,uv+vec2(a,0.)).r,texture2D(t,uv).g,texture2D(t,uv-vec2(a,0.)).b);
-          /* bloom barato: 16 taps sobre el brillo */
+          vec2 px=1./res,c=u-.5;
+          float edge=smoothstep(.45,.95,length(c)*1.6);                 /* 0 centro · 1 bordes */
+          /* aberración cromática mínima, solo en los bordes y al moverte deprisa */
+          float a=(.0003+v*.0016+tr*.002)*edge;
+          vec3 col=vec3(texture2D(t,u+vec2(a,0.)).r,texture2D(t,u).g,texture2D(t,u-vec2(a,0.)).b);
+          /* enfoque: realza el detalle en vez de desenfocarlo */
+          vec3 bl=(texture2D(t,u+vec2(px.x,0.)).rgb+texture2D(t,u-vec2(px.x,0.)).rgb+texture2D(t,u+vec2(0.,px.y)).rgb+texture2D(t,u-vec2(0.,px.y)).rgb)*.25;
+          col+=(col-bl)*.65;
+          /* bloom suave: solo lo muy brillante, en un anillo ancho */
           vec3 b=vec3(0.);
-          for(int i=0;i<8;i++){
-            float an=float(i)*.785398;vec2 o=vec2(cos(an),sin(an))*vec2(res.y/res.x,1.);
-            b+=max(texture2D(t,uv+o*.007).rgb-.7,0.)+max(texture2D(t,uv+o*.019).rgb-.7,0.)*.8;
-          }
-          col+=b*(.05+aero*.07);
-          /* Aero: negros azulados, brillo de cristal arriba, glow en transiciones */
-          col=mix(col,col*vec3(.93,1.02,1.1)+vec3(0.,.010,.028),aero);
-          col+=aero*.035*vec3(.55,.9,1.)*smoothstep(.45,1.,u.y);
-          col+=vec3(.35,.9,1.)*tr*.05*(1.-abs(u.y-.5)*1.6);
-          /* CRT: scanlines + grano + viñeta */
-          col*=1.-(1.-aero*.7)*.07*(.5+.5*sin(u.y*res.y*1.15));
-          col+=(h2(u*res+time)-.5)*.035;
-          col*=1.-.5*dot(c,c)*1.6;
+          for(int i=0;i<8;i++){float an=float(i)*.785398;vec2 o=vec2(cos(an),sin(an))*vec2(res.y/res.x,1.);
+            b+=max(texture2D(t,u+o*.012).rgb-.82,0.)+max(texture2D(t,u+o*.03).rgb-.82,0.)*.7;}
+          col+=b*(.035+aero*.05);
+          /* tono Aero: más saturación y un toque de contraste limpio */
+          float l=dot(col,vec3(.299,.587,.114));
+          col=mix(vec3(l),col,1.10+aero*.08);
+          col=(col-.5)*1.05+.5+.012;
+          /* viñeta suave y grano casi imperceptible (evita bandas en degradados) */
+          col*=1.-.20*dot(c,c)*1.5;
+          col+=(h2(u*res+time)-.5)*.010;
+          /* transiciones: velo de luz aqua que sube y baja, sin franjas ni píxeles */
+          col+=vec3(.55,.9,1.)*tr*.12*(1.-edge*.6);
           gl_FragColor=vec4(col,1.);
         }`
     });

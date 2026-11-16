@@ -77,7 +77,9 @@
 
     /* rendimiento adaptativo: baja la resolución si va lento */
     ft += (Math.min(dt * 1000, 100) - ft) * .05;
-    if (++fc > 120 && ft > 26 && IV.pr > .75) { IV.pr -= .25; IV.R.setPixelRatio(IV.pr); IV.resize(); fc = 0; }
+    /* resolución adaptable, pero sin pasar de 0.9 (más abajo todo se ve borroso) y recuperándola si va sobrado */
+    if (++fc > 150 && ft > 30 && IV.pr > .9) { IV.pr = Math.max(.9, IV.pr - .15); IV.R.setPixelRatio(IV.pr); IV.resize(); fc = 0; }
+    else if (fc > 600 && ft < 14 && IV.pr < Math.min(devicePixelRatio, IV.LOW ? 1.5 : 2)) { IV.pr = Math.min(Math.min(devicePixelRatio, IV.LOW ? 1.5 : 2), IV.pr + .15); IV.R.setPixelRatio(IV.pr); IV.resize(); fc = 0; }
     fAcc += dt; fN++; if (fAcc > .5) { fShow = Math.round(fN / fAcc); IV.ui.fps(fShow); fAcc = fN = 0; }
 
     /* scroll → progreso suavizado + velocidad */
